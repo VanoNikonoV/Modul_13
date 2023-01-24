@@ -95,7 +95,7 @@ namespace Modul_13.Models
         {
             get { return this.firstName; }
 
-            private set
+            set
             {
                 if (this.firstName == value) return;
 
@@ -110,7 +110,7 @@ namespace Modul_13.Models
         {
             get { return this.middleName; }
 
-            private set
+            set
             {
                 if (middleName == value) return;
                 
@@ -125,7 +125,7 @@ namespace Modul_13.Models
         {
             get { return this.secondName; }
 
-            private set 
+            set 
             {
                 if (secondName == value) return;
                
@@ -156,7 +156,7 @@ namespace Modul_13.Models
         public string SeriesAndPassportNumber
         {
             get {return this.seriesAndPassportNumber;}
-            private set
+            set
             {
                 this.seriesAndPassportNumber = value;
                 OnPropertyChanged(nameof(SeriesAndPassportNumber));
