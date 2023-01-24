@@ -15,12 +15,6 @@ namespace Modul_13.Models
             return clients;
         }
 
-        /// <summary>
-        /// Метод редактирования номера телефона
-        /// </summary>
-        /// <param name="client">Клиент чей номер необходимо отредактировать</param>
-        /// <param name="newTelefon">Новый номер</param>
-        /// <returns>Клент с новым номером</returns>
         public new Client EditeTelefonClient(string newTelefon, Client client )
         {
             base.EditeTelefonClient(newTelefon, client);
@@ -36,19 +30,27 @@ namespace Modul_13.Models
         /// <summary>
         /// Метод редактирования имени
         /// </summary>
-        /// <param name="client">Клиент чьё имя необходимо отредактировать</param>
+        /// <param name="client">Клент чьё имя необходимо отредактировать</param>
         /// <param name="newName">Новое имя</param>
         /// <returns>Клиент с новым именем</returns>
         public Client EditNameClient(Client client, string newName)
         {
             string whatChanges = string.Format(client.FirstName + @" на " + newName);
 
-            client.FirstName = newName;  
-            client.IsChanged= true;
-            //client.InfoChanges = client.InfoChanges; //копирую старую информацию
-            client.InfoChanges.Add(new InformationAboutChanges(DateTime.Now, whatChanges, "замена", nameof(Meneger)));
+            Client changeClient = new Client(firstName: newName,
+                             middleName: client.MiddleName,
+                             secondName: client.SecondName,
+                                telefon: client.Telefon,
+                seriesAndPassportNumber: client.SeriesAndPassportNumber,
+                              currentId: client.ID,
+                               dateTime: DateTime.Now,
+                              isChanged: true);
+           
+            changeClient.InfoChanges = client.InfoChanges; //копирую старую информацию
 
-            return client;
+            changeClient.InfoChanges.Add(new InformationAboutChanges(DateTime.Now, whatChanges, "замена", nameof(Meneger)));
+
+            return changeClient;
         }
 
         /// <summary>
@@ -61,11 +63,20 @@ namespace Modul_13.Models
         {
             string whatChanges = string.Format(client.MiddleName + @" на " + newMiddleName);
 
-            client.MiddleName = newMiddleName;
-            client.IsChanged= true;
-            client.InfoChanges.Add(new InformationAboutChanges(DateTime.Now, whatChanges, "замена", nameof(Meneger)));
+            Client changeClient = new Client( firstName: client.FirstName,
+                                             middleName: newMiddleName,
+                                             secondName: client.SecondName,
+                                                telefon: client.Telefon,
+                                seriesAndPassportNumber: client.SeriesAndPassportNumber,
+                                              currentId: client.ID,
+                                               dateTime: DateTime.Now,
+                                              isChanged: true);
 
-            return client;
+            changeClient.InfoChanges = client.InfoChanges; //копирую старую информацию
+
+            changeClient.InfoChanges.Add(new InformationAboutChanges(DateTime.Now, whatChanges, "замена", nameof(Meneger)));
+
+            return changeClient;
         }
 
         /// <summary>
@@ -78,13 +89,21 @@ namespace Modul_13.Models
         {
             string whatChanges = string.Format(client.SecondName + @" на " + newSecondName);
 
-            client.SecondName = newSecondName;
-            client.IsChanged = true;
-            client.InfoChanges.Add(new InformationAboutChanges(DateTime.Now, whatChanges, "замена", nameof(Meneger)));
+            Client changeClient = new Client( firstName: client.FirstName,
+                                             middleName: client.MiddleName,
+                                             secondName: newSecondName,
+                                                telefon: client.Telefon,
+                                seriesAndPassportNumber: client.SeriesAndPassportNumber,
+                                              currentId: client.ID,
+                                               dateTime: DateTime.Now,
+                                              isChanged: true);
 
-            return client;
+            changeClient.InfoChanges = client.InfoChanges; //копирую старую информацию
+
+            changeClient.InfoChanges.Add(new InformationAboutChanges(DateTime.Now, whatChanges, "замена", nameof(Meneger)));
+
+            return changeClient;
         }
-
         /// <summary>
         /// Метод редактирования паспортных данных
         /// </summary>
@@ -95,11 +114,20 @@ namespace Modul_13.Models
         {
             string whatChanges = string.Format(client.SeriesAndPassportNumber + @" на " + newSeriesAndPassportNumber);
 
-            client.SeriesAndPassportNumber= newSeriesAndPassportNumber;
-            client.IsChanged = true;
-            client.InfoChanges.Add(new InformationAboutChanges(DateTime.Now, whatChanges, "замена", nameof(Meneger)));
+            Client changeClient = new Client( firstName: client.FirstName,
+                                             middleName: client.MiddleName,
+                                             secondName: client.SecondName,
+                                                telefon: client.Telefon,
+                                seriesAndPassportNumber: newSeriesAndPassportNumber,
+                                              currentId: client.ID,
+                                               dateTime: DateTime.Now,
+                                              isChanged: true);
 
-            return client;
+            changeClient.InfoChanges = client.InfoChanges; //копирую старую информацию
+
+            changeClient.InfoChanges.Add(new InformationAboutChanges(DateTime.Now, whatChanges, "замена", nameof(Meneger)));
+
+            return changeClient;
         }
     }
 }
