@@ -9,7 +9,7 @@
         xmlns:models="clr-namespace:Modul_13.Models" 
         xmlns:cmds="clr-namespace:Modul_13.Commands" 
         mc:Ignorable="d"
-        Height="800" Width="1150" WindowStyle="None" 
+        Height="800" Width="1250" WindowStyle="None" 
         AllowsTransparency="True" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
@@ -194,7 +194,7 @@
                 
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="№" 
+                        <GridViewColumn Header="ID" 
                                         DisplayMemberBinding="{Binding ID}"/>
                         <GridViewColumn Header="Имя" 
                                         DisplayMemberBinding="{Binding FirstName}"/>
@@ -262,8 +262,9 @@
                         Cursor="Hand"
                         Command="{Binding Path=DataContext.EditNameCommand, 
                         RelativeSource={RelativeSource AncestorType={x:Type Window}, 
-                        Mode=FindAncestor}}">
-                    <Button.CommandParameter>
+                        Mode=FindAncestor}}"
+                        CommandParameter="{Binding ElementName =EditName_TextBox, Path=Text}">
+                    <!--<Button.CommandParameter>
                         <MultiBinding Converter ="{StaticResource CommandConvert}">
                             <MultiBinding.Bindings>
                                 <Binding Path="SelectedItem" ElementName="DataClients"/>
@@ -271,7 +272,7 @@
                                 <Binding Path="SelectedIndex" ElementName="AccessLevel_ComboBox"/>
                             </MultiBinding.Bindings>
                         </MultiBinding>
-                    </Button.CommandParameter>
+                    </Button.CommandParameter>-->
 
                     
 
@@ -309,8 +310,9 @@
                         Cursor="Hand"
                         Command="{Binding Path=DataContext.EditMiddleNameCommand, 
                         RelativeSource={RelativeSource AncestorType={x:Type Window}, 
-                        Mode=FindAncestor}}">
-                    <Button.CommandParameter>
+                        Mode=FindAncestor}}"
+                        CommandParameter="{Binding ElementName =EditMiddleName_TextBox, Path=Text}">
+                    <!--<Button.CommandParameter>
                         <MultiBinding Converter ="{StaticResource CommandConvert}">
                             <MultiBinding.Bindings>
                                 <Binding Path="SelectedItem" ElementName="DataClients"/>
@@ -318,7 +320,7 @@
                                 <Binding Path="SelectedIndex" ElementName="AccessLevel_ComboBox"/>
                             </MultiBinding.Bindings>
                         </MultiBinding>
-                    </Button.CommandParameter>
+                    </Button.CommandParameter>-->
 
                     <materialDesign:PackIcon Kind="Edit" Width="25" 
                                              Height="25" 
@@ -353,8 +355,9 @@
                         Cursor="Hand"
                         Command="{Binding Path=DataContext.EditSecondNameCommand, 
                         RelativeSource={RelativeSource AncestorType={x:Type Window},
-                        Mode=FindAncestor}}">
-                    <Button.CommandParameter>
+                        Mode=FindAncestor}}"
+                        CommandParameter="{Binding ElementName =EditSecondName_TextBox, Path=Text}">
+                    <!--<Button.CommandParameter>
                         <MultiBinding Converter ="{StaticResource CommandConvert}">
                             <MultiBinding.Bindings>
                                 <Binding Path="SelectedItem" ElementName="DataClients"/>
@@ -362,7 +365,7 @@
                                 <Binding Path="SelectedIndex" ElementName="AccessLevel_ComboBox"/>
                             </MultiBinding.Bindings>
                         </MultiBinding>
-                    </Button.CommandParameter>  
+                    </Button.CommandParameter>-->  
 
                     <materialDesign:PackIcon Kind="Edit" Width="25" 
                                              Height="25" 
@@ -399,8 +402,10 @@
                         BorderBrush="{x:Null}"
                         Cursor="Hand"
                         Command="{Binding Path=DataContext.EditSeriesAndPassportNumberCommand,
-                        RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}">
-                    <Button.CommandParameter>
+                        RelativeSource={RelativeSource AncestorType={x:Type Window}, 
+                        Mode=FindAncestor}}"
+                        CommandParameter="{Binding ElementName =EditSeriesAndPassportNumber_TextBox, Path=Text}">
+                    <!--<Button.CommandParameter>
                             <MultiBinding Converter ="{StaticResource CommandConvert}">
                                 <MultiBinding.Bindings>
                                     <Binding Path="SelectedItem" ElementName="DataClients"/>
@@ -408,7 +413,7 @@
                                     <Binding Path="SelectedIndex" ElementName="AccessLevel_ComboBox"/>
                                 </MultiBinding.Bindings>
                             </MultiBinding>
-                    </Button.CommandParameter>
+                    </Button.CommandParameter>-->
 
                     <materialDesign:PackIcon Kind="Edit" Width="25" 
                                              Height="25" 

@@ -40,14 +40,11 @@ namespace Modul_13.ViewModels
         /// определяется на основании выбраного параметра в элементе ListView "DataClients"
         /// принадлежащего MainWindow
         /// </summary>
+        public MainWindow MWindow { get; set; }  
+
         public Client CurrentClient 
         {
-            get
-            {
-                ListView Data = Application.Current.MainWindow.FindName("DataClients") as ListView;
-
-                return Data.SelectedItem as Client;
-            }
+            get => this.MWindow.DataClients.SelectedItem as Client;
         }
 
         /// <summary>
@@ -59,13 +56,9 @@ namespace Modul_13.ViewModels
         {
             get
             {
-                ComboBox comboBox = Application.Current.MainWindow.FindName("AccessLevel_ComboBox") as ComboBox;
+                int? index = this.MWindow.AccessLevel_ComboBox.SelectedIndex;
 
-                Window w = Application.Current.MainWindow;
-
-                int? x = comboBox.SelectedIndex;
-
-                int s = x ?? 0;
+                int s = index ?? 0;
 
                 return s;
             }
@@ -75,8 +68,11 @@ namespace Modul_13.ViewModels
 
         public Meneger Meneger { get; set; }
 
-        public MainWindowViewModel()
+
+        public MainWindowViewModel(MainWindow mWindow) //
         {
+            MWindow= mWindow;
+
             ClientsRepository = new ClientsRepository("data.csv");
 
             Consultant = new Consultant();
@@ -84,7 +80,6 @@ namespace Modul_13.ViewModels
             Meneger = new Meneger();
 
             ClientsRepository.CollectionChanged += ClientsRepository_CollectionChanged;
-
         }
 
         private void ClientsRepository_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -108,34 +103,36 @@ namespace Modul_13.ViewModels
             => _editTelefonCommand ?? (_editTelefonCommand = new RelayCommand<string>(EditTelefon, CanEditTelefon));
 
 
-        private RelayCommand<object> editNameCommand = null;
-        public RelayCommand<object> EditNameCommand =>
-            editNameCommand ?? (editNameCommand = new RelayCommand<object>(EditName, CanEdit));
+        private RelayCommand<string> editNameCommand = null;
+        public RelayCommand<string> EditNameCommand =>
+            editNameCommand ?? (editNameCommand = new RelayCommand<string>(EditName, CanEdit));
 
 
-        private RelayCommand<object> editMiddleNameCommand = null;
-        public RelayCommand<object> EditMiddleNameCommand =>
-            editMiddleNameCommand ?? (editMiddleNameCommand = new RelayCommand<object>(EditMiddleName, CanEdit));
+        private RelayCommand<string> editMiddleNameCommand = null;
+        public RelayCommand<string> EditMiddleNameCommand =>
+            editMiddleNameCommand ?? (editMiddleNameCommand = new RelayCommand<string>(EditMiddleName, CanEdit));
 
 
-        private RelayCommand<object> editSecondNameCommand = null;
-        public RelayCommand<object> EditSecondNameCommand =>
-            editSecondNameCommand ?? (editSecondNameCommand = new RelayCommand<object>(EditSecondName, CanEdit));
+        private RelayCommand<string> editSecondNameCommand = null;
+        public RelayCommand<string> EditSecondNameCommand =>
+            editSecondNameCommand ?? (editSecondNameCommand = new RelayCommand<string>(EditSecondName, CanEdit));
 
 
-        private RelayCommand<object> editSeriesAndPassportNumberCommand = null;
-        public RelayCommand<object> EditSeriesAndPassportNumberCommand =>
+        private RelayCommand<string> editSeriesAndPassportNumberCommand = null;
+        public RelayCommand<string> EditSeriesAndPassportNumberCommand =>
             editSeriesAndPassportNumberCommand ?? (editSeriesAndPassportNumberCommand
-            = new RelayCommand<object>(EditSeriesAndPassportNumber, CanEdit));
+            = new RelayCommand<string>(EditSeriesAndPassportNumber, CanEdit));
 
         private RelayCommand<int> newClientAddCommand = null;
         public RelayCommand<int> NewClientAddCommand => 
             newClientAddCommand ?? (newClientAddCommand = new RelayCommand<int>(NewClient, CanAddClient));
 
 
-        private RelayCommand<object> deleteClientCommand = null;
-        public RelayCommand<object> DeleteClientCommand => 
-            deleteClientCommand ?? (deleteClientCommand = new RelayCommand<object>(DeleteClient, CanEdit));
+        private RelayCommand deleteClientCommand = null;
+        public RelayCommand DeleteClientCommand => 
+            deleteClientCommand ?? (deleteClientCommand = new RelayCommand(DeleteClient, CanDeleteClient));
+
+       
 
         private RelayCommand addDepositCommand = null;
         public RelayCommand AddDepositCommand =>
@@ -162,9 +159,9 @@ namespace Modul_13.ViewModels
         /// <param name="args"></param>
         /// <returns>true - если для данного уровня доступа доступна возможность редактировани
         /// false - если для данного уровня доступа недостукается редактировани</returns>
-        private bool CanEditTelefon(string args)
+        private bool CanEditTelefon(string telefon)
         {
-            if (args != null && !String.IsNullOrWhiteSpace(args))
+            if (telefon != null && !String.IsNullOrWhiteSpace(telefon))
             {
                 return true;
             }
@@ -178,7 +175,7 @@ namespace Modul_13.ViewModels
         private void EditTelefon(string telefon)
         {
             string whatChanges = string.Format(CurrentClient.Telefon + @" на " + telefon.Trim());
-
+            
             //изменения в коллекции клиентов
             Client changedClient = Consultant.EditeTelefonClient(telefon, CurrentClient);
 
@@ -189,7 +186,7 @@ namespace Modul_13.ViewModels
 
                 editClient.Telefon = telefon.Trim();
 
-                switch (AccessLevel)
+                switch (this.AccessLevel)
                 {
                     case 0: //консультант
 
@@ -213,18 +210,19 @@ namespace Modul_13.ViewModels
 
         }
 
-        private bool CanEdit(object Arg)
+        private bool CanEdit(string args)
         {
-            if (Arg != null)
-            {
-                var array = Arg as object[];
+            if (AccessLevel == 1 && CurrentClient != null 
+                && !String.IsNullOrWhiteSpace(args) 
+                && args != null)   
+            { return true;}
 
-                Client client = (Client)array[0];
+            return false;
+        }
 
-                int accessLevel = (int)array[2];
-
-                if (client != null && accessLevel== 1) { return true; }
-            }
+        private bool CanDeleteClient()
+        {
+            if (AccessLevel == 1 && CurrentClient != null) { return true; }
             return false;
         }
 
@@ -239,19 +237,15 @@ namespace Modul_13.ViewModels
         /// Метод редактирования имени клиента
         /// </summary>
         /// <param name = "client" ></ param >
-        private void EditName(object Arg)
+        private void EditName(string newName)
         {
-            var array = Arg as object[];
-            Client client = (Client)array[0];
-            string newName = (string)array[1];
-
-            if (client != null)
+            if (CurrentClient != null)
             {
-                Client changedClient = Meneger.EditNameClient(client, newName.Trim());
+                Client changedClient = Meneger.EditNameClient(CurrentClient, newName.Trim());
 
                 if (changedClient.IsValid)
                 {
-                    int index = ClientsRepository.IndexOf(client);
+                    int index = ClientsRepository.IndexOf(CurrentClient);
 
                     ClientsRepository.ReplaceClient(index, changedClient);
                 }
@@ -269,64 +263,48 @@ namespace Modul_13.ViewModels
         /// Метод редактирования отчества клиента
         /// </summary>
         /// <param name = "client" ></ param >
-        private void EditMiddleName(object Arg)
+        private void EditMiddleName(string middleName)
         {
-            var array = Arg as object[];
-            Client client = (Client)array[0];
-            string middleName = (string)array[1];
-
-            if (client != null)
+            if (CurrentClient != null)
             {
-                Client changedClient = Meneger.EditMiddleNameClient(client, middleName.Trim());
+                Client changedClient = Meneger.EditMiddleNameClient(CurrentClient, middleName.Trim());
 
-                int index = ClientsRepository.IndexOf(client);
+                int index = ClientsRepository.IndexOf(CurrentClient);
 
                 ClientsRepository.ReplaceClient(index, changedClient);
             }
         }
 
-        private void EditSecondName(object Arg)
+        private void EditSecondName(string secondName)
         {
-            var array = Arg as object[];
-            Client client = (Client)array[0];
-            string secondName = (string)array[1];
-
-            if (client != null)
+            if (CurrentClient != null)
             {
-                Client changedClient = Meneger.EditSecondNameClient(client, secondName.Trim());
+                Client changedClient = Meneger.EditSecondNameClient(CurrentClient, secondName.Trim());
 
-                int index = ClientsRepository.IndexOf(client);
+                int index = ClientsRepository.IndexOf(CurrentClient);
 
                 ClientsRepository.ReplaceClient(index, changedClient);
             }
             
         }
 
-        private void EditSeriesAndPassportNumber(object Arg)
+        private void EditSeriesAndPassportNumber(string passport)
         {
-            var array = Arg as object[];
-            Client client = (Client)array[0];
-            string passport = (string)array[1];
-
-            if (client != null)
+            if (CurrentClient != null)
             {
-                Client changedClient = Meneger.EditSeriesAndPassportNumberClient(client, passport.Trim());
+                Client changedClient = Meneger.EditSeriesAndPassportNumberClient(CurrentClient, passport.Trim());
 
-                int index = ClientsRepository.IndexOf(client);
+                int index = ClientsRepository.IndexOf(CurrentClient);
 
                 ClientsRepository.ReplaceClient(index, changedClient);
             }
         }
 
-        private void DeleteClient(object Arg)
+        private void DeleteClient()
         {
-            if (Arg != null)
+            if (CurrentClient != null)
             {
-                var array = Arg as object[];
-
-                Client client = (Client)array[0];
-
-               ClientsRepository.Remove(client);
+               ClientsRepository.Remove(CurrentClient);
             }
             
         }

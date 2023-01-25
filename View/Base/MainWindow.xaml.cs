@@ -26,7 +26,7 @@ namespace Modul_13
 
         public MainWindow()
         {
-            ViewModel = ViewModel ?? new MainWindowViewModel();
+            ViewModel = ViewModel ?? new MainWindowViewModel(this);
 
             this.DataContext = ViewModel;
 
@@ -156,7 +156,7 @@ namespace Modul_13
                 {
                     this.WindowState = WindowState.Normal;
                     this.Height = 800;
-                    this.Width = 1150;
+                    this.Width = 1250;
                     IsMaximized= false;
                 }
                 else 
@@ -166,7 +166,5 @@ namespace Modul_13
                 }
             }
         }
-
-       
     }
 }
