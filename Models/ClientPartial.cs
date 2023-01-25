@@ -10,7 +10,7 @@ namespace Modul_13.Models
 /// Класс описывающий модель клиента
 /// </summary>
 {
-    public partial class Client : INotifyPropertyChanged, IDataErrorInfo
+    public partial class Client : INotifyPropertyChanged, IDataErrorInfo, IEquatable<Client>
     {
         private string error;
         public string Error 
@@ -159,6 +159,22 @@ namespace Modul_13.Models
                 return "Номер должен состоять из 11 цифр";
             }
             return null;
+        }
+
+        public bool Equals(Client other)
+        {
+            if (this.FirstName == other.FirstName
+                && this.SecondName == other.SecondName
+                && this.MiddleName == other.MiddleName
+                && this.SeriesAndPassportNumber == other.SeriesAndPassportNumber
+                && this.Telefon == other.Telefon)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
     }

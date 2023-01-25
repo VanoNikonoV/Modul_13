@@ -164,11 +164,12 @@ namespace Modul_13.ViewModels
         /// false - если для данного уровня доступа недостукается редактировани</returns>
         private bool CanEditTelefon(string args)
         {
-            return true;
-
-            //if (AccessLevel == 1 && args == null) { return true; }
-
-            //return false;
+            if (args != null && !String.IsNullOrWhiteSpace(args))
+            {
+                return true;
+            }
+            
+            return false;
         }
         /// <summary>
         /// Метод редактирования номера телефона
@@ -344,7 +345,10 @@ namespace Modul_13.ViewModels
 
             if (_windowNewClient.DialogResult == true)
             {
-                ClientsRepository.Add(_windowNewClient.NewClient);
+                if (!ClientsRepository.Contains(_windowNewClient.NewClient))
+                {
+                    ClientsRepository.Add(_windowNewClient.NewClient);
+                }
 
                 //isDirty = true;
             }

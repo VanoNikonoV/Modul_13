@@ -63,6 +63,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\BankAccount.cs" />
+    <Compile Include="Models\Transaction.cs" />
+    <Compile Include="ViewModels\NewClientWindowViewModel.cs" />
     <Compile Include="View\NewClientWindow.xaml.cs">
       <DependentUpon>NewClientWindow.xaml</DependentUpon>
     </Compile>

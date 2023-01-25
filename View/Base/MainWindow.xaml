@@ -111,7 +111,8 @@
         </EventTrigger>
     </Window.Triggers>
 
-    <Grid ShowGridLines="False"  Cursor="IBeam" >
+    <Grid ShowGridLines="True"  Cursor="IBeam" 
+          MouseDown="Grid_MouseDown" MouseLeftButtonDown="Gride_MouseLeftButtonDown">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
@@ -122,8 +123,9 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
+        
 
-        <!--Список изменений-->
+            <!--Список изменений-->
         <Label x:Name="ListChanges_Label" 
                Grid.Row="1" Grid.Column="2" 
                Content="Список изменений" 
@@ -177,7 +179,9 @@
 
 
         <!--Основная рабочая область-->
-        <Grid Grid.Row="1" Grid.Column="1"  Background="White" Cursor="IBeam" Margin="15,15,0,15">
+        <Grid Grid.Row="1" Grid.Column="1" 
+              Background="White" Cursor="IBeam" 
+              Margin="15,15,0,15">
 
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="200" ShadowDepth="10"/>
@@ -466,8 +470,8 @@
             <Button x:Name ="AddDeposit" Background="Black"
                     Command="{Binding Path=DataContext.AddDepositCommand, 
                     RelativeSource={RelativeSource AncestorType={x:Type Window},
-                    Mode=FindAncestor}}">
-                <materialDesign:PackIcon Kind="AccountEdit" Width ="30" Height="25"
+                    Mode=FindAncestor}}" Cursor="Hand" >
+                <materialDesign:PackIcon Kind="WalletPlusOutline" Width ="30" Height="25"
                                          HorizontalAlignment="Center"/>
 
             </Button>
@@ -536,11 +540,12 @@
                 <Button x:Name="DelitClient_Button" ToolTip="Удалить клиента"
                 Background="{x:Null}" BorderBrush="{x:Null}"
                 Cursor="Hand" HorizontalAlignment="Left" 
+                       
                     Command="{Binding DataContext.DeleteClientCommand, 
-                    RelativeSource={RelativeSource AncestorType=Window, 
-                    Mode=FindAncestor}}">
+                       RelativeSource={RelativeSource FindAncestor, 
+                       AncestorType={x:Type Window}}}">
 
-                    <Button.CommandParameter>
+                    <!--<Button.CommandParameter>
                         <MultiBinding Converter ="{StaticResource CommandConvert}">
                             <MultiBinding.Bindings>
                                 <Binding Path="SelectedItem" ElementName="DataClients"/>
@@ -548,7 +553,7 @@
                                 <Binding Path="SelectedIndex" ElementName="AccessLevel_ComboBox"/>
                             </MultiBinding.Bindings>
                         </MultiBinding> 
-                    </Button.CommandParameter>
+                    </Button.CommandParameter>-->
                     
                     <materialDesign:PackIcon Kind="Delete" 
                                      Width="25" Height="25" HorizontalAlignment="Center" 

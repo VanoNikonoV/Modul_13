@@ -15,6 +15,12 @@ namespace Modul_13.Models
             return clients;
         }
 
+        /// <summary>
+        /// Метод редактирования номера телефона
+        /// </summary>
+        /// <param name="client">Клиент чей номер необходимо отредактировать</param>
+        /// <param name="newData">Новый номер</param>
+        /// <returns>Клент с новым номером</returns>
         public new Client EditeTelefonClient(string newTelefon, Client client )
         {
             base.EditeTelefonClient(newTelefon, client);
@@ -56,7 +62,7 @@ namespace Modul_13.Models
         /// <summary>
         /// Метод редактирования отчества
         /// </summary>
-        /// <param name="client">Клент чьё отчетсво необходимо отредактировать</param>
+        /// <param name="client">Клиент чьё отчетсво необходимо отредактировать</param>
         /// <param name="newMiddleName">Новое отчетсво</param>
         /// <returns>Клиент с новым отчеством</returns>
         public Client EditMiddleNameClient(Client client, string newMiddleName)
@@ -82,7 +88,7 @@ namespace Modul_13.Models
         /// <summary>
         /// Метод редактирования фамилии
         /// </summary>
-        /// <param name="client">Клент чьё фамилию необходимо отредактировать</param>
+        /// <param name="client">Клиент чьё фамилию необходимо отредактировать</param>
         /// <param name="newSecondName">Новое отчетсво</param>
         /// <returns>Клиент с новой фамилией</returns>
         public Client EditSecondNameClient(Client client, string newSecondName)
@@ -107,7 +113,7 @@ namespace Modul_13.Models
         /// <summary>
         /// Метод редактирования паспортных данных
         /// </summary>
-        /// <param name="client">Клент чьи паспортные данные необходимо отредактировать</param>
+        /// <param name="client">Клиент чьи паспортные данные необходимо отредактировать</param>
         /// <param name="newSeriesAndPassportNumber">Новые паспортные данные</param>
         /// <returns>Клиент с новыи паспортными данными</returns>
         public Client EditSeriesAndPassportNumberClient(Client client, string newSeriesAndPassportNumber)
