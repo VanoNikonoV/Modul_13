@@ -23,15 +23,9 @@ namespace Modul_13.ViewModels
         {
             get => clientsRepository;
 
-            set
+            private set
             {
-                //if (clientsRepository == value) return;
-
-                //this.clientsRepository = value;
-
                 Set(ref clientsRepository, value, "ClientsRepository");
-
-                //OnPropertyChanged("ClientsRepository"); //??
             }
         }
 

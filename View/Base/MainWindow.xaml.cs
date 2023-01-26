@@ -168,6 +168,11 @@ namespace Modul_13
             }
         }
 
+        /// <summary>
+        /// Закрытие панели редактирования личных данных клиента и открытие панели депозитов
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EditClik_Button(object sender, RoutedEventArgs e)
         {
             PanelInfo.Visibility = Visibility.Visible;
@@ -177,6 +182,11 @@ namespace Modul_13
             OpenMenuEditClient_Button.OpacityMask = new SolidColorBrush(Color.FromArgb(255, 0, 255, 0));
         }
 
+        /// <summary>
+        /// Закрытие панели депозитов клиента и открытие редактирования личных данных панели 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EditDeposit_Button(object sender, RoutedEventArgs e)
         {
             PanelInfo.Visibility = Visibility.Collapsed;
