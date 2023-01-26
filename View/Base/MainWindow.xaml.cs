@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Modul_13
 {
@@ -165,6 +166,24 @@ namespace Modul_13
                     IsMaximized= true;
                 }
             }
+        }
+
+        private void EditClik_Button(object sender, RoutedEventArgs e)
+        {
+            PanelInfo.Visibility = Visibility.Visible;
+
+            OpenMenuEditDeposit_Button.OpacityMask = new SolidColorBrush(Color.FromArgb(55, 0, 55, 0));
+
+            OpenMenuEditClient_Button.OpacityMask = new SolidColorBrush(Color.FromArgb(255, 0, 255, 0));
+        }
+
+        private void EditDeposit_Button(object sender, RoutedEventArgs e)
+        {
+            PanelInfo.Visibility = Visibility.Collapsed;
+
+            OpenMenuEditDeposit_Button.OpacityMask = new SolidColorBrush(Color.FromArgb(255, 0, 255, 0));
+
+            OpenMenuEditClient_Button.OpacityMask = new SolidColorBrush(Color.FromArgb(55, 0, 55, 0));
         }
     }
 }
