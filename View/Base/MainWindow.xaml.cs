@@ -21,7 +21,7 @@ namespace Modul_13
     {
         public MainWindowViewModel ViewModel { get; set; }
 
-        //ICollectionView collectionView { get; set; }
+       public  ICollectionView CollectionView { get; set; }
 
         private bool isDirty = false;
 
@@ -31,7 +31,7 @@ namespace Modul_13
 
             this.DataContext = ViewModel;
 
-            //collectionView = CollectionViewSource.GetDefaultView(DataClients.ItemsSource);
+            CollectionView = CollectionViewSource.GetDefaultView(ViewModel.ClientsRepository);
 
             InitializeComponent();
         }
@@ -52,15 +52,15 @@ namespace Modul_13
             {
                 case 0: //консультант
 
-                    DataClients.ItemsSource = ViewModel.Consultant.ViewClientsData(ViewModel.ClientsRepository);
+                    DataClients.ItemsSource = CollectionViewSource.GetDefaultView(ViewModel.Consultant.ViewClientsData(ViewModel.ClientsRepository));
 
                     break;
 
                 case 1: //менждер
 
-                    //collectionView.SortDescriptions.Clear();
+                    CollectionView.SortDescriptions.Clear();
 
-                    DataClients.ItemsSource = ViewModel.Meneger.ViewClientsData(ViewModel.ClientsRepository);
+                    DataClients.ItemsSource = CollectionView;
 
                     break;
 
@@ -93,9 +93,9 @@ namespace Modul_13
         /// <param name="e"></param>
         private void Sort_Button_Click(object sender, RoutedEventArgs e)
         {
-            //collectionView.SortDescriptions.Add(new SortDescription("FirstName", ListSortDirection.Ascending));
+            CollectionView.SortDescriptions.Add(new SortDescription("FirstName", ListSortDirection.Ascending));
 
-            //DataClients.ItemsSource = collectionView;
+            DataClients.ItemsSource = CollectionView;
         }
 
         private void SaveCanExecute(object sender, CanExecuteRoutedEventArgs e)

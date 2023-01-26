@@ -5,10 +5,12 @@ using Modul_13.View;
 using Modul_13.ViewModels.Base;
 using System;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace Modul_13.ViewModels
 {
@@ -62,16 +64,16 @@ namespace Modul_13.ViewModels
 
         public Meneger Meneger { get; set; }
 
-
-        public MainWindowViewModel(MainWindow mWindow) //
+        //конструктор
+        public MainWindowViewModel(MainWindow mWindow) 
         {
-            MWindow= mWindow;
+            this.MWindow= mWindow;
 
-            ClientsRepository = new ClientsRepository("data.csv");
+            this.ClientsRepository = new ClientsRepository("data.csv");
 
-            Consultant = new Consultant();
+            this.Consultant = new Consultant();
 
-            Meneger = new Meneger();
+            this.Meneger = new Meneger();
 
             ClientsRepository.CollectionChanged += ClientsRepository_CollectionChanged;
         }
@@ -162,6 +164,30 @@ namespace Modul_13.ViewModels
             
             return false;
         }
+
+        private bool CanEdit(string args)
+        {
+            if (AccessLevel == 1 && CurrentClient != null 
+                && !String.IsNullOrWhiteSpace(args) 
+                && args != null)   
+            { return true;}
+
+            return false;
+        }
+
+        private bool CanDeleteClient()
+        {
+            if (AccessLevel == 1 && CurrentClient != null) { return true; }
+            return false;
+        }
+
+        private bool CanAddClient(int accessLevel)
+        {
+            if (accessLevel == 1) { return true; }
+
+            return false;
+        }
+
         /// <summary>
         /// Метод редактирования номера телефона
         /// </summary>
@@ -204,29 +230,6 @@ namespace Modul_13.ViewModels
 
         }
 
-        private bool CanEdit(string args)
-        {
-            if (AccessLevel == 1 && CurrentClient != null 
-                && !String.IsNullOrWhiteSpace(args) 
-                && args != null)   
-            { return true;}
-
-            return false;
-        }
-
-        private bool CanDeleteClient()
-        {
-            if (AccessLevel == 1 && CurrentClient != null) { return true; }
-            return false;
-        }
-
-        private bool CanAddClient(int accessLevel)
-        {
-            if (accessLevel == 1) { return true; }
-
-            return false;
-        }
-
         /// <summary>
         /// Метод редактирования имени клиента
         /// </summary>
@@ -239,9 +242,9 @@ namespace Modul_13.ViewModels
 
                 if (changedClient.IsValid)
                 {
-                    int index = ClientsRepository.IndexOf(CurrentClient);
+                    int index = clientsRepository.IndexOf(CurrentClient);
 
-                    ClientsRepository.ReplaceClient(index, changedClient);
+                    clientsRepository.ReplaceClient(index, changedClient);
                 }
                 else
                 {

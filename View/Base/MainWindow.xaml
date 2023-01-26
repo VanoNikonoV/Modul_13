@@ -227,7 +227,7 @@
             </Grid.Effect>
 
             <ListView x:Name="DataClients" 
-                      ItemsSource="{Binding Path=ClientsRepository}"
+                      
                       FontSize="18" Cursor="IBeam" 
                       Grid.ColumnSpan="2">
 
