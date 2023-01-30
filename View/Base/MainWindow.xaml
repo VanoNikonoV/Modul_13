@@ -266,7 +266,7 @@
         </StatusBar>
 
         <!--Панель редактирования личных данных клиента-->
-        <StackPanel x:Name="PanelInfo" Grid.Row="1" Grid.Column="1"
+        <StackPanel x:Name="PanelInfoAndEditClient" Grid.Row="1" Grid.Column="1"
                     Margin="5 0 0 0"
                     Orientation="Vertical" 
                     HorizontalAlignment="Right">
@@ -284,7 +284,7 @@
                 <TextBlock Text="Имя" FontSize="18" 
                            Grid.Column="0" Grid.Row="0"
                            Grid.ColumnSpan="3" HorizontalAlignment="Center" 
-                           VerticalAlignment="Bottom"/>
+                           VerticalAlignment="Bottom" FontWeight="Bold"/>
                 <TextBox x:Name="EditName_TextBox" 
                          FontSize="18" Width="135"
                          Text="{Binding SelectedItem.FirstName, 
@@ -324,7 +324,7 @@
                 <TextBlock Text="Отчество" FontSize="18" 
                            Grid.Column="0" Grid.Row="0"
                            Grid.ColumnSpan="3" HorizontalAlignment="Center" 
-                           VerticalAlignment="Bottom"/>
+                           VerticalAlignment="Bottom" FontWeight="Bold"/>
                 <TextBox x:Name="EditMiddleName_TextBox" FontSize="18" Width="135"
                          Text="{Binding SelectedItem.MiddleName, ElementName=DataClients, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                          Grid.Column="0" Grid.Row="1"
@@ -361,7 +361,7 @@
                 <TextBlock Text="Фамилия" FontSize="18" 
                            Grid.Column="0" Grid.Row="0"
                            Grid.ColumnSpan="3" HorizontalAlignment="Center" 
-                           VerticalAlignment="Bottom"/>
+                           VerticalAlignment="Bottom" FontWeight="Bold"/>
                 <TextBox x:Name="EditSecondName_TextBox" FontSize="18" Width="135"
                          Text="{Binding SelectedItem.SecondName, ElementName=DataClients, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                          Grid.Column="0" Grid.Row="1"
@@ -397,7 +397,7 @@
                 <TextBlock Text="Серия и номер паспорта" FontSize="16" 
                            Grid.Column="0" Grid.Row="0"
                            Grid.ColumnSpan="3" HorizontalAlignment="Center" 
-                           VerticalAlignment="Center"/>
+                           VerticalAlignment="Center" FontWeight="Bold"/>
                 <TextBox x:Name="EditSeriesAndPassportNumber_TextBox" 
                          FontSize="18"
                          Width="135"
@@ -436,7 +436,7 @@
                 <TextBlock Text="Телефон" FontSize="18" 
                            Grid.Column="0" Grid.Row="0"
                            Grid.ColumnSpan="3" HorizontalAlignment="Center" 
-                           VerticalAlignment="Center"/>
+                           VerticalAlignment="Center" FontWeight="Bold"/>
 
                 <TextBox x:Name="EditTelefon_TextBox"
                          FontSize="18" Width="135"
@@ -462,26 +462,153 @@
                 </Button>
 
             </Grid>
+
             <!--Открытие счет для выбранного клиента-->
-            <StackPanel Height="30" Width="160" Orientation="Horizontal"
+            <StackPanel Height="30" Width="210" Orientation="Horizontal"
                         HorizontalAlignment="Center" Background="Black"
                         Margin="0 20 0 0 ">
 
-                <TextBlock Text="Открыть счёт" 
-                           FontSize="16" Width="124"
-                           Padding="20 2 2 2" Foreground="#FFFFFDFD"/>
-
+                <TextBlock Text="Открыть/закрыть счёт" 
+                           FontSize="16" Width="170"
+                           Padding="5 2 2 2" Foreground="#FFFFFDFD"/>
                 <materialDesign:PopupBox PlacementMode ="BottomAndAlignRightEdges"
-                                         StaysOpen="False" Foreground="#FFFFF7F7" >
+                                         StaysOpen="False" Foreground="#FFFFF7F7"
+                                         Width="35">
                     <StackPanel>
                         <Button Content="Депозитный счёт" 
-                                Command="{Binding Path=DataContext.AddDepositCommand, 
-                                RelativeSource={RelativeSource AncestorType={x:Type Window},
-                                Mode=FindAncestor}}"/>
+                                Command="{Binding DataContext.AddDepositCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}"/>
                         <Button Content="Недепозитный счёт" />
                     </StackPanel>
                 </materialDesign:PopupBox>
             </StackPanel>
+        </StackPanel>
+
+         <!--Операции со счетом-->
+        <StackPanel x:Name="PaneEditDeposit" Grid.Row="1" Grid.Column="1"
+                    Margin="5 0 0 0"
+                    Orientation="Vertical" 
+                    HorizontalAlignment="Center" d:IsHidden="True">
+            <!--Visibility="Collapsed">-->
+            <Grid Margin="0 30 0 0 ">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Имя" FontSize="18" 
+                           Grid.Column="0" Grid.Row="0"
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Bottom" FontWeight="Bold"/>
+                <TextBox x:Name="Name_TextBox" 
+                         FontSize="18" Width="180"
+                         Text="{Binding SelectedItem.FirstName, 
+                         ElementName=DataClients, Mode=OneWay, 
+                         UpdateSourceTrigger=PropertyChanged, 
+                         ValidatesOnDataErrors=True}"
+                         Grid.Column="0" Grid.Row="1"
+                         HorizontalAlignment="Center" 
+                         VerticalAlignment="Center"
+                         IsReadOnly="True"/>
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Отчество" FontSize="18" 
+                           Grid.Column="0" Grid.Row="0"
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Bottom" FontWeight="Bold"/>
+                <TextBox x:Name="MiddleName_TextBox" FontSize="18" Width="180"
+                         Text="{Binding SelectedItem.MiddleName, ElementName=DataClients, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                         Grid.Column="0" Grid.Row="1"
+                         HorizontalAlignment="Center" 
+                         VerticalAlignment="Center" 
+                         Cursor="Arrow"
+                         IsReadOnly="True"/>
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Фамилия" FontSize="18" 
+                           Grid.Column="0" Grid.Row="0"
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Bottom" FontWeight="Bold"/>
+                <TextBox x:Name="SecondName_TextBox" FontSize="18" Width="180"
+                         Text="{Binding SelectedItem.SecondName, ElementName=DataClients, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                         Grid.Column="0" Grid.Row="1"
+                         HorizontalAlignment="Center" 
+                         VerticalAlignment="Center"
+                         IsReadOnly="True"/>
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Депозитный счёт" FontSize="18" 
+                           Grid.Column="0" Grid.Row="0"
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Bottom" FontWeight="Bold"/>
+                <TextBox x:Name="InterestEarningAccount_TextBox" FontSize="18" Width="180"
+                         Text="{Binding SelectedItem.MiddleName, ElementName=DataClients, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                         Grid.Column="0" Grid.Row="1"
+                         HorizontalAlignment="Center" 
+                         VerticalAlignment="Center" 
+                         Cursor="Arrow"
+                         IsReadOnly="True"/>
+                <Button Grid.Row="2" Content="Перевести">
+                    
+                </Button>
+            </Grid>
+            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Недпозитный счёт" FontSize="18" 
+                           Grid.Column="0" Grid.Row="0"
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Bottom" FontWeight="Bold"/>
+                <TextBox x:Name="NoInterestEarningAccount_TextBox" FontSize="18" Width="180"
+                         Text="{Binding SelectedItem.MiddleName, ElementName=DataClients, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                         Grid.Column="0" Grid.Row="1"
+                         HorizontalAlignment="Center" 
+                         VerticalAlignment="Center" 
+                         Cursor="Arrow"
+                         IsReadOnly="True"/>
+                <Button Grid.Row="2" Content="Перевести">
+
+                </Button>
+            </Grid>
+
         </StackPanel>
 
         <!--Верхняя инструментальная панель-->

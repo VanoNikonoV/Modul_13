@@ -21,7 +21,7 @@ namespace Modul_13
     {
         public MainWindowViewModel ViewModel { get; set; }
 
-       public  ICollectionView CollectionView { get; set; }
+        public  ICollectionView CollectionView { get; private set; }
 
         private bool isDirty = false;
 
@@ -175,7 +175,9 @@ namespace Modul_13
         /// <param name="e"></param>
         private void EditClik_Button(object sender, RoutedEventArgs e)
         {
-            PanelInfo.Visibility = Visibility.Visible;
+            PanelInfoAndEditClient.Visibility = Visibility.Visible;
+
+            PaneEditDeposit.Visibility = Visibility.Collapsed;
 
             OpenMenuEditDeposit_Button.OpacityMask = new SolidColorBrush(Color.FromArgb(55, 0, 55, 0));
 
@@ -189,7 +191,9 @@ namespace Modul_13
         /// <param name="e"></param>
         private void EditDeposit_Button(object sender, RoutedEventArgs e)
         {
-            PanelInfo.Visibility = Visibility.Collapsed;
+            PanelInfoAndEditClient.Visibility = Visibility.Collapsed;
+
+            PaneEditDeposit.Visibility = Visibility.Visible;
 
             OpenMenuEditDeposit_Button.OpacityMask = new SolidColorBrush(Color.FromArgb(255, 0, 255, 0));
 
