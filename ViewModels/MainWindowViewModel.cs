@@ -171,8 +171,14 @@ namespace Modul_13.ViewModels
                 && !String.IsNullOrWhiteSpace(args) 
                 && args != null)   
             { return true;}
+            else
+            {
+                ShowStatusBarText("Нужно заполнить данные");
 
-            return false;
+                return false;
+            }
+
+            
         }
 
         private bool CanDeleteClient()
@@ -226,7 +232,7 @@ namespace Modul_13.ViewModels
                 //isDirty = true;
 
             }
-            // else { ShowStatusBarText("Исправте не корректные данные"); }
+            else { ShowStatusBarText(changedClient.Error); }
 
         }
 
@@ -343,10 +349,10 @@ namespace Modul_13.ViewModels
             {
                 timer.Stop();
                 //удалите текст сообщения о состоянии с помощью диспетчера, поскольку таймер работает в другом потоке
-                //Application.Current.MainWindow.Dispatcher.BeginInvoke(new Action(() =>
-                //{
-                //    statusBar.Text = "";
-                //}));
+                MWindow.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    statusBar.Text = "";
+                }));
 
             };
             timer.Start();
