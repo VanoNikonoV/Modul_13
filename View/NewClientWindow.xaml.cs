@@ -1,4 +1,5 @@
 ﻿using Modul_13.Models;
+using Modul_13.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,42 +21,26 @@ namespace Modul_13.View
     /// </summary>
     public partial class NewClientWindow : Window
     {
-        public Client NewClient { get; private set; }
+       
+        public Client NewClient { get { return ViewModel.NewClient; } }
 
-        private Client temp;
+        public NewClientWindowViewModel ViewModel { get;}
 
         public NewClientWindow()
         {
             InitializeComponent();
 
-            temp = new Client();
+            this.ViewModel = new NewClientWindowViewModel(this);
 
-            NewClientPanel.DataContext = temp;
+            this.DataContext = ViewModel;
+
+            this.NewClientPanel.DataContext = ViewModel.NewClient;
         }
 
         private void Cancel(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
         }
-        private void AddClient(object sender, RoutedEventArgs e)
-        {
-            if (temp.Error == string.Empty)
-            {
-                NewClient = new Client(FirstNameTextBox.Text.Trim(),
-                                        MidlleNameTextBox.Text.Trim(),
-                                        SecondNameTextBox.Text.Trim(),
-                                        TelefonTextBox.Text.Trim(),
-                                        SeriesAndPassportNumberTextBox.Text.Trim());
-                DialogResult = true;
-            }
-
-            else MessageBox.Show(messageBoxText: temp.Error,
-                             caption: "Ощибка в данных",
-                             MessageBoxButton.OK,
-                             icon: MessageBoxImage.Error);
-
-        }
-
         private bool isFocused = false;
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {

@@ -1,5 +1,6 @@
 ﻿using Modul_13.Cmds;
 using Modul_13.Models;
+using Modul_13.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,33 +14,35 @@ namespace Modul_13.ViewModels
 {
     public class NewClientWindowViewModel
     {
-        public NewClientWindowViewModel() { TempClient = new Client(); }
-
-        /// <summary>
-        /// Временный клиент для заполнения полей и корректной работы DataErrorInfo
-        /// </summary>
-        public Client TempClient { get; }
+        private NewClientWindow _window;
 
         private Client newClient;
+
         public Client NewClient { get => newClient; }
 
-        private bool isErrorDataClient = false;
-        public bool IsErrorDataClient { get => isErrorDataClient; }
+        public NewClientWindowViewModel(NewClientWindow window)
+        {
+            _window = window;
+            newClient = new Client();
+        }
+
+        //private bool isErrorDataClient = false;
+        //public bool IsErrorDataClient { get => isErrorDataClient; }
 
         private RelayCommand addClientCommand = null;
         public RelayCommand AddClientCommand => addClientCommand ?? (new RelayCommand(AddClient));
 
         private void AddClient()
         {
-             newClient = new Client(TempClient.FirstName,
-                                        TempClient.MiddleName,
-                                        TempClient.SecondName,
-                                        TempClient.Telefon,
-                                        TempClient.SeriesAndPassportNumber);
+            newClient = new Client(_window.FirstNameTextBox.Text,
+                                   _window.MidlleNameTextBox.Text,
+                                   _window.SecondNameTextBox.Text,
+                                   _window.TelefonTextBox.Text,
+                                   _window.SeriesAndPassportNumberTextBox.Text);
 
             if (newClient.Error == string.Empty || newClient.Error == null)
             {
-                isErrorDataClient = true;
+                _window.DialogResult = true;
             }
 
             //else MessageBox.Show(messageBoxText: NewClient.Error,

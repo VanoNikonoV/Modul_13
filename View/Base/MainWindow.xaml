@@ -277,7 +277,6 @@
                 <Button x:Name="NewClient_Button" ToolTip="Добавить нового клиента"
                         Background="{x:Null}" BorderBrush="{x:Null}"
                         Cursor="Hand" HorizontalAlignment="Left"
-                        CommandParameter="{Binding SelectedIndex, ElementName=AccessLevel_ComboBox}" 
                         Command="{Binding DataContext.NewClientAddCommand, 
                         RelativeSource={RelativeSource FindAncestor, 
                         AncestorType={x:Type Window}}}">

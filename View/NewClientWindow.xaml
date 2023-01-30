@@ -41,7 +41,8 @@
 
                 <Button VerticalAlignment="Bottom" HorizontalAlignment="Right" 
                     Style="{StaticResource MaterialDesignFlatButton}"
-                    Margin="0 0 10 10" IsCancel="True" Click="Cancel">
+                    Margin="0 0 10 10" IsCancel="True" 
+                    Click="Cancel">
                     <materialDesign:PackIcon Kind="CloseOutline" 
                                              Width="30" Height="30" 
                                              HorizontalAlignment="Center" 
@@ -50,7 +51,11 @@
 
                 <Button VerticalAlignment="Bottom" HorizontalAlignment="Right" 
                     Style="{StaticResource MaterialDesignFlatButton}"
-                    Margin="0,0,77,6" IsDefault="True" Click="AddClient" Width="62" Height="40">
+                    Margin="0,0,77,6" IsDefault="True"
+                    Width="62" Height="40"
+                    Command="{Binding Path=DataContext.AddClientCommand, 
+                    RelativeSource={RelativeSource AncestorType={x:Type Window}, 
+                    Mode=FindAncestor}}">
                     <materialDesign:PackIcon Kind="AddCircleOutline" 
                                              Width="30" Height="30" 
                                              HorizontalAlignment="Center" 

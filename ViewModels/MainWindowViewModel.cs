@@ -36,7 +36,7 @@ namespace Modul_13.ViewModels
         /// определяется на основании выбраного параметра в элементе ListView "DataClients"
         /// принадлежащего MainWindow
         /// </summary>
-        public MainWindow MWindow { get; set; }  
+        public MainWindow MWindow { get;}  
 
         public Client CurrentClient 
         {
@@ -119,16 +119,15 @@ namespace Modul_13.ViewModels
             editSeriesAndPassportNumberCommand ?? (editSeriesAndPassportNumberCommand
             = new RelayCommand<string>(EditSeriesAndPassportNumber, CanEdit));
 
-        private RelayCommand<int> newClientAddCommand = null;
-        public RelayCommand<int> NewClientAddCommand => 
-            newClientAddCommand ?? (newClientAddCommand = new RelayCommand<int>(NewClient, CanAddClient));
+        private RelayCommand newClientAddCommand = null;
+        public RelayCommand NewClientAddCommand => 
+            newClientAddCommand ?? (newClientAddCommand = new RelayCommand(NewClient, CanAddClient));
 
 
         private RelayCommand deleteClientCommand = null;
         public RelayCommand DeleteClientCommand => 
             deleteClientCommand ?? (deleteClientCommand = new RelayCommand(DeleteClient, CanDeleteClient));
 
-       
 
         private RelayCommand addDepositCommand = null;
         public RelayCommand AddDepositCommand =>
@@ -171,14 +170,13 @@ namespace Modul_13.ViewModels
                 && !String.IsNullOrWhiteSpace(args) 
                 && args != null)   
             { return true;}
+            
             else
             {
-                ShowStatusBarText("Нужно заполнить данные");
+                //ShowStatusBarText("Нужно заполнить данные");
 
                 return false;
-            }
-
-            
+            }   
         }
 
         private bool CanDeleteClient()
@@ -187,9 +185,9 @@ namespace Modul_13.ViewModels
             return false;
         }
 
-        private bool CanAddClient(int accessLevel)
+        private bool CanAddClient()
         {
-            if (accessLevel == 1) { return true; }
+            if (AccessLevel == 1) { return true; }
 
             return false;
         }
@@ -316,11 +314,11 @@ namespace Modul_13.ViewModels
         /// <summary>
         /// Метод добавления нового клиенита
         /// </summary>
-        private void NewClient(int x)
+        private void NewClient()
         {
             NewClientWindow _windowNewClient = new NewClientWindow();
 
-            _windowNewClient.Owner = Application.Current.MainWindow;
+            _windowNewClient.Owner = this.MWindow;
 
             _windowNewClient.ShowDialog();
 
