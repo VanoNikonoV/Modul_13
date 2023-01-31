@@ -31,6 +31,9 @@ namespace Modul_13.Models
             }      
         }
 
+        /// <summary>
+        /// Номер счета
+        /// </summary>
         private static int accountNumberSeed = 0;
 
         private readonly decimal _minimumBalance;
@@ -39,7 +42,12 @@ namespace Modul_13.Models
         {
 
         }
-
+        /// <summary>
+        /// Конструтор BankAccount 
+        /// </summary>
+        /// <param name="owner">Данные о владельце счета</param>
+        /// <param name="initialBalance">Начальный баланс при открытии счета</param>
+        /// <param name="minimumBalance">Минимальный баланс при открытии счета</param>
         public BankAccount(Client owner, decimal initialBalance, decimal minimumBalance)
         {
             this.Owner = owner;
@@ -56,14 +64,15 @@ namespace Modul_13.Models
         /// Журнал для каждой транзакции по счету для аудита всех транзакций и управления ежедневным сальдо
         /// </summary>
         private List<Transaction> _allTransactions = new List<Transaction>();
+
         /// <summary>
-        /// Открытие нового счета
+        /// Открытие нового счета, начальный баланс должен быть положительным
         /// </summary>
         /// <param name="amount">Начальный баланс</param>
         /// <param name="date">Дата и время создания</param>
         /// <param name="note">Примечание</param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public void MakeDeposit(decimal amount, DateTime date, string note)
+        public void MakeDeposit( decimal amount, DateTime date, string note)
         {
             if (amount <= 0)
             {
@@ -92,6 +101,28 @@ namespace Modul_13.Models
         //    allTransactions.Add(withdrawal);
         //}
 
+        /// <summary>
+        /// Перевод средств между счетами клиентов
+        /// </summary>
+        /// <param name="recipient">Получатель</param>
+        /// <param name="amount">Сумма перевода</param>
+        /// <param name="date">Дата и время операции</param>
+        /// <param name="note">Заметка об операции</param>
+        public void MakeTransfer(Client recipient, decimal amount, DateTime date, string note)
+        {
+            
+            
+            var transfer = new Transaction(amount, date, note);
+
+            _allTransactions.Add(transfer);
+        }
+        /// <summary>
+        /// Списание средст со счета, любой вывод не должен создавать отрицательный баланс
+        /// </summary>
+        /// <param name="amount">Сумма списания</param>
+        /// <param name="date">Дата и время операции</param>
+        /// <param name="note">Заметка об операции</param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public void MakeWithdrawal(decimal amount, DateTime date, string note)
         {
             if (amount <= 0)
@@ -116,6 +147,11 @@ namespace Modul_13.Models
                 return default;
             }
         }
+        
+        /// <summary>
+        /// Получение текстовых данных о транзакциях
+        /// </summary>
+        /// <returns></returns>
         public string GetAccountHistory()
         {
             var report = new System.Text.StringBuilder();
@@ -134,6 +170,9 @@ namespace Modul_13.Models
             return report.ToString();
         }
 
+        /// <summary>
+        /// Операция с денежными средствами в конце каждого месяца
+        /// </summary>
         public virtual void PerformMonthEndTransactions()
         {
 

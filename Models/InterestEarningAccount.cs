@@ -20,7 +20,7 @@ namespace Modul_13.Models
                 decimal interest = Balance * 0.05m;
                 MakeDeposit(interest,
                     DateTime.Now,
-                    "начислять ежемесячные проценты");
+                    "Начислены ежемесячные проценты");
             }
         }
     }

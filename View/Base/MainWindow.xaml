@@ -542,8 +542,14 @@
                                          Width="35">
                             <StackPanel>
                                 <Button Content="Депозитный счёт" 
-                                Command="{Binding DataContext.AddDepositCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}"/>
-                                <Button Content="Недепозитный счёт" />
+                                        Command="{Binding DataContext.AddDepositCommand, 
+                                        RelativeSource={RelativeSource AncestorType={x:Type Window}, 
+                                        Mode=FindAncestor}}"/>
+
+                                <Button Content="Недепозитный счёт"
+                                        Command="{Binding DataContext.AddNoDepositCommand, 
+                                        RelativeSource={RelativeSource AncestorType={x:Type Window}, 
+                                        Mode=FindAncestor}}"/>
                             </StackPanel>
                         </materialDesign:PopupBox>
                     </StackPanel>

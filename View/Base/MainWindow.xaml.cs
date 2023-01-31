@@ -58,8 +58,6 @@ namespace Modul_13
 
                 case 1: //менждер
 
-                    CollectionView.SortDescriptions.Clear();
-
                     DataClients.ItemsSource = CollectionView;
 
                     break;
@@ -70,6 +68,11 @@ namespace Modul_13
             }
         }
 
+        /// <summary>
+        /// Для анимации закрытия списка изменений
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonCloseMenu_Click(object sender, RoutedEventArgs e)
         {
             ButtonOpenMenu.Visibility = Visibility.Visible;
@@ -78,6 +81,11 @@ namespace Modul_13
             ListChanges_Label.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// Для анимации открытия списка изменений
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonOpenMenu_Click(object sender, RoutedEventArgs e)
         {
             ButtonOpenMenu.Visibility = Visibility.Collapsed;
@@ -86,6 +94,9 @@ namespace Modul_13
             ListChanges_Label.Visibility = Visibility.Collapsed;
         }
 
+
+        private bool isSort = false;
+
         /// <summary>
         /// Производит сортировку по алфавиту по имени клиента
         /// </summary>
@@ -93,9 +104,20 @@ namespace Modul_13
         /// <param name="e"></param>
         private void Sort_Button_Click(object sender, RoutedEventArgs e)
         {
-            CollectionView.SortDescriptions.Add(new SortDescription("FirstName", ListSortDirection.Ascending));
+            if (!isSort)
+            {
+                CollectionView.SortDescriptions.Add(new SortDescription("FirstName", ListSortDirection.Ascending));
 
-            DataClients.ItemsSource = CollectionView;
+                DataClients.ItemsSource = CollectionView;
+
+                isSort = true;
+            }
+            else 
+            {
+                CollectionView.SortDescriptions.Clear();
+
+                isSort = false;
+            }
         }
 
         private void SaveCanExecute(object sender, CanExecuteRoutedEventArgs e)

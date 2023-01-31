@@ -4,6 +4,7 @@ using Modul_13.Models;
 using Modul_13.View;
 using Modul_13.ViewModels.Base;
 using System;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -16,6 +17,8 @@ namespace Modul_13.ViewModels
 {
     public class MainWindowViewModel:ViewModel
     {
+        private ObservableCollection<BankAccount> AccountsRepo = new ObservableCollection<BankAccount>();
+        
         private ClientsRepository clientsRepository;
 
         /// <summary>
@@ -60,9 +63,9 @@ namespace Modul_13.ViewModels
             }
         }
 
-        public Consultant Consultant { get; set; }
+        public Consultant Consultant { get; }
 
-        public Meneger Meneger { get; set; }
+        public Meneger Meneger { get; }
 
         //конструктор
         public MainWindowViewModel(MainWindow mWindow) 
@@ -73,23 +76,7 @@ namespace Modul_13.ViewModels
 
             this.Consultant = new Consultant();
 
-            this.Meneger = new Meneger();
-
-            ClientsRepository.CollectionChanged += ClientsRepository_CollectionChanged;
-        }
-
-        private void ClientsRepository_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (e.Action == NotifyCollectionChangedAction.Remove)
-            {
-                
-                foreach (Client p in e.OldItems)
-                {
-                    
-                }
-                
-            }
-
+            this.Meneger = new Meneger();   
         }
 
         #region Команды
@@ -130,17 +117,37 @@ namespace Modul_13.ViewModels
 
 
         private RelayCommand addDepositCommand = null;
+        /// <summary>
+        /// Команда добавление ДЕПОЗИТНОГО счета для выбранного клиента
+        /// </summary>
         public RelayCommand AddDepositCommand =>
             addDepositCommand ?? (addDepositCommand = new RelayCommand(AddDeposit, CanAddDeposit));
 
+        private RelayCommand addNoDepositCommand = null;
+        /// <summary>
+        /// Команда добавление Недпозитного счета для выбранного клиента
+        /// </summary>
+        public RelayCommand AddNoDepositCommand =>
+            addDepositCommand ?? (addNoDepositCommand = new RelayCommand(AddNoDeposit, CanAddDeposit));
+
+        private void AddNoDeposit()
+        {
+            //InterestNoEarningAccount account = new InterestEarningAccount(CurrentClient, 0);
+
+            //AccountsRepo.Add(account);
+        }
+
         private bool CanAddDeposit()
         {
+            // реализовать проверку наличия отурытого счета у клиента
             return true;
         }
 
         private void AddDeposit()
         {
-            throw new NotImplementedException();
+            InterestEarningAccount account = new InterestEarningAccount(CurrentClient, 10);
+
+            AccountsRepo.Add(account);
         }
 
         #endregion
