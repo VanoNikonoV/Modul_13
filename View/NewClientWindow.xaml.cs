@@ -21,7 +21,6 @@ namespace Modul_13.View
     /// </summary>
     public partial class NewClientWindow : Window
     {
-       
         public Client NewClient { get { return ViewModel.NewClient; } }
 
         public NewClientWindowViewModel ViewModel { get;}
@@ -41,6 +40,7 @@ namespace Modul_13.View
         {
             DialogResult = false;
         }
+
         private bool isFocused = false;
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {

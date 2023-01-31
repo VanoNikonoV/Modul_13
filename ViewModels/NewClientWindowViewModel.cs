@@ -31,11 +31,14 @@ namespace Modul_13.ViewModels
 
         private void AddClient()
         {
-            newClient = new Client(_window.FirstNameTextBox.Text,
-                                   _window.MidlleNameTextBox.Text,
-                                   _window.SecondNameTextBox.Text,
-                                   _window.TelefonTextBox.Text,
-                                   _window.SeriesAndPassportNumberTextBox.Text);
+            newClient = new Client(firstName: _window.FirstNameTextBox.Text,
+                                  middleName: _window.MidlleNameTextBox.Text,
+                                  secondName: _window.SecondNameTextBox.Text,
+                                     telefon: _window.TelefonTextBox.Text,
+                     seriesAndPassportNumber: _window.SeriesAndPassportNumberTextBox.Text,
+                                   currentId: newClient.ID,
+                                    dateTime: DateTime.Now,
+                                   isChanged: false);
 
             if (newClient.Error == string.Empty || newClient.IsValid == true)
             {
@@ -46,7 +49,6 @@ namespace Modul_13.ViewModels
                              caption: "Ощибка в данных",
                              MessageBoxButton.OK,
                              icon: MessageBoxImage.Error);
-
         }
 
     }

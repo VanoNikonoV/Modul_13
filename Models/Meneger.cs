@@ -43,14 +43,14 @@ namespace Modul_13.Models
         {
             string whatChanges = string.Format(client.FirstName + @" на " + newName);
 
-            Client changeClient = new Client(firstName: newName,
-                             middleName: client.MiddleName,
-                             secondName: client.SecondName,
-                                telefon: client.Telefon,
-                seriesAndPassportNumber: client.SeriesAndPassportNumber,
-                              currentId: client.ID,
-                               dateTime: DateTime.Now,
-                              isChanged: true);
+            Client changeClient = new Client( firstName: newName,
+                                             middleName: client.MiddleName,
+                                             secondName: client.SecondName,
+                                                telefon: client.Telefon,
+                                seriesAndPassportNumber: client.SeriesAndPassportNumber,
+                                              currentId: client.ID,
+                                               dateTime: DateTime.Now,
+                                              isChanged: true);
            
             changeClient.InfoChanges = client.InfoChanges; //копирую старую информацию
 

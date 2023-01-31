@@ -121,7 +121,7 @@ namespace Modul_13.ViewModels
 
         private RelayCommand newClientAddCommand = null;
         public RelayCommand NewClientAddCommand => 
-            newClientAddCommand ?? (newClientAddCommand = new RelayCommand(NewClient, CanAddClient));
+            newClientAddCommand ?? (newClientAddCommand = new RelayCommand(AddNewClient, CanAddClient));
 
 
         private RelayCommand deleteClientCommand = null;
@@ -314,7 +314,7 @@ namespace Modul_13.ViewModels
         /// <summary>
         /// Метод добавления нового клиенита
         /// </summary>
-        private void NewClient()
+        private void AddNewClient()
         {
             NewClientWindow _windowNewClient = new NewClientWindow();
 
@@ -329,7 +329,7 @@ namespace Modul_13.ViewModels
                     ClientsRepository.Add(_windowNewClient.NewClient);
                 }
 
-                //isDirty = true;
+                else ShowStatusBarText("Клиент с такими данными уже существует");
             }
         }
 
@@ -341,7 +341,7 @@ namespace Modul_13.ViewModels
 
             var timer = new System.Timers.Timer();
 
-            timer.Interval = 2000;
+            timer.Interval = 3000;
 
             timer.Elapsed += delegate (object sender, System.Timers.ElapsedEventArgs e)
             {
