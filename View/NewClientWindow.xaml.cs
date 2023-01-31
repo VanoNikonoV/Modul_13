@@ -55,5 +55,12 @@ namespace Modul_13.View
                 (sender as TextBox).SelectAll();
             }
         }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            
+            if (e.ChangedButton == MouseButton.Left) { this.DragMove(); }
+            
+        }
     }
 }

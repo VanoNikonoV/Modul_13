@@ -26,9 +26,6 @@ namespace Modul_13.ViewModels
             newClient = new Client();
         }
 
-        //private bool isErrorDataClient = false;
-        //public bool IsErrorDataClient { get => isErrorDataClient; }
-
         private RelayCommand addClientCommand = null;
         public RelayCommand AddClientCommand => addClientCommand ?? (new RelayCommand(AddClient));
 
@@ -40,15 +37,15 @@ namespace Modul_13.ViewModels
                                    _window.TelefonTextBox.Text,
                                    _window.SeriesAndPassportNumberTextBox.Text);
 
-            if (newClient.Error == string.Empty || newClient.Error == null)
+            if (newClient.Error == string.Empty || newClient.IsValid == true)
             {
                 _window.DialogResult = true;
             }
 
-            //else MessageBox.Show(messageBoxText: NewClient.Error,
-            //                 caption: "Ощибка в данных",
-            //                 MessageBoxButton.OK,
-            //                 icon: MessageBoxImage.Error);
+            else MessageBox.Show(messageBoxText: NewClient.Error,
+                             caption: "Ощибка в данных",
+                             MessageBoxButton.OK,
+                             icon: MessageBoxImage.Error);
 
         }
 

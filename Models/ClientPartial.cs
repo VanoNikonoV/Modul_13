@@ -111,7 +111,7 @@ namespace Modul_13.Models
         {
             if (IsStringMissing(this.FirstName))
             {
-                return "Нужно заполнить поле";
+                return "Нужно заполнить поле с именем";
             }
             return null;
         }
@@ -120,7 +120,7 @@ namespace Modul_13.Models
         {
             if (IsStringMissing(this.MiddleName))
             {
-                return "Нужно заполнить поле";
+                return "Нужно заполнить поле с отчеством";
             }
             return null;
         }
@@ -129,7 +129,7 @@ namespace Modul_13.Models
         {
             if (IsStringMissing(this.SecondName))
             {
-                return "Нужно заполнить поле";
+                return "Нужно заполнить поле с фамилией";
             }
             return null;
         }
@@ -138,7 +138,7 @@ namespace Modul_13.Models
         {
             if (IsStringMissing(this.SeriesAndPassportNumber))
             {
-                return "Нужно заполнить поле";
+                return "Нужно заполнить поле с паспортными данными";
             }
             return null;
         }
@@ -147,7 +147,7 @@ namespace Modul_13.Models
         {
             if (IsStringMissing(this.Telefon))
             {
-                return "Нужно заполнить поле";
+                return "Нужно заполнить поле с номером телефона";
             }
             else if (!decimal.TryParse(this.Telefon, out decimal number))
             {

@@ -7,9 +7,10 @@
         xmlns:local="clr-namespace:Modul_13.View"
         mc:Ignorable="d"
         ResizeMode="NoResize" 
-        WindowStartupLocation="CenterScreen" Background="#7FFAFAFA"
+        WindowStartupLocation="CenterScreen"
         FocusManager.FocusedElement ="{Binding ElementName=TelefonTextBox}" 
-        AllowsTransparency="True" WindowStyle="None">
+        AllowsTransparency="True" WindowStyle="None"
+        Width="400" Height="250">
     <Window.Resources>
 
         <Style TargetType="TextBox">
@@ -32,10 +33,13 @@
         </Style>
 
     </Window.Resources>
+    <Window.Background>
+        <SolidColorBrush Color="#7FFAFAFA" Opacity="0"/>
+    </Window.Background>
 
-    <StackPanel x:Name="NewClientPanel">
+    <StackPanel x:Name="NewClientPanel" MouseDown="Window_MouseDown" >
         <Border Width="400" Height="250" CornerRadius="20 20 20 20"
-                HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="Black">
+                HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="#4A686A">
 
             <Grid ShowGridLines="True">
 
