@@ -167,7 +167,6 @@ namespace Modul_13.ViewModels
             {
                 return true;
             }
-            
             return false;
         }
 
@@ -178,12 +177,7 @@ namespace Modul_13.ViewModels
                 && args != null)   
             { return true;}
             
-            else
-            {
-                //ShowStatusBarText("Нужно заполнить данные");
-
-                return false;
-            }   
+            else { return false; }   
         }
 
         private bool CanDeleteClient()
@@ -234,8 +228,6 @@ namespace Modul_13.ViewModels
                     default:
                         break;
                 }
-                //isDirty = true;
-
             }
             else { ShowStatusBarText(changedClient.Error); }
 
@@ -261,10 +253,7 @@ namespace Modul_13.ViewModels
                 {
                     ShowStatusBarText(changedClient.Error);
                 }
-
-                //isDirty = true;
             }
-            //else ShowStatusBarText("Выберите клиента");
         }
 
         /// <summary>
@@ -293,7 +282,6 @@ namespace Modul_13.ViewModels
 
                 ClientsRepository.ReplaceClient(index, changedClient);
             }
-            
         }
 
         private void EditSeriesAndPassportNumber(string passport)

@@ -14,13 +14,6 @@
 
     <Window.Resources>
 
-        <!--<models:ClientsRepository x:Key="Repository"/>
-        
-        <CollectionViewSource Source="{StaticResource Repository}"
-                              x:Key="ViewDataClients"/>-->
-
-        <cmds:CommandConver x:Key="CommandConvert"/>
-
         <DataTemplate x:Key="CheckBox_Changed">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <CheckBox IsChecked="{Binding Path=IsChanged}" IsEnabled="False"/>
@@ -117,7 +110,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -125,14 +118,6 @@
             <ColumnDefinition MinWidth="200"/>
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-
-        <!--<GridSplitter Grid.Column="1"
-                      Grid.Row="1"
-                      Grid.RowSpan="2"
-                      Background="Red"
-                      
-                      Width="3"
-                      Opacity="0.5"/>-->
 
         <!--Список изменений-->
         <Label x:Name="ListChanges_Label" 
@@ -197,10 +182,8 @@
             </Grid.Effect>
 
             <ListView x:Name="DataClients" 
-                      
                       FontSize="18" Cursor="IBeam" 
                       Grid.ColumnSpan="2">
-
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="ID" 
@@ -215,23 +198,29 @@
                                         DisplayMemberBinding="{Binding SeriesAndPassportNumber}"/>
                         <GridViewColumn Header="Телефон"
                                         DisplayMemberBinding="{Binding Telefon}"/>
+                        <GridViewColumn Header="Дата и время" 
+                                        DisplayMemberBinding="{Binding DateOfEntry, StringFormat=g}"/>
+                        <GridViewColumn Header="Изм." 
+                                        CellTemplate="{StaticResource CheckBox_Changed}"/>
 
                     </GridView>
                 </ListView.View>
             </ListView>
         </Grid>
 
-        <StatusBar Grid.Row="3" Grid.ColumnSpan="4" Background="#FF679CC9">
+        <StatusBar Grid.Row="3" Grid.ColumnSpan="3" Background="#FF679CC9">
             <StatusBarItem>
                 <materialDesign:PackIcon Kind="Lightbulb" Width="30" 
-                                             Height="20" Margin="5,0"
+                                             Height="20" Margin="5 0 0 5"
                                              HorizontalAlignment="Center"/>
             </StatusBarItem>
+            
+            <Separator/>
 
             <StatusBarItem>
                 <TextBlock x:Name="StatusBarText"
                            FontSize="14" TextWrapping="NoWrap"
-                           Margin="5,0" Foreground="#FFE72A2A"/>
+                           Margin="5 0 0 5" Foreground="#FFE72A2A"/>
             </StatusBarItem>
         </StatusBar>
 
@@ -325,7 +314,8 @@
         <TabControl Grid.Column="0" Grid.Row="1" 
                     TabStripPlacement="Left">
             
-            <TabItem HorizontalAlignment="Center" MinWidth="25" Width="50">
+            <TabItem HorizontalAlignment="Center" MinWidth="25" Width="50" 
+                     ToolTip="Редактирования личных данных клиента">
                 <TabItem.Header>
                     <materialDesign:PackIcon Kind="Edit" Width="25" 
                                                  Height="25" 
@@ -556,7 +546,8 @@
                 </StackPanel>
             </TabItem>
 
-            <TabItem HorizontalAlignment="Center" MinWidth="25" Width="50">
+            <TabItem HorizontalAlignment="Center" MinWidth="25" Width="50"
+                     ToolTip="Операции со счетом">
                 <TabItem.Header>
                     <materialDesign:PackIcon Kind="WalletPlusOutline" Width ="30" 
                                          Height="25"

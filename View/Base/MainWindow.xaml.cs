@@ -23,8 +23,6 @@ namespace Modul_13
 
         public  ICollectionView CollectionView { get; private set; }
 
-        private bool isDirty = false;
-
         public MainWindow()
         {
             ViewModel = ViewModel ?? new MainWindowViewModel(this);
@@ -94,7 +92,9 @@ namespace Modul_13
             ListChanges_Label.Visibility = Visibility.Collapsed;
         }
 
-
+        /// <summary>
+        /// Для корректной работы метода Sort_Button_Click
+        /// </summary>
         private bool isSort = false;
 
         /// <summary>
@@ -122,12 +122,12 @@ namespace Modul_13
 
         private void SaveCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            if (isDirty)
+            foreach (var client in ViewModel.ClientsRepository)
             {
-                e.CanExecute = true;
-            }
-            else e.CanExecute = false;
+                if (client.IsChanged == true) { e.CanExecute = true; break; }
 
+                else e.CanExecute = false;
+            }
         }
 
         private void SaveExecuted(object sender, ExecutedRoutedEventArgs e)
@@ -150,7 +150,6 @@ namespace Modul_13
                 {
                     client.IsChanged = false;
                 }
-                isDirty = false;
             }
 
         }

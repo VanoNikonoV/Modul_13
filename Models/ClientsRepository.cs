@@ -11,7 +11,7 @@ namespace Modul_13.Models
         {
             LoadData(path);
                 
-            //GetClientsRep(100);
+            //GetClientsRep(2);
         }
 
         /// <summary>
