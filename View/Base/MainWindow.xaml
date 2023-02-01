@@ -321,7 +321,9 @@
                                                  Height="25" 
                                                  HorizontalAlignment="Center"/>
                 </TabItem.Header>
-
+                
+                <!--<Frame Source="PaintingWithImages.xaml" Background="White" />-->
+                
                 <!--Панель редактирования личных данных клиента-->
                 <StackPanel x:Name="PanelInfoAndEditClient" 
                     Orientation="Vertical" 
@@ -520,32 +522,36 @@
                     </Grid>
 
                     <!--Открытие счет для выбранного клиента-->
-                    <StackPanel Height="30" Width="210" Orientation="Horizontal"
-                        HorizontalAlignment="Center" Background="Black"
-                        Margin="0 20 0 0 ">
+                    <Border Height="40" Width="210" 
+                            CornerRadius="10 10 10 10" 
+                            Background="Black"
+                            Margin="0 20">
+                        <StackPanel Height="30" Width="200" Orientation="Horizontal"
+                            HorizontalAlignment="Center">
 
-                        <TextBlock Text="Открыть/закрыть счёт" 
-                           FontSize="16" Width="170"
-                           Padding="5 2 2 2" Foreground="#FFFFFDFD"/>
-                        <materialDesign:PopupBox PlacementMode ="BottomAndAlignRightEdges"
-                                         StaysOpen="False" Foreground="#FFFFF7F7"
-                                         Width="35">
-                            <StackPanel>
-                                <Button Content="Депозитный счёт" 
-                                        Command="{Binding DataContext.AddDepositCommand, 
-                                        RelativeSource={RelativeSource AncestorType={x:Type Window}, 
-                                        Mode=FindAncestor}}"/>
+                            <TextBlock Text="Депозитный счёт" 
+                               FontSize="16" Width="165"
+                               Padding="10 2 0 0 " Foreground="#FFFFFDFD"/>
+                                <materialDesign:PopupBox PlacementMode ="BottomAndAlignRightEdges"
+                                             StaysOpen="False" Foreground="#FFFFF7F7"
+                                             Width="35">
+                                    <StackPanel>
+                                        <Button Content="Открыть счёт" 
+                                            Command="{Binding DataContext.AddDepositCommand, 
+                                            RelativeSource={RelativeSource AncestorType={x:Type Window}, 
+                                            Mode=FindAncestor}}"/>
 
-                                <Button Content="Недепозитный счёт"
-                                        Command="{Binding DataContext.AddNoDepositCommand, 
-                                        RelativeSource={RelativeSource AncestorType={x:Type Window}, 
-                                        Mode=FindAncestor}}"/>
-                            </StackPanel>
-                        </materialDesign:PopupBox>
-                    </StackPanel>
+                                        <Button Content="Закрыть счёт"
+                                            Command="{Binding DataContext.CloseDepositCommand, 
+                                            RelativeSource={RelativeSource AncestorType={x:Type Window}, 
+                                            Mode=FindAncestor}}"/>
+                                    </StackPanel>
+                                </materialDesign:PopupBox>
+                        </StackPanel>
+                    </Border>
                 </StackPanel>
             </TabItem>
-
+            <!--Операции со счетом-->
             <TabItem HorizontalAlignment="Center" MinWidth="25" Width="50"
                      ToolTip="Операции со счетом">
                 <TabItem.Header>
@@ -554,12 +560,12 @@
                                          HorizontalAlignment="Center"/>
                 </TabItem.Header>
 
-                <!--Операции со счетом-->
-                <StackPanel x:Name="PaneEditDeposit" Grid.Row="1" Grid.Column="1"
-                    Margin="5 0 0 0"
-                    Orientation="Vertical" 
-                    HorizontalAlignment="Center">
-                    <!--Visibility="Collapsed">-->
+                <StackPanel x:Name="PaneEditDeposit" 
+                            Grid.Row="1" Grid.Column="1"
+                            Margin="5 0 0 0"
+                            Orientation="Vertical" 
+                            HorizontalAlignment="Center">   
+                
                     <Grid Margin="0 30 0 0 ">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="200"/>
@@ -575,10 +581,10 @@
                            VerticalAlignment="Bottom" FontWeight="Bold"/>
                         <TextBox x:Name="Name_TextBox" 
                          FontSize="18" Width="180"
-                         Text="{Binding SelectedItem.FirstName, 
-                         ElementName=DataClients, Mode=OneWay, 
-                         UpdateSourceTrigger=PropertyChanged, 
-                         ValidatesOnDataErrors=True}"
+                         Text="{Binding Path= DataContext.CurrentAccount.Owner.FirstName,
+                                        RelativeSource={RelativeSource 
+                                        AncestorType={x:Type Window}, 
+                                        Mode=FindAncestor}}"
                          Grid.Column="0" Grid.Row="1"
                          HorizontalAlignment="Center" 
                          VerticalAlignment="Center"

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Modul_13.Models
 {
     //https://learn.microsoft.com/ru-ru/dotnet/csharp/fundamentals/tutorials/oop
-    public class BankAccount
+    public class BankAccount : INotifyPropertyChanged
     {
         /// <summary>
         /// Номер счета
@@ -177,5 +178,14 @@ namespace Modul_13.Models
         {
 
         }
+        #region PropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(string propName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+        }
+        #endregion
+
     }
 }

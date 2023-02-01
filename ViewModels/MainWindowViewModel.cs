@@ -17,8 +17,21 @@ namespace Modul_13.ViewModels
 {
     public class MainWindowViewModel:ViewModel
     {
-        private ObservableCollection<BankAccount> AccountsRepo = new ObservableCollection<BankAccount>();
-        
+        #region Свойства
+        private ObservableCollection<BankAccount> accountsRepo;
+        /// <summary>
+        /// Коллекция счетов банка
+        /// </summary>
+        public ObservableCollection<BankAccount> AccountsRepo 
+        { 
+            get { return accountsRepo; }
+            
+            private set 
+            {
+                Set(ref accountsRepo, value, "AccountsRepo");
+            }
+        }
+
         private ClientsRepository clientsRepository;
 
         /// <summary>
@@ -41,10 +54,12 @@ namespace Modul_13.ViewModels
         /// </summary>
         public MainWindow MWindow { get;}  
 
-        public Client CurrentClient 
-        {
-            get => this.MWindow.DataClients.SelectedItem as Client;
-        }
+        public Client CurrentClient { get => this.MWindow.DataClients.SelectedItem as Client; }
+
+        /// <summary>
+        /// Информацию о счет для выбранного клиента
+        /// </summary>
+        public BankAccount CurrentAccount { get => AccountsRepo.FirstOrDefault(i => i.Owner == CurrentClient); }
 
         /// <summary>
         /// Уровень доступа к базе данных для консультанта и менаджера, 
@@ -63,9 +78,10 @@ namespace Modul_13.ViewModels
             }
         }
 
-        public Consultant Consultant { get; }
+        public Consultant Consultant { get; } 
 
-        public Meneger Meneger { get; }
+        public Meneger Meneger { get; } //??
+        #endregion
 
         //конструктор
         public MainWindowViewModel(MainWindow mWindow) 
@@ -73,6 +89,8 @@ namespace Modul_13.ViewModels
             this.MWindow= mWindow;
 
             this.ClientsRepository = new ClientsRepository("data.csv");
+
+            this.accountsRepo = new ObservableCollection<BankAccount>();
 
             this.Consultant = new Consultant();
 
@@ -115,6 +133,7 @@ namespace Modul_13.ViewModels
         public RelayCommand DeleteClientCommand => 
             deleteClientCommand ?? (deleteClientCommand = new RelayCommand(DeleteClient, CanDeleteClient));
 
+        //Команды для работы с депозитным счетом
 
         private RelayCommand addDepositCommand = null;
         /// <summary>
@@ -123,6 +142,13 @@ namespace Modul_13.ViewModels
         public RelayCommand AddDepositCommand =>
             addDepositCommand ?? (addDepositCommand = new RelayCommand(AddDeposit, CanAddDeposit));
 
+        private RelayCommand closeDepositCommand = null;
+        /// <summary>
+        /// Команда закрытия ДЕПОЗИТНОГО счета для выбранного клиента
+        /// </summary>
+        public RelayCommand CloseDepositCommand =>
+            closeDepositCommand ?? (closeDepositCommand = new RelayCommand(CloseDeposit, CanCloseDeposit));
+
         private RelayCommand addNoDepositCommand = null;
         /// <summary>
         /// Команда добавление Недпозитного счета для выбранного клиента
@@ -130,30 +156,9 @@ namespace Modul_13.ViewModels
         public RelayCommand AddNoDepositCommand =>
             addDepositCommand ?? (addNoDepositCommand = new RelayCommand(AddNoDeposit, CanAddDeposit));
 
-        private void AddNoDeposit()
-        {
-            //InterestNoEarningAccount account = new InterestEarningAccount(CurrentClient, 0);
-
-            //AccountsRepo.Add(account);
-        }
-
-        private bool CanAddDeposit()
-        {
-            // реализовать проверку наличия отурытого счета у клиента
-            return true;
-        }
-
-        private void AddDeposit()
-        {
-            InterestEarningAccount account = new InterestEarningAccount(CurrentClient, 10);
-
-            AccountsRepo.Add(account);
-        }
-
         #endregion
 
-
-        #region Редактирование данных о клиенте
+        #region Методы для редактирование данных о клиенте ....
 
         /// <summary>
         /// Опреляет допускается ли редактировать номер телефона клиента
@@ -304,8 +309,6 @@ namespace Modul_13.ViewModels
             }
             
         }
-        #endregion
-
         /// <summary>
         /// Метод добавления нового клиенита
         /// </summary>
@@ -327,6 +330,57 @@ namespace Modul_13.ViewModels
                 else ShowStatusBarText("Клиент с такими данными уже существует");
             }
         }
+        #endregion
+
+        #region Методы для работы со счетами
+        /// <summary>
+        /// Проверка наличия открытого счета у клиента
+        /// </summary>
+        /// <returns>
+        /// true - если у выбранного клиента отрыт счет
+        /// false - если счет не открыт</returns></returns>
+        private bool CanCloseDeposit()
+        {
+            var Client = AccountsRepo.Select(i => i.Owner);
+
+            return Client.Contains(CurrentClient);
+        }
+
+        private void CloseDeposit()
+        {
+            if (this.CurrentAccount == null)
+            {
+                AccountsRepo.Remove(CurrentAccount);
+            }   
+        }
+        private void AddNoDeposit()
+        {
+            //InterestNoEarningAccount account = new InterestEarningAccount(CurrentClient, 0);
+
+            //AccountsRepo.Add(account);
+        }
+
+        /// <summary>
+        /// Проверка наличия открытого счета у клиента
+        /// </summary>
+        /// <returns>false - если у выбранного клиента отрыт счет
+        ///          true - если счет не открыт</returns>
+        private bool CanAddDeposit()
+        {            
+            var Client = AccountsRepo.Select(i => i.Owner);
+
+            return !Client.Contains(CurrentClient);
+        }
+        /// <summary>
+        /// Добавление счета для выбранного клиента
+        /// </summary>
+        private void AddDeposit()
+        {
+            InterestEarningAccount account = new InterestEarningAccount(CurrentClient, 10);
+
+            AccountsRepo.Add(account);
+        }
+        #endregion
 
         private void ShowStatusBarText(string message)
         {

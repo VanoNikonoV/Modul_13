@@ -1,16 +1,11 @@
 ﻿using Microsoft.Win32;
-using Modul_13.Models;
 using Modul_13.ViewModels;
-using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace Modul_13
 {
@@ -77,6 +72,8 @@ namespace Modul_13
             ButtonCloseMenu.Visibility = Visibility.Collapsed;
             СhangesClient.Visibility = Visibility.Collapsed;
             ListChanges_Label.Visibility = Visibility.Visible;
+
+            MessageBox.Show(ViewModel.CurrentAccount.Owner.FirstName);
         }
 
         /// <summary>
