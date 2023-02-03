@@ -1,0 +1,182 @@
+﻿<Page x:Class="Modul_13.View.PanelWorkingWithDeposit"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:Modul_13.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="220"
+      Background="White">
+
+    <StackPanel  Orientation="Vertical" 
+                 HorizontalAlignment="Center">
+
+        <Grid Margin="0 30 0 0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="220"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Имя" FontSize="18" 
+                           Grid.Column="0" Grid.Row="0"
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Bottom" 
+                           FontWeight="Bold"/>
+            <TextBox Text="{Binding Path=DataContext.FirstName, Mode=OneWay,
+                     RelativeSource={RelativeSource AncestorType={x:Type Page}, 
+                     Mode=FindAncestor}, 
+                     UpdateSourceTrigger=PropertyChanged, 
+                     ValidatesOnDataErrors=True}"
+                     FontSize="18" Width="180"     
+                     Grid.Column="0" Grid.Row="1"
+                     HorizontalAlignment="Center" 
+                     VerticalAlignment="Center"
+                     IsReadOnly="True"/>
+        </Grid>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="220"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Отчество" FontSize="18" 
+                       Grid.Column="0" Grid.Row="0"
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Bottom" FontWeight="Bold"/>
+            <TextBox FontSize="18" Width="180"
+                     Text="{Binding Path=DataContext.MiddleName, Mode=OneWay,
+                     RelativeSource={RelativeSource AncestorType={x:Type Page}, 
+                     Mode=FindAncestor}, 
+                     UpdateSourceTrigger=PropertyChanged, 
+                     ValidatesOnDataErrors=True}"
+                     Grid.Column="0" Grid.Row="1"
+                     HorizontalAlignment="Center" 
+                     VerticalAlignment="Center" 
+                     Cursor="Arrow"
+                     IsReadOnly="True"/>
+        </Grid>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="220"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Фамилия" FontSize="18" 
+                       Grid.Column="0" Grid.Row="0"
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Bottom" FontWeight="Bold"/>
+            <TextBox  FontSize="18" Width="180"
+                      Text="{Binding Path=DataContext.SecondName, Mode=OneWay,
+                      RelativeSource={RelativeSource AncestorType={x:Type Page}, 
+                      Mode=FindAncestor}, 
+                      UpdateSourceTrigger=PropertyChanged, 
+                      ValidatesOnDataErrors=True}"
+                      Grid.Column="0" Grid.Row="1"
+                      HorizontalAlignment="Center" 
+                      VerticalAlignment="Center"
+                      IsReadOnly="True"/>
+        </Grid>
+
+        <!--<Button Content="Открыть счёт" 
+                            Command="{Binding PanelWorkingWithDepositViewModel.AddDepositCommand, 
+                            Mode=OneWay, RelativeSource={RelativeSource FindAncestor,
+                            AncestorType={x:Type local:PanelWorkingWithDeposit}}}"/>-->
+        
+        <!--Открытие счет для выбранного клиента-->
+        <Border Height="40" Width="200" 
+                            CornerRadius="10 10 10 10" 
+                            Background="Black"
+                            Margin="0 20">
+            <StackPanel Height="30" Width="200" Orientation="Horizontal"
+                            HorizontalAlignment="Center">
+
+                <TextBlock Text="Депозитный счёт" 
+                               FontSize="16" Width="165"
+                               Padding="10 2 0 0 " Foreground="#FFFFFDFD"/>
+                <materialDesign:PopupBox PlacementMode ="BottomAndAlignRightEdges"
+                                             StaysOpen="False" Foreground="#FFFFF7F7"
+                                             Width="35">
+                    <StackPanel>
+                        <Button Content="Открыть счёт" 
+                            Command="{Binding PanelWorkingWithDepositViewModel.AddDepositCommand, 
+                            Mode=OneWay, RelativeSource={RelativeSource FindAncestor,
+                            AncestorType={x:Type local:PanelWorkingWithDeposit}}}"/>
+
+
+                        <Button Content="Закрыть счёт"
+                                Command="{Binding PanelWorkingWithDepositViewModel.CloseDepositCommand, 
+                            Mode=OneWay, RelativeSource={RelativeSource FindAncestor, 
+                            AncestorType={x:Type local:PanelWorkingWithDeposit}}}"/>
+
+                    </StackPanel>
+                </materialDesign:PopupBox>
+            </StackPanel>
+        </Border>
+
+        <Grid Cursor="Arrow">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Депозитный счёт" FontSize="18" 
+                           Grid.Column="0" Grid.Row="0"
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Bottom" FontWeight="Bold"/>
+            <TextBox x:Name="InterestEarningAccount_TextBox" FontSize="18" Width="180"
+                         
+                                
+                         Grid.Column="0" Grid.Row="1"
+                         HorizontalAlignment="Center" 
+                         VerticalAlignment="Center" 
+                         Cursor="Arrow"
+                         IsReadOnly="True"/>
+            <Button Grid.Row="2" Content="Перевести">
+
+            </Button>
+        </Grid>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Недпозитный счёт" FontSize="18" 
+                           Grid.Column="0" Grid.Row="0"
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Bottom" FontWeight="Bold"/>
+            <TextBox x:Name="NoInterestEarningAccount_TextBox" FontSize="18" Width="180"
+                         Text="{Binding SelectedItem.MiddleName, ElementName=DataClients, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                         Grid.Column="0" Grid.Row="1"
+                         HorizontalAlignment="Center" 
+                         VerticalAlignment="Center" 
+                         Cursor="Arrow"
+                         IsReadOnly="True"/>
+            <Button Grid.Row="2" Content="Перевести">
+
+            </Button>
+        </Grid>
+
+    </StackPanel>
+</Page>

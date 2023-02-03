@@ -42,7 +42,7 @@
                     Background="Black" 
                     BorderBrush="{x:Null}"
                     Cursor="Hand"
-                    Command="{Binding Path=EditNameCommand,
+                    Command="{Binding Path=PanelEditClientViewModel.EditNameCommand,
                     RelativeSource={RelativeSource AncestorType={x:Type Page}, 
                     Mode=FindAncestor}}"
                     CommandParameter="{Binding ElementName =EditName_TextBox, Path=Text}">
@@ -83,7 +83,7 @@
                         Background="Black" 
                         BorderBrush="{x:Null}"
                         Cursor="Hand"
-                        Command="{Binding Path=EditMiddleNameCommand,
+                        Command="{Binding Path=PanelEditClientViewModel.EditMiddleNameCommand,
                         RelativeSource={RelativeSource AncestorType={x:Type Page}, 
                         Mode=FindAncestor}}"
                         CommandParameter="{Binding ElementName =EditMiddleName_TextBox, Path=Text}">
@@ -123,7 +123,7 @@
                       Background="Black" 
                       BorderBrush="{x:Null}"
                       Cursor="Hand"
-                      Command="{Binding Path=EditSecondNameCommand,
+                      Command="{Binding Path=PanelEditClientViewModel.EditSecondNameCommand,
                       RelativeSource={RelativeSource AncestorType={x:Type Page}, 
                       Mode=FindAncestor}}"
                       CommandParameter="{Binding ElementName =EditSecondName_TextBox, 
@@ -166,7 +166,7 @@
                         Background="Black" 
                         BorderBrush="{x:Null}"
                         Cursor="Hand"
-                        Command="{Binding Path=EditSeriesAndPassportNumberCommand,
+                        Command="{Binding Path=PanelEditClientViewModel.EditSeriesAndPassportNumberCommand,
                         RelativeSource={RelativeSource AncestorType={x:Type Page}, 
                         Mode=FindAncestor}}"
                         CommandParameter="{Binding ElementName =EditSeriesAndPassportNumber_TextBox, Path=Text}">
@@ -209,7 +209,7 @@
                         Background="Black" 
                         BorderBrush="{x:Null}"
                         Cursor="Hand"
-                        Command="{Binding Path=EditTelefonCommand,
+                        Command="{Binding Path=PanelEditClientViewModel.EditTelefonCommand,
                         RelativeSource={RelativeSource AncestorType={x:Type Page}, 
                         Mode=FindAncestor}}"
                         CommandParameter="{Binding ElementName =EditTelefon_TextBox, Path=Text}">
@@ -221,7 +221,7 @@
 
         </Grid>
 
-        <!--Открытие счет для выбранного клиента-->
+        <!--Открытие счет для выбранного клиента--><!--
         <Border Height="40" Width="210" 
                             CornerRadius="10 10 10 10" 
                             Background="Black"
@@ -248,6 +248,6 @@
                     </StackPanel>
                 </materialDesign:PopupBox>
             </StackPanel>
-        </Border>
+        </Border>-->
     </StackPanel>
 </Page>

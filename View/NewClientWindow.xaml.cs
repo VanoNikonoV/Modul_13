@@ -21,19 +21,19 @@ namespace Modul_13.View
     /// </summary>
     public partial class NewClientWindow : Window
     {
-        public Client NewClient { get { return ViewModel.NewClient; } }
+        public Client NewClient { get { return ViewModelNewClient.NewClient; } }
 
-        public NewClientWindowViewModel ViewModel { get;}
+        public NewClientWindowViewModel ViewModelNewClient { get;}
 
         public NewClientWindow()
         {
             InitializeComponent();
 
-            this.ViewModel = new NewClientWindowViewModel(this);
+            this.ViewModelNewClient = new NewClientWindowViewModel(this);
 
-            this.DataContext = ViewModel;
+            this.DataContext = ViewModelNewClient;
 
-            this.NewClientPanel.DataContext = ViewModel.NewClient;
+            this.NewClientPanel.DataContext = ViewModelNewClient.NewClient;
         }
 
         private void Cancel(object sender, RoutedEventArgs e)
@@ -58,9 +58,7 @@ namespace Modul_13.View
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            
             if (e.ChangedButton == MouseButton.Left) { this.DragMove(); }
-            
         }
     }
 }

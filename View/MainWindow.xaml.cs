@@ -21,7 +21,6 @@ namespace Modul_13
 
         public  ICollectionView CollectionView { get; private set; }
 
-
         public MainWindow()
         {
             ViewModel = ViewModel ?? new MainWindowViewModel(this);
@@ -31,7 +30,6 @@ namespace Modul_13
             CollectionView = CollectionViewSource.GetDefaultView(ViewModel.ClientsRepository);
 
             InitializeComponent();
-
         }
 
         private void CloseWindows(object sender, RoutedEventArgs e)

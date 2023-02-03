@@ -68,11 +68,16 @@
     <Compile Include="Models\InterestEarningAccount.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="ViewModels\NewClientWindowViewModel.cs" />
+    <Compile Include="ViewModels\PanelEditClientViewModel.cs" />
+    <Compile Include="ViewModels\PanelWorkingWithDepositViewModel.cs" />
     <Compile Include="View\NewClientWindow.xaml.cs">
       <DependentUpon>NewClientWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PanelInfoAndEditClient.xaml.cs">
       <DependentUpon>PanelInfoAndEditClient.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PaneWorkingWithDeposit.xaml.cs">
+      <DependentUpon>PaneWorkingWithDeposit.xaml</DependentUpon>
     </Compile>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -104,6 +109,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\PanelInfoAndEditClient.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PaneWorkingWithDeposit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
