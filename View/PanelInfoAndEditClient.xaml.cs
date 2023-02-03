@@ -1,30 +1,40 @@
 ﻿using Modul_13.Cmds;
 using Modul_13.Commands;
 using Modul_13.Models;
-using Modul_13.View;
-using Modul_13.ViewModels.Base;
+using Modul_13.ViewModels;
 using System;
-using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Modul_13.ViewModels
+namespace Modul_13.View
 {
-    public class MainWindowViewModel:ViewModel
+    /// <summary>
+    /// Логика взаимодействия для PanelInfoAndEditClient.xaml
+    /// </summary>
+    public partial class PanelInfoAndEditClient : Page
     {
-        #region Свойства
-        private ObservableCollection<BankAccount> accountsRepo;
         /// <summary>
-        /// Коллекция счетов банка
+        /// AccessLevel определяется на основании выбраного параметра в элементе ListView "DataClients"
+        /// принадлежащего MainWindow
         /// </summary>
-        public ObservableCollection<BankAccount> AccountsRepo 
-        { 
-            get { return accountsRepo; }
-            
-            private set 
+        public MainWindow MWindow { get => (MainWindow)Application.Current.MainWindow; }
+
+        /// <summary>
+        /// Уровень доступа к базе данных для консультанта и менаджера, 
+        /// определяется на основании выбраного параметра в элементе ComboBox "AccessLevel_ComboBox"
+        /// принадлежащего MainWindow
+        /// </summary>
+        public int AccessLevel
+        {
+            get
             {
-                Set(ref accountsRepo, value, "AccountsRepo");
+                int? index = MWindow.AccessLevel_ComboBox.SelectedIndex;
+
+                int s = index ?? 0;
+
+                return s;
             }
         }
 
@@ -39,66 +49,25 @@ namespace Modul_13.ViewModels
 
             private set
             {
-                Set(ref clientsRepository, value, "ClientsRepository");
+                if (clientsRepository == value) return;
+                clientsRepository = value;
             }
         }
 
-        /// <summary>
-        /// Выбранный из базы ClientsRepository клиент
-        /// определяется на основании выбраного параметра в элементе ListView "DataClients"
-        /// принадлежащего MainWindow
-        /// </summary>
-        public MainWindow MWindow { get;}  
+        public Client CurrentClient { get => this.DataContext as Client; }
+        public Consultant Consultant { get; }
+        public Meneger Meneger { get; }
 
-        public Client CurrentClient { get => this.MWindow.DataClients.SelectedItem as Client; }
-
-        private BankAccount currentAccount ;
-        /// <summary>
-        /// Информацию о счет для выбранного клиента
-        /// </summary>
-        public BankAccount CurrentAccount { get => this.AccountsRepo.FirstOrDefault(i => i.Owner == CurrentClient);
-            set
-            {
-                if (currentAccount == value) return;
-                
-                   currentAccount = value;
-            } 
-        }
-
-        /// <summary>
-        /// Уровень доступа к базе данных для консультанта и менаджера, 
-        /// определяется на основании выбраного параметра в элементе ComboBox "AccessLevel_ComboBox"
-        /// принадлежащего MainWindow
-        /// </summary>
-        public int AccessLevel
+        public PanelInfoAndEditClient()
         {
-            get
-            {
-                int? index = this.MWindow.AccessLevel_ComboBox.SelectedIndex;
-
-                int s = index ?? 0;
-
-                return s;
-            }
-        }
-
-        public Consultant Consultant { get; } 
-
-        public Meneger Meneger { get; } //??
-        #endregion
-
-        //конструктор
-        public MainWindowViewModel(MainWindow mWindow) 
-        {
-            this.MWindow= mWindow;
-
-            this.ClientsRepository = new ClientsRepository("data.csv");
-
-            this.accountsRepo = new ObservableCollection<BankAccount>();
+            InitializeComponent();
 
             this.Consultant = new Consultant();
 
-            this.Meneger = new Meneger();   
+            this.Meneger = new Meneger();
+
+            this.ClientsRepository = MWindow.ViewModel.ClientsRepository;
+
         }
 
         #region Команды
@@ -128,15 +97,6 @@ namespace Modul_13.ViewModels
             editSeriesAndPassportNumberCommand ?? (editSeriesAndPassportNumberCommand
             = new RelayCommand<string>(EditSeriesAndPassportNumber, CanEdit));
 
-        private RelayCommand newClientAddCommand = null;
-        public RelayCommand NewClientAddCommand => 
-            newClientAddCommand ?? (newClientAddCommand = new RelayCommand(AddNewClient, CanAddClient));
-
-
-        private RelayCommand deleteClientCommand = null;
-        public RelayCommand DeleteClientCommand => 
-            deleteClientCommand ?? (deleteClientCommand = new RelayCommand(DeleteClient, CanDeleteClient));
-
         //Команды для работы с депозитным счетом
 
         private RelayCommand addDepositCommand = null;
@@ -162,8 +122,6 @@ namespace Modul_13.ViewModels
 
         #endregion
 
-        #region Методы для редактирование данных о клиенте ....
-
         /// <summary>
         /// Опреляет допускается ли редактировать номер телефона клиента
         /// </summary>
@@ -179,37 +137,40 @@ namespace Modul_13.ViewModels
             return false;
         }
 
-        private bool CanEdit(string args)
-        {
-            if (AccessLevel == 1 && CurrentClient != null 
-                && !String.IsNullOrWhiteSpace(args) 
-                && args != null)   
-            { return true;}
-            
-            else { return false; }   
-        }
-
-        private bool CanDeleteClient()
-        {
-            if (AccessLevel == 1 && CurrentClient != null) { return true; }
-            return false;
-        }
-
-        private bool CanAddClient()
-        {
-            if (AccessLevel == 1) { return true; }
-
-            return false;
-        }
-
         /// <summary>
-        /// Метод редактирования номера телефона
+        /// Опреляет допускается ли редактировать данные клиента
         /// </summary>
-        /// <param name="client"></param>
+        /// <param name="args"></param>
+        /// <returns>true - если для данного уровня доступа доступна возможность редактировани
+        /// false - если для данного уровня доступа недостукается редактировани</returns>
+        private bool CanEdit(string args)
+        { 
+            if (AccessLevel == 1 && CurrentClient != null
+                && !String.IsNullOrWhiteSpace(args)
+                && args != null)
+            { return true; }
+
+            else { return false; }
+        }
+        /// <summary>
+        /// Метод редактирования имени клиента
+        /// </summary>
+        /// <param name = "client" ></ param >
+        private void EditName(string newName)
+        {  
+            Client changedClient = Meneger.EditNameClient(CurrentClient, newName.Trim());
+
+            if (changedClient.IsValid)
+            {
+                int index = clientsRepository.IndexOf(CurrentClient);
+
+                clientsRepository.ReplaceClient(index, changedClient);
+            }
+        }
         private void EditTelefon(string telefon)
         {
             string whatChanges = string.Format(CurrentClient.Telefon + @" на " + telefon.Trim());
-            
+
             //изменения в коллекции клиентов
             Client changedClient = Consultant.EditeTelefonClient(telefon, CurrentClient);
 
@@ -238,30 +199,12 @@ namespace Modul_13.ViewModels
                         break;
                 }
             }
-            else { ShowStatusBarText(changedClient.Error); }
-
-        }
-
-        /// <summary>
-        /// Метод редактирования имени клиента
-        /// </summary>
-        /// <param name = "client" ></ param >
-        private void EditName(string newName)
-        {
-            if (CurrentClient != null)
-            {
-                Client changedClient = Meneger.EditNameClient(CurrentClient, newName.Trim());
-
-                if (changedClient.IsValid)
-                {
-                    int index = clientsRepository.IndexOf(CurrentClient);
-
-                    clientsRepository.ReplaceClient(index, changedClient);
-                }
-                else
-                {
-                    ShowStatusBarText(changedClient.Error);
-                }
+            else 
+            {  
+                MessageBox.Show(messageBoxText: changedClient.Error,
+                                      caption: "Ощибка в данных",
+                                     MessageBoxButton.OK,
+                                    icon: MessageBoxImage.Error);
             }
         }
 
@@ -279,6 +222,7 @@ namespace Modul_13.ViewModels
 
                 ClientsRepository.ReplaceClient(index, changedClient);
             }
+
         }
 
         private void EditSecondName(string secondName)
@@ -305,37 +249,6 @@ namespace Modul_13.ViewModels
             }
         }
 
-        private void DeleteClient()
-        {
-            if (CurrentClient != null)
-            {
-               ClientsRepository.Remove(CurrentClient);
-            }
-            
-        }
-        /// <summary>
-        /// Метод добавления нового клиенита
-        /// </summary>
-        private void AddNewClient()
-        {
-            NewClientWindow _windowNewClient = new NewClientWindow();
-
-            _windowNewClient.Owner = this.MWindow;
-
-            _windowNewClient.ShowDialog();
-
-            if (_windowNewClient.DialogResult == true)
-            {
-                if (!ClientsRepository.Contains(_windowNewClient.NewClient))
-                {
-                    ClientsRepository.Add(_windowNewClient.NewClient);
-                }
-
-                else ShowStatusBarText("Клиент с такими данными уже существует");
-            }
-        }
-        #endregion
-
         #region Методы для работы со счетами
         /// <summary>
         /// Проверка наличия открытого счета у клиента
@@ -345,17 +258,18 @@ namespace Modul_13.ViewModels
         /// false - если счет не открыт</returns></returns>
         private bool CanCloseDeposit()
         {
-            var Client = AccountsRepo.Select(i => i.Owner);
+            //var Client = AccountsRepo.Select(i => i.Owner);
 
-            return Client.Contains(CurrentClient);
+            //return Client.Contains(CurrentClient);
+            return true;
         }
 
         private void CloseDeposit()
         {
-            if (this.CurrentAccount == null)
-            {
-                AccountsRepo.Remove(CurrentAccount);
-            }   
+            //if (this.CurrentAccount == null)
+            //{
+            //    AccountsRepo.Remove(CurrentAccount);
+            //}
         }
         private void AddNoDeposit()
         {
@@ -370,10 +284,11 @@ namespace Modul_13.ViewModels
         /// <returns>false - если у выбранного клиента отрыт счет
         ///          true - если счет не открыт</returns>
         private bool CanAddDeposit()
-        {            
-            var Client = AccountsRepo.Select(i => i.Owner);
+        {
+            //var Client = AccountsRepo.Select(i => i.Owner);
 
-            return !Client.Contains(CurrentClient);
+            //return !Client.Contains(CurrentClient);
+            return true;
         }
         /// <summary>
         /// Добавление счета для выбранного клиента
@@ -382,34 +297,11 @@ namespace Modul_13.ViewModels
         {
             InterestEarningAccount account = new InterestEarningAccount(CurrentClient, 10);
 
-            AccountsRepo.Add(account);
+            //AccountsRepo.Add(account);
 
-           // this.MWindow.Name_TextBox.Text = this.CurrentAccount.Owner.FirstName;
+            // this.MWindow.Name_TextBox.Text = this.CurrentAccount.Owner.FirstName;
         }
         #endregion
-
-        private void ShowStatusBarText(string message)
-        {
-            TextBlock statusBar = Application.Current.MainWindow.FindName("StatusBarText") as TextBlock;
-            
-            statusBar.Text = message;
-
-            var timer = new System.Timers.Timer();
-
-            timer.Interval = 3000;
-
-            timer.Elapsed += delegate (object sender, System.Timers.ElapsedEventArgs e)
-            {
-                timer.Stop();
-                //удалите текст сообщения о состоянии с помощью диспетчера, поскольку таймер работает в другом потоке
-                MWindow.Dispatcher.BeginInvoke(new Action(() =>
-                {
-                    statusBar.Text = "";
-                }));
-
-            };
-            timer.Start();
-        }
 
     }
 }

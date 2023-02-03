@@ -1,9 +1,12 @@
 ﻿using Microsoft.Win32;
+using Modul_13.Models;
+using Modul_13.View;
 using Modul_13.ViewModels;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -18,6 +21,7 @@ namespace Modul_13
 
         public  ICollectionView CollectionView { get; private set; }
 
+
         public MainWindow()
         {
             ViewModel = ViewModel ?? new MainWindowViewModel(this);
@@ -27,6 +31,7 @@ namespace Modul_13
             CollectionView = CollectionViewSource.GetDefaultView(ViewModel.ClientsRepository);
 
             InitializeComponent();
+
         }
 
         private void CloseWindows(object sender, RoutedEventArgs e)
@@ -184,9 +189,14 @@ namespace Modul_13
             }
         }
 
-        private void rrrr(object sender, System.Windows.Controls.ContextMenuEventArgs e)
+        /// <summary>
+        /// Изменяет данные для панелей редактирования данных
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AnotherClientIsSelected(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            Name_TextBox.Text = ViewModel.CurrentAccount.Owner.FirstName;
+            this.TabControl_CurrentClient.DataContext = DataClients.SelectedItem as Client;
         }
     }
 }
