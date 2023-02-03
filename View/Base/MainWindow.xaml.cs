@@ -72,8 +72,6 @@ namespace Modul_13
             ButtonCloseMenu.Visibility = Visibility.Collapsed;
             СhangesClient.Visibility = Visibility.Collapsed;
             ListChanges_Label.Visibility = Visibility.Visible;
-
-            MessageBox.Show(ViewModel.CurrentAccount.Owner.FirstName);
         }
 
         /// <summary>
@@ -186,5 +184,9 @@ namespace Modul_13
             }
         }
 
+        private void rrrr(object sender, System.Windows.Controls.ContextMenuEventArgs e)
+        {
+            Name_TextBox.Text = ViewModel.CurrentAccount.Owner.FirstName;
+        }
     }
 }

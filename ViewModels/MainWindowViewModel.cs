@@ -56,10 +56,18 @@ namespace Modul_13.ViewModels
 
         public Client CurrentClient { get => this.MWindow.DataClients.SelectedItem as Client; }
 
+        private BankAccount currentAccount ;
         /// <summary>
         /// Информацию о счет для выбранного клиента
         /// </summary>
-        public BankAccount CurrentAccount { get => AccountsRepo.FirstOrDefault(i => i.Owner == CurrentClient); }
+        public BankAccount CurrentAccount { get => this.AccountsRepo.FirstOrDefault(i => i.Owner == CurrentClient);
+            set
+            {
+                if (currentAccount == value) return;
+                
+                   currentAccount = value;
+            } 
+        }
 
         /// <summary>
         /// Уровень доступа к базе данных для консультанта и менаджера, 
@@ -379,6 +387,8 @@ namespace Modul_13.ViewModels
             InterestEarningAccount account = new InterestEarningAccount(CurrentClient, 10);
 
             AccountsRepo.Add(account);
+
+           // this.MWindow.Name_TextBox.Text = this.CurrentAccount.Owner.FirstName;
         }
         #endregion
 

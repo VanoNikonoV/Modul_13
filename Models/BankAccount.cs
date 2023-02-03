@@ -11,10 +11,20 @@ namespace Modul_13.Models
         /// Номер счета
         /// </summary>
         public string Number { get; }
+
+        private Client owner;
         /// <summary>
         /// Cведения о владельце счета
         /// </summary>
-        public Client Owner { get; set; }
+        public Client Owner 
+        {
+            get => owner;
+            set 
+            { if (owner == value) return;
+                owner = value;
+                OnPropertyChanged(nameof(Owner));
+            }
+        }
         /// <summary>
         /// Вычесляет сальдо на основании журнала транзакций 
         /// </summary>
@@ -186,6 +196,5 @@ namespace Modul_13.Models
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
         #endregion
-
     }
 }

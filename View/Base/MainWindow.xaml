@@ -214,7 +214,7 @@
                                              Height="20" Margin="5 0 0 5"
                                              HorizontalAlignment="Center"/>
             </StatusBarItem>
-            
+
             <Separator/>
 
             <StatusBarItem>
@@ -286,12 +286,10 @@
                 <Button x:Name="DelitClient_Button" ToolTip="Удалить клиента"
                 Background="{x:Null}" BorderBrush="{x:Null}"
                 Cursor="Hand" HorizontalAlignment="Left" 
-                       
-                    Command="{Binding DataContext.DeleteClientCommand, 
+                Command="{Binding DataContext.DeleteClientCommand, 
                        RelativeSource={RelativeSource FindAncestor, 
                        AncestorType={x:Type Window}}}">
 
- 
                     <materialDesign:PackIcon Kind="Delete" 
                                      Width="25" Height="25" HorizontalAlignment="Center" 
                                      Cursor="Hand" Foreground="#DD080808"/>
@@ -313,7 +311,7 @@
         <!--Левая инстурментальная панель-->
         <TabControl Grid.Column="0" Grid.Row="1" 
                     TabStripPlacement="Left">
-            
+
             <TabItem HorizontalAlignment="Center" MinWidth="25" Width="50" 
                      ToolTip="Редактирования личных данных клиента">
                 <TabItem.Header>
@@ -321,9 +319,9 @@
                                                  Height="25" 
                                                  HorizontalAlignment="Center"/>
                 </TabItem.Header>
-                
+
                 <!--<Frame Source="PaintingWithImages.xaml" Background="White" />-->
-                
+
                 <!--Панель редактирования личных данных клиента-->
                 <StackPanel x:Name="PanelInfoAndEditClient" 
                     Orientation="Vertical" 
@@ -336,7 +334,7 @@
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="50"/>
-                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
                         <TextBlock Text="Имя" FontSize="18" 
@@ -532,28 +530,30 @@
                             <TextBlock Text="Депозитный счёт" 
                                FontSize="16" Width="165"
                                Padding="10 2 0 0 " Foreground="#FFFFFDFD"/>
-                                <materialDesign:PopupBox PlacementMode ="BottomAndAlignRightEdges"
+                            <materialDesign:PopupBox PlacementMode ="BottomAndAlignRightEdges"
                                              StaysOpen="False" Foreground="#FFFFF7F7"
                                              Width="35">
-                                    <StackPanel>
-                                        <Button Content="Открыть счёт" 
+                                <StackPanel>
+                                    <Button Content="Открыть счёт" 
                                             Command="{Binding DataContext.AddDepositCommand, 
                                             RelativeSource={RelativeSource AncestorType={x:Type Window}, 
                                             Mode=FindAncestor}}"/>
 
-                                        <Button Content="Закрыть счёт"
+                                    <Button Content="Закрыть счёт"
                                             Command="{Binding DataContext.CloseDepositCommand, 
                                             RelativeSource={RelativeSource AncestorType={x:Type Window}, 
                                             Mode=FindAncestor}}"/>
-                                    </StackPanel>
-                                </materialDesign:PopupBox>
+                                </StackPanel>
+                            </materialDesign:PopupBox>
                         </StackPanel>
                     </Border>
                 </StackPanel>
             </TabItem>
+            
             <!--Операции со счетом-->
             <TabItem HorizontalAlignment="Center" MinWidth="25" Width="50"
-                     ToolTip="Операции со счетом">
+                     ToolTip="Операции со счетом" >
+   
                 <TabItem.Header>
                     <materialDesign:PackIcon Kind="WalletPlusOutline" Width ="30" 
                                          Height="25"
@@ -564,27 +564,24 @@
                             Grid.Row="1" Grid.Column="1"
                             Margin="5 0 0 0"
                             Orientation="Vertical" 
-                            HorizontalAlignment="Center">   
-                
+                            HorizontalAlignment="Center">
+
                     <Grid Margin="0 30 0 0 ">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="200"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="20"/>
-                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
                         <TextBlock Text="Имя" FontSize="18" 
                            Grid.Column="0" Grid.Row="0"
                            HorizontalAlignment="Center" 
-                           VerticalAlignment="Bottom" FontWeight="Bold"/>
+                           VerticalAlignment="Bottom" 
+                           FontWeight="Bold"/>
                         <TextBox x:Name="Name_TextBox" 
-                         FontSize="18" Width="180"
-                         Text="{Binding Path= DataContext.CurrentAccount.Owner.FirstName,
-                                        RelativeSource={RelativeSource 
-                                        AncestorType={x:Type Window}, 
-                                        Mode=FindAncestor}}"
+                         FontSize="18" Width="180"     
                          Grid.Column="0" Grid.Row="1"
                          HorizontalAlignment="Center" 
                          VerticalAlignment="Center"
@@ -593,7 +590,7 @@
 
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="20"/>
@@ -605,7 +602,8 @@
                            HorizontalAlignment="Center" 
                            VerticalAlignment="Bottom" FontWeight="Bold"/>
                         <TextBox x:Name="MiddleName_TextBox" FontSize="18" Width="180"
-                         Text="{Binding SelectedItem.MiddleName, ElementName=DataClients, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                         Text="{Binding DataContext.CurrentClient.FirstName, Mode=OneWay,
+                            UpdateSourceTrigger=PropertyChanged}"
                          Grid.Column="0" Grid.Row="1"
                          HorizontalAlignment="Center" 
                          VerticalAlignment="Center" 
@@ -627,7 +625,9 @@
                            HorizontalAlignment="Center" 
                            VerticalAlignment="Bottom" FontWeight="Bold"/>
                         <TextBox x:Name="SecondName_TextBox" FontSize="18" Width="180"
-                         Text="{Binding SelectedItem.SecondName, ElementName=DataClients, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                         Text="{Binding SelectedItem.SecondName, ElementName=DataClients, 
+                            Mode=OneWay, UpdateSourceTrigger=PropertyChanged, 
+                            ValidatesOnDataErrors=True}"
                          Grid.Column="0" Grid.Row="1"
                          HorizontalAlignment="Center" 
                          VerticalAlignment="Center"
@@ -636,7 +636,7 @@
 
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="20"/>
@@ -649,7 +649,8 @@
                            HorizontalAlignment="Center" 
                            VerticalAlignment="Bottom" FontWeight="Bold"/>
                         <TextBox x:Name="InterestEarningAccount_TextBox" FontSize="18" Width="180"
-                         Text="{Binding SelectedItem.MiddleName, ElementName=DataClients, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                         
+                                
                          Grid.Column="0" Grid.Row="1"
                          HorizontalAlignment="Center" 
                          VerticalAlignment="Center" 
@@ -687,9 +688,9 @@
                     </Grid>
 
                 </StackPanel>
-                
+
             </TabItem>
-            
+
         </TabControl>
 
     </Grid>
