@@ -67,22 +67,22 @@ namespace Modul_13.ViewModels
         /// Проверка наличия открытого счета у клиента
         /// </summary>
         /// <returns>
-        /// true - если у выбранного клиента отрыт счет
+        /// true - если у выбранного клиента открыт счет
         /// false - если счет не открыт</returns></returns>
         private bool CanCloseDeposit()
         {
             var Client = AccountsRepo.Select(i => i.Owner);
 
             return Client.Contains(CurrentClient);
-           
         } 
-
+        /// <summary>
+        /// Выполняет поиск клиента и в случаи совпадения удаляет счет
+        /// </summary>
         private void CloseDeposit()
         {
-            //if (this.CurrentAccount == null)
-            //{
-            //    AccountsRepo.Remove(CurrentAccount);
-            //}
+           var Client = AccountsRepo.First(i => i.Owner == CurrentClient);
+
+           AccountsRepo.Remove(Client);   
         }
         private void AddNoDeposit()
         {

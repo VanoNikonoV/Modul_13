@@ -8,7 +8,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="220"
       Background="White">
-
+    
     <StackPanel  Orientation="Vertical" 
                  HorizontalAlignment="Center">
 
@@ -38,7 +38,7 @@
                      IsReadOnly="True"/>
         </Grid>
 
-        <Grid>
+        <Grid Margin="0 10 0 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="220"/>
             </Grid.ColumnDefinitions>
@@ -64,7 +64,7 @@
                      IsReadOnly="True"/>
         </Grid>
 
-        <Grid>
+        <Grid Margin="0 10 0 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="220"/>
             </Grid.ColumnDefinitions>
@@ -89,16 +89,23 @@
                       IsReadOnly="True"/>
         </Grid>
 
-        <!--<Button Content="Открыть счёт" 
-                            Command="{Binding PanelWorkingWithDepositViewModel.AddDepositCommand, 
-                            Mode=OneWay, RelativeSource={RelativeSource FindAncestor,
-                            AncestorType={x:Type local:PanelWorkingWithDeposit}}}"/>-->
-        
         <!--Открытие счет для выбранного клиента-->
+        <!--<Button x:Name="Open_Close_Button"
+                Content="Открыть счёт" 
+                Width="150"
+                Command="{Binding PanelWorkingWithDepositViewModel.AddDepositCommand, 
+                Mode=OneWay, RelativeSource={RelativeSource FindAncestor,
+                AncestorType={x:Type local:PanelWorkingWithDeposit}}}"/>-->
+
         <Border Height="40" Width="200" 
                             CornerRadius="10 10 10 10" 
                             Background="Black"
-                            Margin="0 20">
+                            Margin="0 20"
+                DataContext="{Binding PanelWorkingWithDepositViewModel, 
+                Mode=OneWay, 
+                RelativeSource={RelativeSource FindAncestor, 
+                AncestorType={x:Type local:PanelWorkingWithDeposit}}}">
+            
             <StackPanel Height="30" Width="200" Orientation="Horizontal"
                             HorizontalAlignment="Center">
 
@@ -110,22 +117,22 @@
                                              Width="35">
                     <StackPanel>
                         <Button Content="Открыть счёт" 
-                            Command="{Binding PanelWorkingWithDepositViewModel.AddDepositCommand, 
+                                 Command="{Binding AddDepositCommand}"/>
+                                
+                            <!--Command="{Binding PanelWorkingWithDepositViewModel.AddDepositCommand, 
                             Mode=OneWay, RelativeSource={RelativeSource FindAncestor,
-                            AncestorType={x:Type local:PanelWorkingWithDeposit}}}"/>
+                            AncestorType={x:Type local:PanelWorkingWithDeposit}}}"/>-->
 
 
                         <Button Content="Закрыть счёт"
-                                Command="{Binding PanelWorkingWithDepositViewModel.CloseDepositCommand, 
-                            Mode=OneWay, RelativeSource={RelativeSource FindAncestor, 
-                            AncestorType={x:Type local:PanelWorkingWithDeposit}}}"/>
+                                Command="{Binding CloseDepositCommand}"/>
 
                     </StackPanel>
                 </materialDesign:PopupBox>
             </StackPanel>
         </Border>
 
-        <Grid Cursor="Arrow">
+        <Grid Cursor="Arrow" Margin="0 10 0 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
@@ -138,10 +145,12 @@
             <TextBlock Text="Депозитный счёт" FontSize="18" 
                            Grid.Column="0" Grid.Row="0"
                            HorizontalAlignment="Center" 
-                           VerticalAlignment="Bottom" FontWeight="Bold"/>
+                           VerticalAlignment="Bottom" FontWeight="Bold" Cursor="Arrow"/>
             <TextBox x:Name="InterestEarningAccount_TextBox" FontSize="18" Width="180"
-                         
-                                
+                     Text="{Binding PanelWorkingWithDepositViewModel.AccountsRepo, 
+                     Mode=OneWay, 
+                     RelativeSource={RelativeSource FindAncestor, 
+                     AncestorType={x:Type local:PanelWorkingWithDeposit}}}"      
                          Grid.Column="0" Grid.Row="1"
                          HorizontalAlignment="Center" 
                          VerticalAlignment="Center" 
@@ -152,7 +161,7 @@
             </Button>
         </Grid>
 
-        <Grid>
+        <!--<Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>
             </Grid.ColumnDefinitions>
@@ -176,7 +185,7 @@
             <Button Grid.Row="2" Content="Перевести">
 
             </Button>
-        </Grid>
+        </Grid>-->
 
     </StackPanel>
 </Page>
