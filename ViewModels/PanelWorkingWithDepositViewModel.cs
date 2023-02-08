@@ -42,6 +42,10 @@ namespace Modul_13.ViewModels
         }
         public Client CurrentClient { get => this.MWindow.DataClients.SelectedItem as Client; }
 
+        public PanelWorkingWithDepositViewModel()
+        {
+
+        }
         public PanelWorkingWithDepositViewModel(MainWindow window)
         {
             accountsRepo= new ObservableCollection<BankAccount>();

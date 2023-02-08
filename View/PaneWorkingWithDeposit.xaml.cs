@@ -37,5 +37,15 @@ namespace Modul_13.View
 
             PanelWorkingWithDepositViewModel.UpdateCurrentClient(clienChanged);
         }
+
+        private void CustomersСhoice_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void CustomersСhoice_Selected(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
