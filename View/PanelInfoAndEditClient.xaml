@@ -6,9 +6,7 @@
       xmlns:local="clr-namespace:Modul_13.View"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      d:DesignHeight="600" d:DesignWidth="220"
-      Background="White">
-    
+      d:DesignHeight="600" d:DesignWidth="220">
 
     <StackPanel     Orientation="Vertical" 
                     HorizontalAlignment="Right">

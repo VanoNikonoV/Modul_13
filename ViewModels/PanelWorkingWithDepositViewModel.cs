@@ -29,6 +29,17 @@ namespace Modul_13.ViewModels
             }
         }
 
+        private BankAccount currentAccount = null;
+
+        public BankAccount CurrentAccount 
+        {
+            get => currentAccount;
+            
+            set
+            {
+                Set(ref currentAccount, value, "CurrentAccount");
+            }
+        }
         public Client CurrentClient { get => this.MWindow.DataClients.SelectedItem as Client; }
 
         public PanelWorkingWithDepositViewModel(MainWindow window)
@@ -82,7 +93,9 @@ namespace Modul_13.ViewModels
         {
            var Client = AccountsRepo.First(i => i.Owner == CurrentClient);
 
-           AccountsRepo.Remove(Client);   
+           AccountsRepo.Remove(Client);  
+            
+           this.CurrentAccount = null;
         }
         private void AddNoDeposit()
         {
@@ -110,7 +123,19 @@ namespace Modul_13.ViewModels
             InterestEarningAccount account = new InterestEarningAccount(CurrentClient, 10);
 
             AccountsRepo.Add(account);
+
+            this.CurrentAccount = account;
         }
+
+        /// <summary>
+        /// Вызывается при изменении выбора в списке DataClients, тем самым обновляет выбранный элемент в коллекции AccountsRepo
+        /// </summary>
+        /// <param name="clienChanged">Выбранный клиент</param>
+        public void UpdateCurrentClient(Client clienChanged) 
+        { 
+            this.CurrentAccount = AccountsRepo.FirstOrDefault(accont => accont.Owner == clienChanged);
+        }
+        //collectionView.MoveCurrentTo(workspace);
         #endregion
     }
 }

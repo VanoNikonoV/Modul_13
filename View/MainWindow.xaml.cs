@@ -30,6 +30,8 @@ namespace Modul_13
             CollectionView = CollectionViewSource.GetDefaultView(ViewModel.ClientsRepository);
 
             InitializeComponent();
+
+            
         }
 
         private void CloseWindows(object sender, RoutedEventArgs e)
@@ -120,12 +122,12 @@ namespace Modul_13
 
         private void SaveCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            foreach (var client in ViewModel.ClientsRepository)
-            {
-                if (client.IsChanged == true) { e.CanExecute = true; break; }
+            //foreach (var client in ViewModel.ClientsRepository)
+            //{
+            //    if (client.IsChanged == true) { e.CanExecute = true; break; }
 
-                else e.CanExecute = false;
-            }
+            //    else e.CanExecute = false;
+            //}
         }
 
         private void SaveExecuted(object sender, ExecutedRoutedEventArgs e)
@@ -187,14 +189,24 @@ namespace Modul_13
             }
         }
 
-        /// <summary>
-        /// Изменяет данные для панелей редактирования данных
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void AnotherClientIsSelected(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            this.TabControl_CurrentClient.DataContext = DataClients.SelectedItem as Client;
-        }
+       
+
+        //private void Tab_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    if (e.Source is TabControl)
+        //    {
+        //        //do work when tab is changed
+        //    }
+        //}
+
+        //private void TabItem_Selected(object sender, RoutedEventArgs e)
+        //{
+        //    var tab = sender as TabItem;
+        //    if (tab != null)
+        //    {
+
+        //    }
+
+        //}
     }
 }

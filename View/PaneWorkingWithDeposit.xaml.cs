@@ -22,6 +22,20 @@ namespace Modul_13.View
             InitializeComponent();
 
             panelWorkingWithDepositViewModel = new PanelWorkingWithDepositViewModel(MWindow);
+
+            this.DataContextChanged += PanelWorkingWithDeposit_DataContextChanged;
+        }
+
+        /// <summary>
+        /// Метод передает обновленные данный о текущем клиенте выбранном в DataClients
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PanelWorkingWithDeposit_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            Client clienChanged = e.NewValue as Client;
+
+            PanelWorkingWithDepositViewModel.UpdateCurrentClient(clienChanged);
         }
     }
 }

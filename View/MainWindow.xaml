@@ -184,9 +184,8 @@
 
             <ListView x:Name="DataClients" 
                       FontSize="18" Cursor="IBeam" 
-                      Grid.ColumnSpan="2" 
-                      SelectionChanged="AnotherClientIsSelected"
-                      >
+                      Grid.ColumnSpan="2" >
+                
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="ID" 
@@ -314,33 +313,36 @@
         <!--Левая инстурментальная панель-->
         <TabControl Grid.Column="0" Grid.Row="1" 
                     TabStripPlacement="Left"
-                    x:Name="TabControl_CurrentClient">
+                    x:Name="TabControl_CurrentClient" 
+                    DataContext="{Binding SelectedItem, ElementName=DataClients}">
+            <!--SelectionChanged="Tab_SelectionChanged">-->
+
             <TabItem HorizontalAlignment="Center" MinWidth="25" Width="50" 
                      ToolTip="Редактирования личных данных клиента">
+                <!--Selector.Selected="TabItem_Selected">-->
                 <TabItem.Header>
-                    <materialDesign:PackIcon Kind="Edit" Width="25" 
-                                                 Height="25" 
-                                                 HorizontalAlignment="Center"/>
+                    <materialDesign:PackIcon Kind="Edit" 
+                                             Width="25" 
+                                             Height="25" 
+                                             HorizontalAlignment="Center"/>
                 </TabItem.Header>
 
-                <Frame 
-                    Source="PanelInfoAndEditClient.xaml" Background="White"/>
- 
+                <Frame Source="PanelInfoAndEditClient.xaml"/>
             </TabItem>
             
             <!--Операции со счетом-->
             <TabItem HorizontalAlignment="Center" MinWidth="25" Width="50"
-                     ToolTip="Операции со счетом" >
-   
+                     ToolTip="Операции со счетом">
+                <!--Selector.Selected="TabItem_Selected">-->
+
                 <TabItem.Header>
-                    <materialDesign:PackIcon Kind="WalletPlusOutline" Width ="30" 
-                                         Height="25"
-                                         HorizontalAlignment="Center"/>
+                    <materialDesign:PackIcon Kind="WalletPlusOutline" 
+                                             Width ="30" 
+                                             Height="25"
+                                             HorizontalAlignment="Center"/>
                 </TabItem.Header>
-                <Frame Source="/View/PaneWorkingWithDeposit.xaml" />
-
+                <Frame Source="PaneWorkingWithDeposit.xaml"/>
             </TabItem>
-
         </TabControl>
 
     </Grid>

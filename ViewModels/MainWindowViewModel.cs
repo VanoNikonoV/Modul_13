@@ -74,24 +74,13 @@ namespace Modul_13.ViewModels
         }
 
         #region Команды
-
         private RelayCommand newClientAddCommand = null;
         public RelayCommand NewClientAddCommand => 
             newClientAddCommand ?? (newClientAddCommand = new RelayCommand(AddNewClient, CanAddClient));
 
-
         private RelayCommand deleteClientCommand = null;
         public RelayCommand DeleteClientCommand => 
             deleteClientCommand ?? (deleteClientCommand = new RelayCommand(DeleteClient, CanDeleteClient));
-
-        //Команды для работы с депозитным счетом
-
-        //private RelayCommand addNoDepositCommand = null;
-        ///// <summary>
-        ///// Команда добавление Недпозитного счета для выбранного клиента
-        ///// </summary>
-        //public RelayCommand AddNoDepositCommand =>
-        //    addDepositCommand ?? (addNoDepositCommand = new RelayCommand(AddNoDeposit, CanAddDeposit));
 
         #endregion
 
@@ -108,6 +97,9 @@ namespace Modul_13.ViewModels
             return false;
         }
 
+        /// <summary>
+        /// Метод удаления нового клиента
+        /// </summary>
         private void DeleteClient()
         {
             if (CurrentClient != null)
