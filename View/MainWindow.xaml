@@ -177,7 +177,6 @@
         <Grid Grid.Row="1" Grid.Column="1" 
               Background="White" Cursor="IBeam" 
               Margin="15,15,0,15">
-
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="200" ShadowDepth="10"/>
             </Grid.Effect>
@@ -185,7 +184,6 @@
             <ListView x:Name="DataClients" 
                       FontSize="18" Cursor="IBeam" 
                       Grid.ColumnSpan="2" >
-                
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="ID" 

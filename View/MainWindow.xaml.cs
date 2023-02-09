@@ -29,9 +29,7 @@ namespace Modul_13
 
             CollectionView = CollectionViewSource.GetDefaultView(ViewModel.ClientsRepository);
 
-            InitializeComponent();
-
-            
+            InitializeComponent(); 
         }
 
         private void CloseWindows(object sender, RoutedEventArgs e)
@@ -188,25 +186,5 @@ namespace Modul_13
                 }
             }
         }
-
-       
-
-        //private void Tab_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    if (e.Source is TabControl)
-        //    {
-        //        //do work when tab is changed
-        //    }
-        //}
-
-        //private void TabItem_Selected(object sender, RoutedEventArgs e)
-        //{
-        //    var tab = sender as TabItem;
-        //    if (tab != null)
-        //    {
-
-        //    }
-
-        //}
     }
 }
