@@ -6,9 +6,11 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:Modul_13.View"
       xmlns:vm="clr-namespace:Modul_13.ViewModels"
+      xmlns:cmds="clr-namespace:Modul_13.Commands" 
       mc:Ignorable="d" 
-      d:DesignHeight="600" d:DesignWidth="220">
+      d:DesignHeight="700" d:DesignWidth="230">
     <Page.Resources>
+        <cmds:CommandConver x:Key="CommandConvert"/>
         <!--<vm:PanelWorkingWithDepositViewModel x:Key="Account"/>-->
         <DataTemplate x:Key="Temp">
             <StackPanel>
@@ -18,11 +20,11 @@
     </Page.Resources>
     
     <StackPanel  Orientation="Vertical" 
-                 HorizontalAlignment="Center">
+                 HorizontalAlignment="Center" Cursor="Hand">
 
-        <Grid Margin="0 30 0 0" Cursor="No">
+        <Grid Margin="0 10 0 0" Cursor="No">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="220"/>
+                <ColumnDefinition Width="230"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
@@ -39,16 +41,16 @@
                      Mode=FindAncestor}, 
                      UpdateSourceTrigger=PropertyChanged, 
                      ValidatesOnDataErrors=True}"
-                     FontSize="18" Width="180"     
+                     FontSize="18" Width="195"     
                      Grid.Column="0" Grid.Row="1"
                      HorizontalAlignment="Center" 
                      VerticalAlignment="Center"
                      IsReadOnly="True" Cursor="No"/>
         </Grid>
 
-        <Grid Margin="0 10 0 0" Cursor="No">
+        <Grid  Cursor="No">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="220"/>
+                <ColumnDefinition Width="230"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
@@ -72,9 +74,9 @@
                      IsReadOnly="True"/>
         </Grid>
 
-        <Grid Margin="0 10 0 0" Cursor="No">
+        <Grid  Cursor="No">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="220"/>
+                <ColumnDefinition Width="230"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
@@ -98,9 +100,9 @@
         </Grid>
 
         <Border Height="40" Width="200" 
-                            CornerRadius="20 20 20 20" 
-                            Background="Black"
-                            Margin="0 20"
+                CornerRadius="20 20 20 20" 
+                Background="Black"
+                Margin="0 10"           
                 DataContext="{Binding PanelWorkingWithDepositViewModel, 
                 Mode=OneWay, 
                 RelativeSource={RelativeSource FindAncestor, 
@@ -117,7 +119,7 @@
                                              Width="35">
                     <StackPanel>
                         <Button Content="Открыть счёт" 
-                                 Command="{Binding AddDepositCommand}"/>
+                                Command="{Binding AddDepositCommand}"/>
 
                         <Button Content="Закрыть счёт"
                                 Command="{Binding CloseDepositCommand}"/>
@@ -142,9 +144,32 @@
                         VerticalAlignment="Center" 
                         Margin="0 10 0 10"
                         IsReadOnly="True"/>
-        <Label Content="Выберите клиента для перевода" FontSize="16"/>
+        <TextBlock Text="Выберите клиента для перевода:" FontSize="18" 
+                   TextWrapping="Wrap" HorizontalAlignment="Center" 
+                   VerticalAlignment="Center"/>
+
+        <ListView x:Name="List_BankAccount"
+            ItemsSource="{Binding PanelWorkingWithDepositViewModel.AccountsRepo,
+            Mode=OneWay, UpdateSourceTrigger=PropertyChanged,
+            RelativeSource={RelativeSource FindAncestor, 
+            AncestorType={x:Type local:PanelWorkingWithDeposit}}}"
+            ScrollViewer.VerticalScrollBarVisibility="Visible"
+            ScrollViewer.CanContentScroll="True"
+            Width="190"
+            IsSynchronizedWithCurrentItem="True" MinHeight="200" MaxHeight="450">
+            <!--Height="290"-->
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Owner.FirstName}"/>
+                        <TextBlock Text="{Binding Owner.MiddleName}"/>
+                        <TextBlock Text="{Binding Owner.SecondName}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
         
-        <ComboBox x:Name="CustomersСhoice_ComboBox" 
+        <!--<ComboBox x:Name="CustomersСhoice_ComboBox" 
                   HorizontalAlignment="Center" 
                   FontSize="18"
                   VerticalAlignment="Center"
@@ -154,46 +179,50 @@
                     RelativeSource={RelativeSource FindAncestor, 
                     AncestorType={x:Type local:PanelWorkingWithDeposit}}}">
 
-            <!--<ComboBoxItem Content="Выберите клиента" IsSelected="True"/>-->
+            --><!--<ComboBoxItem Content="Выберите клиента" IsSelected="True"/>--><!--
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding Owner.FirstName}"></TextBlock>
-                        <TextBlock Text="{Binding Owner.SecondName}"></TextBlock>
+                        <TextBlock Text="{Binding Owner.FirstName}"></TextBlock>
                     </StackPanel>
                     
                 </DataTemplate>
             </ComboBox.ItemTemplate>
-        </ComboBox>
-        
-       
-        
+        </ComboBox>-->
 
-        <!--<Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-            </Grid.RowDefinitions>
+        <TextBlock Text="Сумма перевода" FontSize="18" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Bottom" FontWeight="Bold"/>
+        <TextBox x:Name="SumTransfer_TextBox" FontSize="18" Width="200" 
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Center" 
+                        Margin="0 10 0 10" />
 
-            <TextBlock Text="Недпозитный счёт" FontSize="18" 
-                           Grid.Column="0" Grid.Row="0"
-                           HorizontalAlignment="Center" 
-                           VerticalAlignment="Bottom" FontWeight="Bold"/>
-            <TextBox x:Name="NoInterestEarningAccount_TextBox" FontSize="18" Width="180"
-                         Text="{Binding SelectedItem.MiddleName, ElementName=DataClients, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                         Grid.Column="0" Grid.Row="1"
-                         HorizontalAlignment="Center" 
-                         VerticalAlignment="Center" 
-                         Cursor="Arrow"
-                         IsReadOnly="True"/>
-            <Button Grid.Row="2" Content="Перевести">
+
+        <Border Height="40" Width="200" 
+                CornerRadius="20 20 20 20" 
+                Background="Black" Cursor="Hand">
+
+            <Button x:Name="Transfer_Button"
+                    Content="Выполнить перевод" 
+                    Width="170"
+                    Background="Black" BorderBrush="{x:Null}"
+                    Cursor="Hand" 
+                    Command="{Binding PanelWorkingWithDepositViewModel.MakeTransfer, 
+                    Mode=OneWay, 
+                    RelativeSource={RelativeSource FindAncestor, 
+                    AncestorType={x:Type local:PanelWorkingWithDeposit}}}">
+                <Button.CommandParameter>
+                    <MultiBinding Converter ="{StaticResource CommandConvert}">
+                        <MultiBinding.Bindings>
+                            <Binding Path="SelectedItem" ElementName="List_BankAccount"/>
+                            <Binding Path="Text" ElementName="SumTransfer_TextBox"/>
+                        </MultiBinding.Bindings>
+                    </MultiBinding>
+                </Button.CommandParameter>
 
             </Button>
-        </Grid>-->
-
+        </Border>
     </StackPanel>
 </Page>

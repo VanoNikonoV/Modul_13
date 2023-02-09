@@ -47,5 +47,11 @@ namespace Modul_13.View
         {
 
         }
+
+        private void Transfer_Button_Clik(object sender, RoutedEventArgs e)
+        {
+            this.List_BankAccount.SelectedIndex = -1;
+            this.SumTransfer_TextBox.Text = string.Empty;
+        }
     }
 }

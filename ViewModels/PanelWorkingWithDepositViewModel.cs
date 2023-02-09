@@ -1,8 +1,12 @@
 ﻿using Modul_13.Cmds;
+using Modul_13.Commands;
 using Modul_13.Models;
 using Modul_13.ViewModels.Base;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace Modul_13.ViewModels
 {
@@ -42,10 +46,6 @@ namespace Modul_13.ViewModels
         }
         public Client CurrentClient { get => this.MWindow.DataClients.SelectedItem as Client; }
 
-        public PanelWorkingWithDepositViewModel()
-        {
-
-        }
         public PanelWorkingWithDepositViewModel(MainWindow window)
         {
             accountsRepo= new ObservableCollection<BankAccount>();
@@ -68,6 +68,10 @@ namespace Modul_13.ViewModels
         /// </summary>
         public RelayCommand CloseDepositCommand =>
             closeDepositCommand ?? (closeDepositCommand = new RelayCommand(CloseDeposit, CanCloseDeposit));
+
+        private RelayCommand<object> makeTransfer = null;
+
+        public RelayCommand<object> MakeTransfer => makeTransfer ?? (makeTransfer = new RelayCommand<object>(Transfer, CanMakeTransfer));
 
         //private RelayCommand addNoDepositCommand = null;
         ///// <summary>
@@ -101,6 +105,26 @@ namespace Modul_13.ViewModels
             
            this.CurrentAccount = null;
         }
+        /// <summary>
+        /// Корректность исходных данных для выполнения перевода
+        /// </summary>
+        /// <param name="agrs"></param>
+        /// <returns>false - если данные корректны
+        ///          true - если нет данных</returns>
+        private bool CanMakeTransfer(object agrs)
+        {
+            var array = agrs as object[];
+
+            BankAccount client = array[0] as BankAccount;
+
+            decimal sum;
+
+            if (client != null && Decimal.TryParse(array[1].ToString(), out sum))
+            {
+                return true;
+            }
+            else { return false; }
+        }
         private void AddNoDeposit()
         {
             //InterestNoEarningAccount account = new InterestEarningAccount(CurrentClient, 0);
@@ -131,6 +155,24 @@ namespace Modul_13.ViewModels
             this.CurrentAccount = account;
         }
 
+        private void Transfer(object agrs)
+        {
+            var array = agrs as object[];
+
+            BankAccount client = array[0] as BankAccount;
+
+            decimal sum;
+
+            if (Decimal.TryParse(array[1].ToString(), out sum))
+            {
+                CurrentAccount.ReplenishAccount(sum, DateTime.Now, $"Перевод от клиента с ID: {client.Owner.ID}");
+
+                client.MakeWithdrawal(sum, DateTime.Now, $"Списание в пользу клиента с ID:{CurrentAccount.Owner.ID}");
+            }
+            
+          
+        }
+
         /// <summary>
         /// Вызывается при изменении выбора в списке DataClients, тем самым обновляет выбранный элемент в коллекции AccountsRepo
         /// </summary>
@@ -139,6 +181,8 @@ namespace Modul_13.ViewModels
         { 
             this.CurrentAccount = AccountsRepo.FirstOrDefault(accont => accont.Owner == clienChanged);
         }
+
+        
         //collectionView.MoveCurrentTo(workspace);
         #endregion
     }
