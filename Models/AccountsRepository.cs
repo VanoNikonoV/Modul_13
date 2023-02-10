@@ -10,7 +10,7 @@ using System.Windows.Data;
 
 namespace Modul_13.Models
 {
-    public class AccountsRepository:List<BankAccount> 
+    public class AccountsRepository<T>:List<T> 
     {
         public ICollectionView CollectionView { get; set; }
 

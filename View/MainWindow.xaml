@@ -194,7 +194,7 @@
                                         DisplayMemberBinding="{Binding MiddleName}"/>
                         <GridViewColumn Header="Фамилия" 
                                         DisplayMemberBinding="{Binding SecondName}"/>
-                        <GridViewColumn x:Name="Passport" Header="Паспортные данные"  Width ="240"
+                        <GridViewColumn Header="Паспортные данные"  Width ="240"
                                         DisplayMemberBinding="{Binding SeriesAndPassportNumber}"/>
                         <GridViewColumn Header="Телефон"
                                         DisplayMemberBinding="{Binding Telefon}"/>

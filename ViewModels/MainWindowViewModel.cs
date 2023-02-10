@@ -102,12 +102,9 @@ namespace Modul_13.ViewModels
         /// </summary>
         private void DeleteClient()
         {
-            if (CurrentClient != null)
-            {
-               ClientsRepository.Remove(CurrentClient);
-            }
-            
+            if (CurrentClient != null) { ClientsRepository.Remove(CurrentClient);}  
         }
+
         /// <summary>
         /// Метод добавления нового клиенита
         /// </summary>
