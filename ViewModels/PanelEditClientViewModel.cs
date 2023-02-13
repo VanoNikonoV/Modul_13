@@ -37,25 +37,33 @@ namespace Modul_13.ViewModels
             }
         }
 
-        private ClientsRepository clientsRepository;
+        //private bankRepository bankRepository;
 
-        /// <summary>
-        /// Позволяет получить и изменить базу данных с клиентами
-        /// </summary>
-        public ClientsRepository ClientsRepository
+        ///// <summary>
+        ///// Позволяет получить и изменить базу данных с клиентами
+        ///// </summary>
+        //public bankRepository bankRepository
+        //{
+        //    get => bankRepository;
+
+        //    private set
+        //    {
+        //        Set(ref bankRepository, value, "bankRepository");
+
+        //        //if (bankRepository == value) return;
+        //        //bankRepository = value;
+        //    }
+        //}
+        private BankRepository bankRepository;
+        public BankRepository BankRepository
         {
-            get => clientsRepository;
-
+            get => bankRepository;
             private set
             {
-                Set(ref clientsRepository, value, "ClientsRepository");
-                
-                //if (clientsRepository == value) return;
-                //clientsRepository = value;
+                Set(ref bankRepository, value, "BankRepository");
             }
         }
-
-        public Client CurrentClient { get => this.MWindow.DataClients.SelectedItem as Client; }
+        public BankAccount CurrentClient { get => this.MWindow.DataClients.SelectedItem as BankAccount; }
         public Consultant Consultant { get; }
         public Meneger Meneger { get; }
 
@@ -67,7 +75,9 @@ namespace Modul_13.ViewModels
 
             this.Meneger = new Meneger();
 
-            this.ClientsRepository = MWindow.ViewModel.ClientsRepository;
+            this.BankRepository = MWindow.ViewModel.BankRepository;
+
+            //this.bankRepository = MWindow.ViewModel.bankRepository;
         }
 
         #region Команды
@@ -135,54 +145,54 @@ namespace Modul_13.ViewModels
         /// <param name = "client" ></ param >
         private void EditName(string newName)
         {
-            Client changedClient = Meneger.EditNameClient(CurrentClient, newName.Trim());
+            Client changedClient = Meneger.EditNameClient(CurrentClient.Owner, newName.Trim());
 
             if (changedClient.IsValid)
             {
-                int index = clientsRepository.IndexOf(CurrentClient);
+                int index = bankRepository.IndexOf(CurrentClient);
 
-                clientsRepository.ReplaceClient(index, changedClient);
+                bankRepository.ReplaceClient(index, changedClient);
             }
         }
         private void EditTelefon(string telefon)
         {
-            string whatChanges = string.Format(CurrentClient.Telefon + @" на " + telefon.Trim());
+            string whatChanges = string.Format(CurrentClient.Owner.Telefon + @" на " + telefon.Trim());
 
             //изменения в коллекции клиентов
-            Client changedClient = Consultant.EditeTelefonClient(telefon, CurrentClient);
+            Client changedClient = Consultant.EditeTelefonClient(telefon, CurrentClient.Owner);
 
-            if (changedClient.IsValid)
-            {
-                //изменения в коллекции банка, по ID клиента
-                Client editClient = ClientsRepository.First(i => i.ID == CurrentClient.ID); // try
+            //if (changedClient.IsValid)
+            //{
+            //    //изменения в коллекции банка, по ID клиента
+            //    Client editClient = bankRepository.First(i => i == CurrentClient); // try
 
-                editClient.Telefon = telefon.Trim();
+            //    editClient.Telefon = telefon.Trim();
 
-                switch (this.AccessLevel)
-                {
-                    case 0: //консультант
+            //    switch (this.AccessLevel)
+            //    {
+            //        case 0: //консультант
 
-                        editClient.InfoChanges.Add(new InformationAboutChanges(DateTime.Now, whatChanges, "замена", nameof(Consultant)));
+            //            editClient.InfoChanges.Add(new InformationAboutChanges(DateTime.Now, whatChanges, "замена", nameof(Consultant)));
 
-                        break;
+            //            break;
 
-                    case 1: //менждер
+            //        case 1: //менждер
 
-                        editClient.InfoChanges.Add(new InformationAboutChanges(DateTime.Now, whatChanges, "замена", nameof(Meneger)));
+            //            editClient.InfoChanges.Add(new InformationAboutChanges(DateTime.Now, whatChanges, "замена", nameof(Meneger)));
 
-                        break;
+            //            break;
 
-                    default:
-                        break;
-                }
-            }
-            else
-            {
-                MessageBox.Show(messageBoxText: changedClient.Error,
-                                      caption: "Ощибка в данных",
-                                     MessageBoxButton.OK,
-                                    icon: MessageBoxImage.Error);
-            }
+            //        default:
+            //            break;
+            //    }
+            //}
+            //else
+            //{
+            //    MessageBox.Show(messageBoxText: changedClient.Error,
+            //                          caption: "Ощибка в данных",
+            //                         MessageBoxButton.OK,
+            //                        icon: MessageBoxImage.Error);
+            //}
         }
 
         /// <summary>
@@ -193,11 +203,11 @@ namespace Modul_13.ViewModels
         {
             if (CurrentClient != null)
             {
-                Client changedClient = Meneger.EditMiddleNameClient(CurrentClient, middleName.Trim());
+                Client changedClient = Meneger.EditMiddleNameClient(CurrentClient.Owner, middleName.Trim());
 
-                int index = ClientsRepository.IndexOf(CurrentClient);
+                int index = bankRepository.IndexOf(CurrentClient);
 
-                ClientsRepository.ReplaceClient(index, changedClient);
+                bankRepository.ReplaceClient(index, changedClient);
             }
 
         }
@@ -206,11 +216,11 @@ namespace Modul_13.ViewModels
         {
             if (CurrentClient != null)
             {
-                Client changedClient = Meneger.EditSecondNameClient(CurrentClient, secondName.Trim());
+                Client changedClient = Meneger.EditSecondNameClient(CurrentClient.Owner, secondName.Trim());
 
-                int index = ClientsRepository.IndexOf(CurrentClient);
+                int index = bankRepository.IndexOf(CurrentClient);
 
-                ClientsRepository.ReplaceClient(index, changedClient);
+                bankRepository.ReplaceClient(index, changedClient);
             }
         }
 
@@ -218,11 +228,11 @@ namespace Modul_13.ViewModels
         {
             if (CurrentClient != null)
             {
-                Client changedClient = Meneger.EditSeriesAndPassportNumberClient(CurrentClient, passport.Trim());
+                Client changedClient = Meneger.EditSeriesAndPassportNumberClient(CurrentClient.Owner, passport.Trim());
 
-                int index = ClientsRepository.IndexOf(CurrentClient);
+                int index = bankRepository.IndexOf(CurrentClient);
 
-                ClientsRepository.ReplaceClient(index, changedClient);
+                bankRepository.ReplaceClient(index, changedClient);
             }
         }
     }

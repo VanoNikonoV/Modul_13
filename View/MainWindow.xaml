@@ -187,19 +187,19 @@
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="ID" 
-                                        DisplayMemberBinding="{Binding ID}"/>
+                                        DisplayMemberBinding="{Binding Owner.ID}"/>
                         <GridViewColumn Header="Имя" 
-                                        DisplayMemberBinding="{Binding FirstName}"/>
+                                        DisplayMemberBinding="{Binding Owner.FirstName}"/>
                         <GridViewColumn Header="Отчество" 
-                                        DisplayMemberBinding="{Binding MiddleName}"/>
+                                        DisplayMemberBinding="{Binding Owner.MiddleName}"/>
                         <GridViewColumn Header="Фамилия" 
-                                        DisplayMemberBinding="{Binding SecondName}"/>
+                                        DisplayMemberBinding="{Binding Owner.SecondName}"/>
                         <GridViewColumn Header="Паспортные данные"  Width ="240"
-                                        DisplayMemberBinding="{Binding SeriesAndPassportNumber}"/>
+                                        DisplayMemberBinding="{Binding Owner.SeriesAndPassportNumber}"/>
                         <GridViewColumn Header="Телефон"
-                                        DisplayMemberBinding="{Binding Telefon}"/>
+                                        DisplayMemberBinding="{Binding Owner.Telefon}"/>
                         <GridViewColumn Header="Дата и время" 
-                                        DisplayMemberBinding="{Binding DateOfEntry, StringFormat=g}"/>
+                                        DisplayMemberBinding="{Binding Owner.DateOfEntry, StringFormat=g}"/>
                         <GridViewColumn Header="Изм." 
                                         CellTemplate="{StaticResource CheckBox_Changed}"/>
 

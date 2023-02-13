@@ -77,13 +77,13 @@ namespace Modul_13.Models
         private List<Transaction> _allTransactions = new List<Transaction>();
 
         /// <summary>
-        /// Открытие нового счета, начальный баланс должен быть положительным
+        /// Пополнение (открытие нового) счета, начальный баланс должен быть положительным
         /// </summary>
         /// <param name="amount">Начальный баланс</param>
         /// <param name="date">Дата и время создания</param>
         /// <param name="note">Примечание</param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public void MakeDeposit( decimal amount, DateTime date, string note)
+        public void MakeDeposit(decimal amount, DateTime date, string note)
         {
             if (amount <= 0)
             {

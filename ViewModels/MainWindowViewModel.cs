@@ -15,18 +15,28 @@ namespace Modul_13.ViewModels
     {
         #region Свойства
        
-        private ClientsRepository clientsRepository;
+        //private ClientsRepository clientsRepository;
 
-        /// <summary>
-        /// Позволяет получить и изменить базу данных с клиентами
-        /// </summary>
-        public ClientsRepository ClientsRepository
+        ///// <summary>
+        ///// Позволяет получить и изменить базу данных с клиентами
+        ///// </summary>
+        //public ClientsRepository ClientsRepository
+        //{
+        //    get => clientsRepository;
+
+        //    private set
+        //    {
+        //        Set(ref clientsRepository, value, "ClientsRepository");
+        //    }
+        //}
+
+        private BankRepository bankRepository;
+        public BankRepository BankRepository 
         {
-            get => clientsRepository;
-
-            private set
+            get=> bankRepository;
+            private set 
             {
-                Set(ref clientsRepository, value, "ClientsRepository");
+                Set(ref bankRepository, value, "BankRepository");
             }
         }
 
@@ -66,7 +76,9 @@ namespace Modul_13.ViewModels
         {
             this.MWindow= mWindow;
 
-            this.ClientsRepository = new ClientsRepository("data.csv");
+            //this.ClientsRepository = new ClientsRepository("data.csv");
+
+            this.BankRepository = new BankRepository();
 
             this.Consultant = new Consultant();
 
@@ -102,7 +114,7 @@ namespace Modul_13.ViewModels
         /// </summary>
         private void DeleteClient()
         {
-            if (CurrentClient != null) { ClientsRepository.Remove(CurrentClient);}  
+            //if (CurrentClient != null) { ClientsRepository.Remove(CurrentClient);}  
         }
 
         /// <summary>
@@ -118,12 +130,12 @@ namespace Modul_13.ViewModels
 
             if (_windowNewClient.DialogResult == true)
             {
-                if (!ClientsRepository.Contains(_windowNewClient.NewClient))
-                {
-                    ClientsRepository.Add(_windowNewClient.NewClient);
-                }
+                //if (!ClientsRepository.Contains(_windowNewClient.NewClient))
+                //{
+                //    ClientsRepository.Add(_windowNewClient.NewClient);
+                //}
 
-                else ShowStatusBarText("Клиент с такими данными уже существует");
+                //else ShowStatusBarText("Клиент с такими данными уже существует");
             }
         }
 

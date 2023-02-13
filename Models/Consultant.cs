@@ -1,5 +1,6 @@
 ﻿using Modul_13.Interfases;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 
@@ -30,9 +31,9 @@ namespace Modul_13.Models
         /// Возвращает коллекцию клиентов со скрытими данными
         /// </summary>
         /// <returns>ObservableCollection<Client></returns>
-        public ObservableCollection<Client> ViewClientsData(ObservableCollection<Client> clients)
+        public IEnumerable<Client> ViewClientsData(IEnumerable<Client> clients)
         { 
-            ObservableCollection<Client> clientsForConsultant = new ObservableCollection<Client>();
+            List<Client> clientsForConsultant = new List<Client>();
 
             foreach (Client client in clients)
             {

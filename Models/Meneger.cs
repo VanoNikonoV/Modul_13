@@ -1,5 +1,6 @@
 ﻿using Modul_13.Interfases;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace Modul_13.Models
@@ -10,7 +11,7 @@ namespace Modul_13.Models
         /// Возвращает коллекцию клиентов
         /// </summary>
         /// <returns>ObservableCollection<Client></returns>
-        public new ObservableCollection<Client> ViewClientsData(ObservableCollection<Client> clients)
+        public IEnumerable<Client> ViewClientsData(IEnumerable<Client> clients)
         {
             return clients;
         }

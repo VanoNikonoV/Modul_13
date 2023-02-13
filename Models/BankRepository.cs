@@ -1,60 +1,36 @@
-﻿using System;
+﻿using Modul_13.ViewModels.Base;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Windows;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Data;
 
 namespace Modul_13.Models
 {
-    public class ClientsRepository: ObservableCollection<Client>
+    public class BankRepository:List<BankAccount> 
     {
-        public ClientsRepository(string path = "data.csv")  
+        public List<BankAccount> Collection { get; set; }
+
+        public BankRepository(string path = "")
         {
-            LoadData(path);
-                
-            //GetClientsRep(2);
+            //LoadData(path);
+
+            GetClientsRep(10);
+
+            Collection = this;
         }
 
-        /// <summary>
-        /// Заменяет клиента
-        /// </summary>
-        /// <param name="index">Индекс (с нуля) элемента, который требуется заменить</param>
-        /// <param name="editClient">Отредактированный клиент</param>
-        public void ReplaceClient(int index, Client editClient) { SetItem(index, editClient);}
- 
-        /// <summary>
-        /// Загружает данные о клиентах из файла data.csv
-        /// </summary>
-        /// <param name="path">Путь к файлу</param>
-        /// <returns></returns>
         private void LoadData(string path)
         {
-            if (File.Exists(path))
-            {
-                using (StreamReader reader = new StreamReader(path))
-                {
-                    while (!reader.EndOfStream)
-                    {
-                        string[] line = reader.ReadLine().Split('\t');
+            throw new NotImplementedException();
+        }
 
-                        this.Add(new Client(firstName: line[1],
-                                           middleName: line[2],
-                                           secondName: line[3],
-                                              telefon: line[4],
-                              seriesAndPassportNumber: line[5],
-                                             dateTime: Convert.ToDateTime(line[6]))); 
-                    }
-                }
-                   
-            }
-            else
-            {
-                MessageBox.Show("Не найден файл с данными",
-                caption: "Ощибка в чтении данных",
-                MessageBoxButton.OK,
-                icon: MessageBoxImage.Error);
-            }
-
-
+        public void ReplaceClient(int index, Client editClient)
+        { 
+            throw new NotImplementedException(); 
         }
 
         #region Автогенерация данных
@@ -71,13 +47,15 @@ namespace Modul_13.Models
 
                 passport += random.Next(1, 500);
 
-                this.Add(new Client(firstNames[ClientsRepository.randomize.Next(ClientsRepository.firstNames.Length)],
-                    middleNames[ClientsRepository.randomize.Next(ClientsRepository.middleNames.Length)],
-                    secondNames[ClientsRepository.randomize.Next(ClientsRepository.secondNames.Length)], 
-                    telefon.ToString(), 
-                    passport.ToString()));
+                Client _c = new Client(firstNames[BankRepository.randomize.Next(BankRepository.firstNames.Length)],
+                    middleNames[BankRepository.randomize.Next(BankRepository.middleNames.Length)],
+                    secondNames[BankRepository.randomize.Next(BankRepository.secondNames.Length)],
+                    telefon.ToString(),
+                    passport.ToString());
+
+                this.Add(new BankAccount (_c, 10,0));
             }
-            
+
         }
 
         static readonly string[] firstNames;
@@ -95,9 +73,9 @@ namespace Modul_13.Models
         /// Статический конструктор, в котором "хранятся"
         /// данные о именах и фамилиях баз данных firstNames и lastNames
         /// </summary>
-        static ClientsRepository()
+        static BankRepository()
         {
-            randomize = new Random(); 
+            randomize = new Random();
 
             firstNames = new string[] {
                 "Агата",
@@ -125,7 +103,7 @@ namespace Modul_13.Models
                 "Владимировна",
                 "Александровна",
                 "Тимофеевна"
-                
+
             };
 
             secondNames = new string[]

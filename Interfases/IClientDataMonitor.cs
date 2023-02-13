@@ -10,7 +10,7 @@ namespace Modul_13.Interfases
 {
     public interface IClientDataMonitor
     {
-        ObservableCollection<Client> ViewClientsData(ObservableCollection<Client>clients);
+        IEnumerable<Client> ViewClientsData(IEnumerable<Client>clients);
 
         Client EditeTelefonClient( string newData, Client client);
     }
