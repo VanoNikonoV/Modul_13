@@ -18,9 +18,12 @@ namespace Modul_13.Models
             if (Balance > 500m)
             {
                 decimal interest = Balance * 0.05m;
-                MakeDeposit(interest,
+
+                    MakeDeposit(interest,
                     DateTime.Now,
                     "Начислены ежемесячные проценты");
+      
+                
             }
         }
     }

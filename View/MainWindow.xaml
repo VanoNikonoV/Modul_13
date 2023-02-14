@@ -168,7 +168,7 @@
                 Background="{StaticResource MyGridBrushResource}"
                 Margin="0,60,0,10"
                 ItemTemplate="{StaticResource InfoChages}"
-                ItemsSource="{Binding SelectedItem.InfoChanges, ElementName=DataClients, UpdateSourceTrigger=PropertyChanged}" 
+                ItemsSource="{Binding SelectedItem.Owner.InfoChanges, ElementName=DataClients, UpdateSourceTrigger=PropertyChanged}" 
                 HorizontalAlignment="Stretch"
                 Width="{Binding ColumnDefinitions/ActualWidth, ElementName=СhangesGride, Mode=OneWay}"/>
         </Grid>
@@ -312,7 +312,8 @@
         <TabControl Grid.Column="0" Grid.Row="1" 
                     TabStripPlacement="Left"
                     x:Name="TabControl_CurrentClient" 
-                    DataContext="{Binding SelectedItem, ElementName=DataClients}">
+                    DataContext="{Binding SelectedItem, 
+                    ElementName=DataClients}">
             <TabControl.Resources>
                 <Style TargetType="TabItem">
                     <Setter Property="Template">

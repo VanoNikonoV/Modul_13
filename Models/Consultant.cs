@@ -28,31 +28,31 @@ namespace Modul_13.Models
         }
 
         /// <summary>
-        /// Возвращает коллекцию клиентов со скрытими данными
+        /// Возвращает коллекцию клиентов банка со скрытими данными
         /// </summary>
-        /// <returns>ObservableCollection<Client></returns>
-        public IEnumerable<Client> ViewClientsData(IEnumerable<Client> clients)
+        /// <returns>IEnumerable<BankAccount></returns>
+        public IEnumerable<BankAccount> ViewClientsData(IEnumerable<BankAccount> clients)
         { 
-            List<Client> clientsForConsultant = new List<Client>();
+            List<BankAccount> clientsForConsultant = new List<BankAccount>();
 
-            foreach (Client client in clients)
+            foreach (BankAccount client in clients)
             {
-                string concealment = ConcealmentOfSeriesAndPassportNumber(client.SeriesAndPassportNumber);
+                string concealment = ConcealmentOfSeriesAndPassportNumber(client.Owner.SeriesAndPassportNumber);
 
-                Client temp = new Client(firstName: client.FirstName,
-                                        middleName: client.MiddleName,
-                                        secondName: client.SecondName,
-                                           telefon: client.Telefon,
+                Client temp = new Client(firstName: client.Owner.FirstName,
+                                        middleName: client.Owner.MiddleName,
+                                        secondName: client.Owner.SecondName,
+                                           telefon: client.Owner.Telefon,
                            seriesAndPassportNumber: concealment,
-                                          dateTime: client.DateOfEntry,
-                                         currentId: client.ID,
-                                         isChanged: client.IsChanged);
+                                          dateTime: client.Owner.DateOfEntry,
+                                         currentId: client.Owner.ID,
+                                         isChanged: client.Owner.IsChanged);
 
-                temp.InfoChanges = client.InfoChanges;
+                temp.InfoChanges = client.Owner.InfoChanges;
 
-                temp.IsChanged = client.IsChanged;
+                temp.IsChanged = client.Owner.IsChanged;
 
-                clientsForConsultant.Add(temp);
+                clientsForConsultant.Add(new BankAccount(temp));
             }
 
             return clientsForConsultant;

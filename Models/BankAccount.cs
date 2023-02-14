@@ -48,11 +48,16 @@ namespace Modul_13.Models
         private static int accountNumberSeed = 0;
 
         private readonly decimal _minimumBalance;
-
-        public BankAccount(Client owner, decimal initialBalance) : this(owner, initialBalance, 0)
+        
+        /// <summary>
+        /// Создает акаунт клиента с без открытия счета
+        /// </summary>
+        /// <param name="owner">Информация о владельце счета</param>
+        public BankAccount(Client owner)
         {
-
+            this.Owner = owner;
         }
+        public BankAccount(Client owner, decimal initialBalance) : this(owner, initialBalance, 0) {  }
         /// <summary>
         /// Конструтор BankAccount 
         /// </summary>
@@ -191,6 +196,22 @@ namespace Modul_13.Models
         private void OnPropertyChanged(string propName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+        }
+
+        public bool Equals(BankAccount other)
+        {
+            if (this.Owner.FirstName == other.Owner.FirstName
+                && this.Owner.SecondName == other.Owner.SecondName
+                && this.Owner.MiddleName == other.Owner.MiddleName
+                && this.Owner.SeriesAndPassportNumber == other.Owner.SeriesAndPassportNumber
+                && this.Owner.Telefon == other.Owner.Telefon)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         #endregion
     }

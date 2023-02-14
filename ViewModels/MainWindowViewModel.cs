@@ -47,7 +47,7 @@ namespace Modul_13.ViewModels
         /// </summary>
         public MainWindow MWindow { get;}  
 
-        public Client CurrentClient { get => this.MWindow.DataClients.SelectedItem as Client; }
+        public BankAccount CurrentClient { get => this.MWindow.DataClients.SelectedItem as BankAccount; }
 
         /// <summary>
         /// Уровень доступа к базе данных для консультанта и менаджера, 
@@ -114,7 +114,7 @@ namespace Modul_13.ViewModels
         /// </summary>
         private void DeleteClient()
         {
-            //if (CurrentClient != null) { ClientsRepository.Remove(CurrentClient);}  
+            if (CurrentClient != null) { BankRepository.Remove(CurrentClient); }
         }
 
         /// <summary>
@@ -130,9 +130,11 @@ namespace Modul_13.ViewModels
 
             if (_windowNewClient.DialogResult == true)
             {
-                //if (!ClientsRepository.Contains(_windowNewClient.NewClient))
+                //if (!BankRepository.Contains(_windowNewClient.NewClient))
                 //{
-                //    ClientsRepository.Add(_windowNewClient.NewClient);
+                    BankAccount newAccount = new BankAccount(_windowNewClient.NewClient);
+                    
+                    BankRepository.Add(newAccount);
                 //}
 
                 //else ShowStatusBarText("Клиент с такими данными уже существует");

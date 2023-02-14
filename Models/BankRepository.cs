@@ -10,15 +10,15 @@ using System.Windows.Data;
 
 namespace Modul_13.Models
 {
-    public class BankRepository:List<BankAccount> 
+    public class BankRepository: ObservableCollection<BankAccount> 
     {
-        public List<BankAccount> Collection { get; set; }
+        public ObservableCollection<BankAccount> Collection { get; set; }
 
         public BankRepository(string path = "")
         {
             //LoadData(path);
 
-            GetClientsRep(10);
+            GetClientsRep(20);
 
             Collection = this;
         }
@@ -29,8 +29,8 @@ namespace Modul_13.Models
         }
 
         public void ReplaceClient(int index, Client editClient)
-        { 
-            throw new NotImplementedException(); 
+        {
+            this[index].Owner = editClient;
         }
 
         #region Автогенерация данных
@@ -53,7 +53,7 @@ namespace Modul_13.Models
                     telefon.ToString(),
                     passport.ToString());
 
-                this.Add(new BankAccount (_c, 10,0));
+                this.Add(new BankAccount (_c));
             }
 
         }

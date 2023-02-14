@@ -27,7 +27,7 @@
                            VerticalAlignment="Bottom" FontWeight="Bold" Foreground="Black"/>
             <TextBox x:Name="EditName_TextBox" 
                      FontSize="18" Width="135"
-                     Text="{Binding Path=DataContext.FirstName, Mode=OneWay,
+                     Text="{Binding Path=DataContext.Owner.FirstName, Mode=OneWay,
                      RelativeSource={RelativeSource AncestorType={x:Type Page}, 
                      Mode=FindAncestor}, 
                      UpdateSourceTrigger=PropertyChanged, 
@@ -67,7 +67,7 @@
                            Grid.ColumnSpan="3" HorizontalAlignment="Center" 
                            VerticalAlignment="Bottom" FontWeight="Bold"/>
             <TextBox x:Name="EditMiddleName_TextBox" FontSize="18" Width="135"
-                     Text="{Binding Path=DataContext.MiddleName, Mode=OneWay,
+                     Text="{Binding Path=DataContext.Owner.MiddleName, Mode=OneWay,
                      RelativeSource={RelativeSource AncestorType={x:Type Page}, 
                      Mode=FindAncestor}, 
                      UpdateSourceTrigger=PropertyChanged, 
@@ -108,7 +108,7 @@
                            Grid.ColumnSpan="3" HorizontalAlignment="Center" 
                            VerticalAlignment="Bottom" FontWeight="Bold"/>
             <TextBox x:Name="EditSecondName_TextBox" FontSize="18" Width="135"
-                     Text="{Binding Path=DataContext.SecondName, Mode=OneWay,
+                     Text="{Binding Path=DataContext.Owner.SecondName, Mode=OneWay,
                      RelativeSource={RelativeSource AncestorType={x:Type Page}, 
                      Mode=FindAncestor}, 
                      UpdateSourceTrigger=PropertyChanged, 
@@ -151,7 +151,7 @@
             <TextBox x:Name="EditSeriesAndPassportNumber_TextBox" 
                          FontSize="18"
                          Width="135"
-                         Text="{Binding Path=DataContext.SeriesAndPassportNumber, Mode=OneWay,
+                         Text="{Binding Path=DataContext.Owner.SeriesAndPassportNumber, Mode=OneWay,
                          RelativeSource={RelativeSource AncestorType={x:Type Page}, 
                          Mode=FindAncestor}, 
                          UpdateSourceTrigger=PropertyChanged, 
@@ -193,7 +193,7 @@
 
             <TextBox x:Name="EditTelefon_TextBox"
                          FontSize="18" Width="135"
-                         Text="{Binding Path=DataContext.Telefon, Mode=OneWay,
+                         Text="{Binding Path=DataContext.Owner.Telefon, Mode=TwoWay,
                          RelativeSource={RelativeSource AncestorType={x:Type Page}, 
                          Mode=FindAncestor}, 
                          UpdateSourceTrigger=PropertyChanged, 

@@ -36,7 +36,7 @@
                            HorizontalAlignment="Center" 
                            VerticalAlignment="Bottom" 
                            FontWeight="Bold" />
-            <TextBox Text="{Binding Path=DataContext.FirstName, Mode=OneWay,
+            <TextBox Text="{Binding Path=DataContext.Owner.FirstName, Mode=OneWay,
                      RelativeSource={RelativeSource AncestorType={x:Type Page}, 
                      Mode=FindAncestor}, 
                      UpdateSourceTrigger=PropertyChanged, 
@@ -62,7 +62,7 @@
                        HorizontalAlignment="Center" 
                        VerticalAlignment="Bottom" FontWeight="Bold"/>
             <TextBox FontSize="18" Width="180"
-                     Text="{Binding Path=DataContext.MiddleName, Mode=OneWay,
+                     Text="{Binding Path=DataContext.Owner.MiddleName, Mode=OneWay,
                      RelativeSource={RelativeSource AncestorType={x:Type Page}, 
                      Mode=FindAncestor}, 
                      UpdateSourceTrigger=PropertyChanged, 
@@ -88,7 +88,7 @@
                        HorizontalAlignment="Center" 
                        VerticalAlignment="Bottom" FontWeight="Bold"/>
             <TextBox  FontSize="18" Width="180"
-                      Text="{Binding Path=DataContext.SecondName, Mode=OneWay,
+                      Text="{Binding Path=DataContext.Owner.SecondName, Mode=OneWay,
                       RelativeSource={RelativeSource AncestorType={x:Type Page}, 
                       Mode=FindAncestor}, 
                       UpdateSourceTrigger=PropertyChanged, 
@@ -149,7 +149,7 @@
                    VerticalAlignment="Center"/>
 
         <ListView x:Name="List_BankAccount"
-            ItemsSource="{Binding PanelWorkingWithDepositViewModel.AccountsRepo,
+            ItemsSource="{Binding PanelWorkingWithDepositViewModel.BankRepository,
             Mode=OneWay, UpdateSourceTrigger=PropertyChanged,
             RelativeSource={RelativeSource FindAncestor, 
             AncestorType={x:Type local:PanelWorkingWithDeposit}}}"

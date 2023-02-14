@@ -17,9 +17,13 @@ namespace Modul_13.View
 
         public PanelWorkingWithDepositViewModel PanelWorkingWithDepositViewModel { get => panelWorkingWithDepositViewModel;  }
 
+        public BankRepository BanksRepository { get; set; }
+
         public PanelWorkingWithDeposit()
         {
             InitializeComponent();
+
+            BanksRepository = MWindow.ViewModel.BankRepository;
 
             panelWorkingWithDepositViewModel = new PanelWorkingWithDepositViewModel(MWindow);
 
@@ -33,7 +37,7 @@ namespace Modul_13.View
         /// <param name="e"></param>
         private void PanelWorkingWithDeposit_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            Client clienChanged = e.NewValue as Client;
+            BankAccount clienChanged = e.NewValue as BankAccount;
 
             PanelWorkingWithDepositViewModel.UpdateCurrentClient(clienChanged);
         }
@@ -48,10 +52,10 @@ namespace Modul_13.View
 
         }
 
-        private void Transfer_Button_Clik(object sender, RoutedEventArgs e)
-        {
-            this.List_BankAccount.SelectedIndex = -1;
-            this.SumTransfer_TextBox.Text = string.Empty;
-        }
+        //private void Transfer_Button_Clik(object sender, RoutedEventArgs e)
+        //{
+        //    this.List_BankAccount.SelectedIndex = -1;
+        //    this.SumTransfer_TextBox.Text = string.Empty;
+        //}
     }
 }

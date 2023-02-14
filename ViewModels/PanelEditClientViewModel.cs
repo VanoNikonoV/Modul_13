@@ -158,41 +158,40 @@ namespace Modul_13.ViewModels
         {
             string whatChanges = string.Format(CurrentClient.Owner.Telefon + @" на " + telefon.Trim());
 
-            //изменения в коллекции клиентов
-            Client changedClient = Consultant.EditeTelefonClient(telefon, CurrentClient.Owner);
+            CurrentClient.Owner.Telefon = telefon;
 
-            //if (changedClient.IsValid)
-            //{
-            //    //изменения в коллекции банка, по ID клиента
-            //    Client editClient = bankRepository.First(i => i == CurrentClient); // try
+            if (CurrentClient.Owner.IsValid)
+            {
+                //изменения в коллекции банка, по ID клиента
+                BankAccount editClient = bankRepository.First(i => i.Owner.ID == CurrentClient.Owner.ID); // try
 
-            //    editClient.Telefon = telefon.Trim();
+                editClient.Owner.Telefon = telefon;
 
-            //    switch (this.AccessLevel)
-            //    {
-            //        case 0: //консультант
+                switch (this.AccessLevel)
+                {
+                    case 0: //консультант
 
-            //            editClient.InfoChanges.Add(new InformationAboutChanges(DateTime.Now, whatChanges, "замена", nameof(Consultant)));
+                        editClient.Owner.InfoChanges.Add(new InformationAboutChanges(DateTime.Now, whatChanges, "замена", nameof(Consultant)));
 
-            //            break;
+                        break;
 
-            //        case 1: //менждер
+                    case 1: //менждер
 
-            //            editClient.InfoChanges.Add(new InformationAboutChanges(DateTime.Now, whatChanges, "замена", nameof(Meneger)));
+                        editClient.Owner.InfoChanges.Add(new InformationAboutChanges(DateTime.Now, whatChanges, "замена", nameof(Meneger)));
 
-            //            break;
+                        break;
 
-            //        default:
-            //            break;
-            //    }
-            //}
-            //else
-            //{
-            //    MessageBox.Show(messageBoxText: changedClient.Error,
-            //                          caption: "Ощибка в данных",
-            //                         MessageBoxButton.OK,
-            //                        icon: MessageBoxImage.Error);
-            //}
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                MessageBox.Show(messageBoxText: CurrentClient.Owner.Error,
+                                      caption: "Ощибка в данных",
+                                     MessageBoxButton.OK,
+                                    icon: MessageBoxImage.Error);
+            }
         }
 
         /// <summary>

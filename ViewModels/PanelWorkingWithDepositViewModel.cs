@@ -18,37 +18,44 @@ namespace Modul_13.ViewModels
         /// </summary>
         public MainWindow MWindow { get; }
 
-        private ObservableCollection<BankAccount> accountsRepo;
+        //private ObservableCollection<BankAccount> accountsRepo;
 
-        /// <summary>
-        /// Коллекция счетов банка
-        /// </summary>
-        public ObservableCollection<BankAccount> AccountsRepo
-        {
-            get { return accountsRepo; }
+        ///// <summary>
+        ///// Коллекция счетов банка
+        ///// </summary>
+        //public ObservableCollection<BankAccount> AccountsRepo
+        //{
+        //    get { return accountsRepo; }
 
-            private set
-            {
-                Set(ref accountsRepo, value, "AccountsRepo");
-            }
-        }
+        //    private set
+        //    {
+        //        Set(ref accountsRepo, value, "AccountsRepo");
+        //    }
+        //}
 
         private BankAccount currentAccount = null;
 
         public BankAccount CurrentAccount 
         {
-            get => currentAccount;
-            
+            get => currentAccount = this.MWindow.DataClients.SelectedItem as BankAccount;
+
+            private set => currentAccount = value;
+        }
+
+        private BankRepository bankAccounts = null;
+
+        public BankRepository BankRepository 
+        { 
+            get =>  this.MWindow.ViewModel.BankRepository; 
             set
             {
-                Set(ref currentAccount, value, "CurrentAccount");
+                Set(ref bankAccounts, value, "BankRepository");
             }
         }
-        public Client CurrentClient { get => this.MWindow.DataClients.SelectedItem as Client; }
 
         public PanelWorkingWithDepositViewModel(MainWindow window)
         {
-            accountsRepo= new ObservableCollection<BankAccount>();
+            //accountsRepo= new ObservableCollection<BankAccount>();
 
             this.MWindow = window;
         }
@@ -90,18 +97,20 @@ namespace Modul_13.ViewModels
         /// false - если счет не открыт</returns></returns>
         private bool CanCloseDeposit()
         {
-            var Client = AccountsRepo.Select(i => i.Owner);
+            return CurrentAccount.Number != null ? true: false;
 
-            return Client.Contains(CurrentClient);
+            //if(CurrentAccount.Number != null)
+
+            //return true; else return false;
         } 
         /// <summary>
         /// Выполняет поиск клиента и в случаи совпадения удаляет счет
         /// </summary>
         private void CloseDeposit()
         {
-           var Client = AccountsRepo.First(i => i.Owner == CurrentClient);
+           var Client = BankRepository.First(i => i == CurrentAccount);
 
-           AccountsRepo.Remove(Client);  
+           BankRepository.Remove(Client);  
             
            this.CurrentAccount = null;
         }
@@ -139,20 +148,24 @@ namespace Modul_13.ViewModels
         ///          true - если счет не открыт</returns>
         private bool CanAddDeposit()
         {
-            var Client = AccountsRepo.Select(i => i.Owner);
-
-            return !Client.Contains(CurrentClient); 
+            return CurrentAccount.Number != null ? false : true;
         }
         /// <summary>
         /// Добавление счета для выбранного клиента
         /// </summary>
         private void AddDeposit()
         {
-            InterestEarningAccount account = new InterestEarningAccount(CurrentClient, 10);
+            InterestEarningAccount account = new InterestEarningAccount(CurrentAccount.Owner, 10);
 
-            AccountsRepo.Add(account);
+            int index = BankRepository.IndexOf(CurrentAccount);
 
-            this.CurrentAccount = account;
+            BankRepository.Add(account);
+
+            //BankRepository.Insert(index, account);
+
+            //BankRepository.ReplaceClient(index, (BankAccount)account);
+
+            //this.CurrentAccount = account;
         }
 
         private void Transfer(object agrs)
@@ -175,12 +188,12 @@ namespace Modul_13.ViewModels
         /// Вызывается при изменении выбора в списке DataClients, тем самым обновляет выбранный элемент в коллекции AccountsRepo
         /// </summary>
         /// <param name="clienChanged">Выбранный клиент</param>
-        public void UpdateCurrentClient(Client clienChanged) 
-        { 
-            this.CurrentAccount = AccountsRepo.FirstOrDefault(accont => accont.Owner == clienChanged);
+        public void UpdateCurrentClient(BankAccount clienChanged)
+        {
+            this.CurrentAccount = BankRepository.FirstOrDefault(accont => accont == clienChanged);
         }
 
-        
+
         //collectionView.MoveCurrentTo(workspace);
         #endregion
     }

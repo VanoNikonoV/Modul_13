@@ -2,6 +2,8 @@
 using Modul_13.Models;
 using Modul_13.View;
 using Modul_13.ViewModels;
+using Modul_13.ViewModels.Base;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
@@ -27,13 +29,9 @@ namespace Modul_13
 
             this.DataContext = ViewModel;
 
-            
-
             CollectionView = CollectionViewSource.GetDefaultView(ViewModel.BankRepository);
 
             InitializeComponent(); 
-
-            this.DataClients.ItemsSource = CollectionView;
         }
 
         private void CloseWindows(object sender, RoutedEventArgs e)
@@ -52,7 +50,7 @@ namespace Modul_13
             {
                 case 0: //консультант
 
-                    //DataClients.ItemsSource = CollectionViewSource.GetDefaultView(ViewModel.Consultant.ViewClientsData(ViewModel.BankRepository));
+                    DataClients.ItemsSource = CollectionViewSource.GetDefaultView(ViewModel.Consultant.ViewClientsData(ViewModel.BankRepository));
 
                     break;
 
@@ -150,7 +148,7 @@ namespace Modul_13
 
                 foreach (var client in ViewModel.BankRepository)
                 {
-                    //client.IsChanged = false;
+                    client.Owner.IsChanged = false;
                 }
             }
 
