@@ -117,18 +117,7 @@ namespace Modul_13.Models
         //    allTransactions.Add(withdrawal);
         //}
 
-        /// <summary>
-        /// Пополнение счета 
-        /// </summary>
-        /// <param name="amount">Сумма перевода</param>
-        /// <param name="date">Дата и время операции</param>
-        /// <param name="note">Заметка об операции</param>
-        public void ReplenishAccount(decimal amount, DateTime date, string note)
-        {
-            var transfer = new Transaction(amount, date, note);
-
-            _allTransactions.Add(transfer);
-        }
+       
         /// <summary>
         /// Списание средст со счета, любой вывод не должен создавать отрицательный баланс
         /// </summary>

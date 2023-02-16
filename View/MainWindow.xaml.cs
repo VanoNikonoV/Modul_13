@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Navigation;
 
 namespace Modul_13
 {
@@ -30,8 +31,12 @@ namespace Modul_13
             this.DataContext = ViewModel;
 
             CollectionView = CollectionViewSource.GetDefaultView(ViewModel.BankRepository);
+            
+            InitializeComponent();
 
-            InitializeComponent(); 
+            
+
+            //TabControl_CurrentClient
         }
 
         private void CloseWindows(object sender, RoutedEventArgs e)
@@ -187,6 +192,11 @@ namespace Modul_13
                     IsMaximized= true;
                 }
             }
+        }
+
+        private void DataClient_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

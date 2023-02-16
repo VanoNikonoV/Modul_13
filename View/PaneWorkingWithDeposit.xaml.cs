@@ -11,36 +11,35 @@ namespace Modul_13.View
     /// </summary>
     public partial class PanelWorkingWithDeposit : Page
     {
-        public MainWindow MWindow = Application.Current.MainWindow as MainWindow;
+        //public MainWindow MWindow = Application.Current.MainWindow as MainWindow;
 
         private PanelWorkingWithDepositViewModel panelWorkingWithDepositViewModel;
 
         public PanelWorkingWithDepositViewModel PanelWorkingWithDepositViewModel { get => panelWorkingWithDepositViewModel;  }
 
-        public BankRepository BanksRepository { get; set; }
-
         public PanelWorkingWithDeposit()
         {
             InitializeComponent();
 
-            BanksRepository = MWindow.ViewModel.BankRepository;
+            panelWorkingWithDepositViewModel = new PanelWorkingWithDepositViewModel();
 
-            panelWorkingWithDepositViewModel = new PanelWorkingWithDepositViewModel(MWindow);
-
-            this.DataContextChanged += PanelWorkingWithDeposit_DataContextChanged;
+            //this.DataContextChanged += PanelWorkingWithDeposit_DataContextChanged;
         }
 
         /// <summary>
-        /// Метод передает обновленные данный о текущем клиенте выбранном в DataClients
+        /// Метод передает данный о текущем клиенте при смене TabItem, выбранном в списке DataClients
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PanelWorkingWithDeposit_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            BankAccount clienChanged = e.NewValue as BankAccount;
+        //private void PanelWorkingWithDeposit_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        //{
+        //    BankAccount clienChanged = e.NewValue as BankAccount;
 
-            PanelWorkingWithDepositViewModel.UpdateCurrentClient(clienChanged);
-        }
+        //    if (clienChanged != null)
+        //    {
+        //       PanelWorkingWithDepositViewModel.UpdateCurrentClient(clienChanged);
+        //    }
+        //}
 
         private void CustomersСhoice_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

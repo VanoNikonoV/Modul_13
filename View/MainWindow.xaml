@@ -183,7 +183,7 @@
 
             <ListView x:Name="DataClients" 
                       FontSize="18" Cursor="IBeam" 
-                      Grid.ColumnSpan="2" >
+                      Grid.ColumnSpan="2">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="ID" 
@@ -341,7 +341,7 @@
             </TabControl.Resources>
             <!--SelectionChanged="Tab_SelectionChanged">-->
 
-            <TabItem HorizontalAlignment="Center" MinWidth="25" Width="50" 
+            <TabItem HorizontalAlignment="Center" MinWidth="25" Width="40" 
                      ToolTip="Редактирования личных данных клиента">
                 <!--Selector.Selected="TabItem_Selected">-->
                 <TabItem.Header>
@@ -351,11 +351,11 @@
                                              HorizontalAlignment="Center"/>
                 </TabItem.Header>
 
-                <Frame Source="PanelInfoAndEditClient.xaml"/>
+                <Frame x:Name="PanelInfo" Source="PanelInfoAndEditClient.xaml"/>
             </TabItem>
             
             <!--Операции со счетом-->
-            <TabItem HorizontalAlignment="Center" MinWidth="25" Width="50"
+            <TabItem HorizontalAlignment="Center" MinWidth="25" Width="40"
                      ToolTip="Операции со счетом">
                 <!--Selector.Selected="TabItem_Selected">-->
 
@@ -365,7 +365,7 @@
                                              Height="25"
                                              HorizontalAlignment="Center"/>
                 </TabItem.Header>
-                <Frame Source="PaneWorkingWithDeposit.xaml"/>
+                <Frame x:Name="PanelWorking" Source="PaneWorkingWithDeposit.xaml"/>
             </TabItem>
         </TabControl>
 

@@ -14,22 +14,6 @@ namespace Modul_13.ViewModels
     public class MainWindowViewModel:ViewModel
     {
         #region Свойства
-       
-        //private ClientsRepository clientsRepository;
-
-        ///// <summary>
-        ///// Позволяет получить и изменить базу данных с клиентами
-        ///// </summary>
-        //public ClientsRepository ClientsRepository
-        //{
-        //    get => clientsRepository;
-
-        //    private set
-        //    {
-        //        Set(ref clientsRepository, value, "ClientsRepository");
-        //    }
-        //}
-
         private BankRepository bankRepository;
         public BankRepository BankRepository 
         {
@@ -45,9 +29,11 @@ namespace Modul_13.ViewModels
         /// определяется на основании выбраного параметра в элементе ListView "DataClients"
         /// принадлежащего MainWindow
         /// </summary>
-        public MainWindow MWindow { get;}  
+        public MainWindow MWindow { get;}
 
-        public BankAccount CurrentClient { get => this.MWindow.DataClients.SelectedItem as BankAccount; }
+
+        private BankAccount currentClient = null;
+        public BankAccount CurrentClient { get => currentClient = this.MWindow.DataClients.SelectedItem as BankAccount; }
 
         /// <summary>
         /// Уровень доступа к базе данных для консультанта и менаджера, 
@@ -75,8 +61,6 @@ namespace Modul_13.ViewModels
         public MainWindowViewModel(MainWindow mWindow) 
         {
             this.MWindow= mWindow;
-
-            //this.ClientsRepository = new ClientsRepository("data.csv");
 
             this.BankRepository = new BankRepository();
 

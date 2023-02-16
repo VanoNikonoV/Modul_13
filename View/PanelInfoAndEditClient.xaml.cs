@@ -9,7 +9,7 @@ namespace Modul_13.View
     /// </summary>
     public partial class PanelInfoAndEditClient : Page
     {
-        public MainWindow MWindow = Application.Current.MainWindow as MainWindow;
+        //public MainWindow MWindow = Application.Current.MainWindow as MainWindow;
 
         private PanelEditClientViewModel panelEditClientViewModel;
         public PanelEditClientViewModel PanelEditClientViewModel { get => panelEditClientViewModel;  }
@@ -18,7 +18,7 @@ namespace Modul_13.View
         {
             InitializeComponent();
 
-            panelEditClientViewModel = new PanelEditClientViewModel(MWindow);
+            panelEditClientViewModel = new PanelEditClientViewModel();
         }
     }
 }

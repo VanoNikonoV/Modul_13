@@ -63,9 +63,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\BankClient.cs" />
     <Compile Include="Models\BankRepository.cs" />
     <Compile Include="Models\BankAccount.cs" />
-    <Compile Include="Models\InterestEarningAccount.cs" />
+    <Compile Include="Models\NoDepositAccount.cs" />
+    <Compile Include="Models\DepositAccount.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="ViewModels\NewClientWindowViewModel.cs" />
     <Compile Include="ViewModels\PanelEditClientViewModel.cs" />

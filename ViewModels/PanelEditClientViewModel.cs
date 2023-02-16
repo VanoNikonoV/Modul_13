@@ -37,23 +37,6 @@ namespace Modul_13.ViewModels
             }
         }
 
-        //private bankRepository bankRepository;
-
-        ///// <summary>
-        ///// Позволяет получить и изменить базу данных с клиентами
-        ///// </summary>
-        //public bankRepository bankRepository
-        //{
-        //    get => bankRepository;
-
-        //    private set
-        //    {
-        //        Set(ref bankRepository, value, "bankRepository");
-
-        //        //if (bankRepository == value) return;
-        //        //bankRepository = value;
-        //    }
-        //}
         private BankRepository bankRepository;
         public BankRepository BankRepository
         {
@@ -67,17 +50,15 @@ namespace Modul_13.ViewModels
         public Consultant Consultant { get; }
         public Meneger Meneger { get; }
 
-        public PanelEditClientViewModel(MainWindow mWindow)
+        public PanelEditClientViewModel()
         {
-            this.MWindow = mWindow;
+            this.MWindow = Application.Current.MainWindow as MainWindow;
 
             this.Consultant = new Consultant();
 
             this.Meneger = new Meneger();
 
             this.BankRepository = MWindow.ViewModel.BankRepository;
-
-            //this.bankRepository = MWindow.ViewModel.bankRepository;
         }
 
         #region Команды
