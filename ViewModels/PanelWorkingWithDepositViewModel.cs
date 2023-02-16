@@ -161,7 +161,7 @@ namespace Modul_13.ViewModels
 
             if (Decimal.TryParse(array[1].ToString(), out sum))
             {
-                client.ReplenishAccount(sum, DateTime.Now, $"Перевод от клиента с ID: {CurrentAccount.Owner.ID}");
+                client.MakeDeposit(sum, DateTime.Now, $"Перевод от клиента с ID: {CurrentAccount.Owner.ID}");
 
                 CurrentAccount.MakeWithdrawal(sum, DateTime.Now, $"Списание в пользу клиента с ID:{client.Owner.ID}");
             }

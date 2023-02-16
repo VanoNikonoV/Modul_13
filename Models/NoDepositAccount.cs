@@ -9,22 +9,9 @@ namespace Modul_13.Models
     /// <summary>
     /// Счет для начисления процентов
     /// </summary>
-    public class InterestEarningAccount:BankAccount
+    public class NoDepositAccount:BankAccount
     {
-        public InterestEarningAccount(Client owner, decimal initialBalance) : base(owner, initialBalance) { }
+        public NoDepositAccount(Client owner, decimal initialBalance) : base(owner, initialBalance) { }
 
-        public override void PerformMonthEndTransactions()
-        {
-            if (Balance > 500m)
-            {
-                decimal interest = Balance * 0.05m;
-
-                    MakeDeposit(interest,
-                    DateTime.Now,
-                    "Начислены ежемесячные проценты");
-      
-                
-            }
-        }
     }
 }

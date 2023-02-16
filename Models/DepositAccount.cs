@@ -9,9 +9,9 @@ namespace Modul_13.Models
     /// <summary>
     /// Счет для начисления процентов
     /// </summary>
-    public class InterestEarningAccount:BankAccount
+    public class DepositAccount:BankAccount
     {
-        public InterestEarningAccount(Client owner, decimal initialBalance) : base(owner, initialBalance) { }
+        public DepositAccount(Client owner, decimal initialBalance) : base(owner, initialBalance) { }
 
         public override void PerformMonthEndTransactions()
         {

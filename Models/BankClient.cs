@@ -20,11 +20,13 @@ namespace Modul_13.Models
         /// <param name="bankClient">Базованя информация о клиенте</param>
         /// <param name="deposit">Депозитный счет</param>
         /// <param name="noDeposit">Не депозитный счет</param>
-        public BankClient(Client bankClient, DepositAccount deposit, NoDepositAccount noDeposit)
+        public BankClient(Client bankClient, DepositAccount deposit = null, NoDepositAccount noDeposit = null)
         {
             this.Bank_Client = bankClient;
             this.Deposit = deposit;
             this.NoDeposit = noDeposit;
         }
+
+        public void AddDeposit();
     }
 }
