@@ -1,17 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Modul_13.Models
 {
-    public class BankClient
+    public class BankClient : INotifyPropertyChanged
     {
-        public Client Bank_Client { get; set; }
+        /// <summary>
+        /// Cведения о владельце счета
+        /// </summary>
+        public Client Owner { get; set; }
 
+        /// <summary>
+        /// Депозитный счет
+        /// </summary>
         public DepositAccount Deposit { get; set; }
 
+        /// <summary>
+        /// Недепозитный счет
+        /// </summary>
         public NoDepositAccount NoDeposit { get; set; }
 
         /// <summary>
@@ -20,13 +30,30 @@ namespace Modul_13.Models
         /// <param name="bankClient">Базованя информация о клиенте</param>
         /// <param name="deposit">Депозитный счет</param>
         /// <param name="noDeposit">Не депозитный счет</param>
-        public BankClient(Client bankClient, DepositAccount deposit = null, NoDepositAccount noDeposit = null)
+        public BankClient(Client owner, DepositAccount deposit = null, NoDepositAccount noDeposit = null)
         {
-            this.Bank_Client = bankClient;
+            this.Owner = owner;
             this.Deposit = deposit;
             this.NoDeposit = noDeposit;
         }
 
-        public void AddDeposit();
+        /// <summary>
+        /// Открытие нового депозитного счета 
+        /// </summary>
+        /// <param name="initialBalance">Начальный баланс при открытии счета</param>
+        /// <param name="minimumBalance">Минимальный баланс при открытии счета</param>
+        public void AddDeposit(decimal initialBalance, decimal minimumBalance)
+        {
+            this.Deposit = new DepositAccount(initialBalance, minimumBalance);
+        }
+
+        #region PropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(string propName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+        }
+        #endregion
     }
 }

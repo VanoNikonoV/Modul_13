@@ -12,19 +12,6 @@ namespace Modul_13.Models
         /// </summary>
         public string Number { get; }
 
-        private Client owner;
-        /// <summary>
-        /// Cведения о владельце счета
-        /// </summary>
-        public Client Owner 
-        {
-            get => owner;
-            set 
-            { if (owner == value) return;
-                owner = value;
-                OnPropertyChanged(nameof(Owner));
-            }
-        }
         /// <summary>
         /// Вычесляет сальдо на основании журнала транзакций 
         /// </summary>
@@ -49,25 +36,15 @@ namespace Modul_13.Models
 
         private readonly decimal _minimumBalance;
         
-        /// <summary>
-        /// Создает акаунт клиента с без открытия счета
-        /// </summary>
-        /// <param name="owner">Информация о владельце счета</param>
-        public BankAccount(Client owner)
-        {
-            this.Owner = owner;
-        }
-        public BankAccount(Client owner, decimal initialBalance) : this(owner, initialBalance, 0) {  }
+        public BankAccount(decimal initialBalance) : this(initialBalance, 0) {  }
+
         /// <summary>
         /// Конструтор BankAccount 
         /// </summary>
-        /// <param name="owner">Данные о владельце счета</param>
         /// <param name="initialBalance">Начальный баланс при открытии счета</param>
         /// <param name="minimumBalance">Минимальный баланс при открытии счета</param>
-        public BankAccount(Client owner, decimal initialBalance, decimal minimumBalance)
+        public BankAccount(decimal initialBalance, decimal minimumBalance)
         {
-            this.Owner = owner;
-
             this.Number = accountNumberSeed.ToString();
             accountNumberSeed++;
 
@@ -99,24 +76,6 @@ namespace Modul_13.Models
 
             _allTransactions.Add(deposit);
         }
-
-        //public void MakeWithdrawal(decimal amount, DateTime date, string note)
-        //{
-        //    if (amount <= 0)
-        //    {
-        //        throw new ArgumentOutOfRangeException(nameof(amount), "Amount of withdrawal must be positive");
-        //    }
-
-        //    if (Balance - amount < _minimumBalance)
-        //    {
-        //        throw new InvalidOperationException("Недостаточно средств для этого вывода");
-        //    }
-
-        //    var withdrawal = new Transaction(-amount, date, note);
-
-        //    allTransactions.Add(withdrawal);
-        //}
-
        
         /// <summary>
         /// Списание средст со счета, любой вывод не должен создавать отрицательный баланс
@@ -175,10 +134,8 @@ namespace Modul_13.Models
         /// <summary>
         /// Операция с денежными средствами в конце каждого месяца
         /// </summary>
-        public virtual void PerformMonthEndTransactions()
-        {
+        public virtual void PerformMonthEndTransactions() {  }
 
-        }
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -187,21 +144,6 @@ namespace Modul_13.Models
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
 
-        public bool Equals(BankAccount other)
-        {
-            if (this.Owner.FirstName == other.Owner.FirstName
-                && this.Owner.SecondName == other.Owner.SecondName
-                && this.Owner.MiddleName == other.Owner.MiddleName
-                && this.Owner.SeriesAndPassportNumber == other.Owner.SeriesAndPassportNumber
-                && this.Owner.Telefon == other.Owner.Telefon)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
         #endregion
     }
 }

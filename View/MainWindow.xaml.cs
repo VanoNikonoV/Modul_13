@@ -33,10 +33,6 @@ namespace Modul_13
             CollectionView = CollectionViewSource.GetDefaultView(ViewModel.BankRepository);
             
             InitializeComponent();
-
-            
-
-            //TabControl_CurrentClient
         }
 
         private void CloseWindows(object sender, RoutedEventArgs e)
@@ -194,9 +190,5 @@ namespace Modul_13
             }
         }
 
-        private void DataClient_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
     }
 }

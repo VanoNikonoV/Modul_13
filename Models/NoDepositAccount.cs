@@ -11,7 +11,7 @@ namespace Modul_13.Models
     /// </summary>
     public class NoDepositAccount:BankAccount
     {
-        public NoDepositAccount(Client owner, decimal initialBalance) : base(owner, initialBalance) { }
+        public NoDepositAccount( decimal initialBalance, decimal minimumBalance) : base(initialBalance, minimumBalance) { }
 
     }
 }

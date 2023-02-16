@@ -15,9 +15,9 @@ namespace Modul_13.ViewModels
       
         public MainWindow MWindow { get; }
 
-        private BankAccount currentAccount = null;
+        private BankClient currentAccount = null;
 
-        public BankAccount CurrentAccount
+        public BankClient CurrentAccount
         {
             get => currentAccount = MWindow.ViewModel.CurrentClient;
         }
@@ -78,7 +78,7 @@ namespace Modul_13.ViewModels
         /// false - если счет не открыт</returns></returns>
         private bool CanCloseDeposit()
         {
-            return CurrentAccount?.Number != null ? true: false;
+            return CurrentAccount?.Deposit != null ? true: false;
 
             //if(CurrentAccount.Number != null)
 
@@ -129,7 +129,7 @@ namespace Modul_13.ViewModels
         ///          true - если счет не открыт</returns>
         private bool CanAddDeposit()
         {
-            return CurrentAccount?.Number != null ? false : true;
+            return CurrentAccount?.Deposit != null ? false : true;
         }
         /// <summary>
         /// Добавление счета для выбранного клиента
@@ -138,11 +138,11 @@ namespace Modul_13.ViewModels
         {
             int index = bankRepository.IndexOf(CurrentAccount); //DataClient
 
+
+
+            CurrentAccount.AddDeposit(10, 10);
+
             
-
-            InterestEarningAccount account = new InterestEarningAccount(CurrentAccount.Owner, 10);
-
-            BankRepository.Add(account);
 
             //BankRepository.Insert(index, account);
 
@@ -155,15 +155,15 @@ namespace Modul_13.ViewModels
         {
             var array = agrs as object[];
 
-            BankAccount client = array[0] as BankAccount;
+            BankClient client = array[0] as BankClient;
 
             decimal sum;
 
             if (Decimal.TryParse(array[1].ToString(), out sum))
             {
-                client.MakeDeposit(sum, DateTime.Now, $"Перевод от клиента с ID: {CurrentAccount.Owner.ID}");
+                //client.MakeDeposit(sum, DateTime.Now, $"Перевод от клиента с ID: {CurrentAccount.Owner.ID}");
 
-                CurrentAccount.MakeWithdrawal(sum, DateTime.Now, $"Списание в пользу клиента с ID:{client.Owner.ID}");
+                //CurrentAccount.MakeWithdrawal(sum, DateTime.Now, $"Списание в пользу клиента с ID:{client.Owner.ID}");
             }
         }
 

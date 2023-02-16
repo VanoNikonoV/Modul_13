@@ -46,7 +46,7 @@ namespace Modul_13.ViewModels
                 Set(ref bankRepository, value, "BankRepository");
             }
         }
-        public BankAccount CurrentClient { get => this.MWindow.DataClients.SelectedItem as BankAccount; }
+        public BankClient CurrentClient { get => this.MWindow.DataClients.SelectedItem as BankClient; }
         public Consultant Consultant { get; }
         public Meneger Meneger { get; }
 
@@ -144,7 +144,7 @@ namespace Modul_13.ViewModels
             if (CurrentClient.Owner.IsValid)
             {
                 //изменения в коллекции банка, по ID клиента
-                BankAccount editClient = bankRepository.First(i => i.Owner.ID == CurrentClient.Owner.ID); // try
+                BankClient editClient = bankRepository.First(i => i.Owner.ID == CurrentClient.Owner.ID); // try
 
                 editClient.Owner.Telefon = telefon;
 

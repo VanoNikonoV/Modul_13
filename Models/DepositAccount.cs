@@ -11,7 +11,7 @@ namespace Modul_13.Models
     /// </summary>
     public class DepositAccount:BankAccount
     {
-        public DepositAccount(Client owner, decimal initialBalance) : base(owner, initialBalance) { }
+        public DepositAccount(decimal initialBalance, decimal minimumBalance) : base(initialBalance, minimumBalance) { }
 
         public override void PerformMonthEndTransactions()
         {
