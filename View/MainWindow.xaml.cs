@@ -51,7 +51,10 @@ namespace Modul_13
             {
                 case 0: //консультант
 
-                    DataClients.ItemsSource = CollectionViewSource.GetDefaultView(ViewModel.Consultant.ViewClientsData(ViewModel.BankRepository));
+                    DataClients.ItemsSource = CollectionView;
+                    //DataClients.ItemsSource = CollectionViewSource.GetDefaultView(ViewModel.Consultant.ViewClientsData(ViewModel.BankRepository));
+                    // Для консультанта нужно реализовать поиск в базе менаджера
+                    // По ID?
 
                     break;
 

@@ -1,4 +1,5 @@
-﻿using Modul_13.ViewModels;
+﻿using Modul_13.Models;
+using Modul_13.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -17,6 +18,9 @@ namespace Modul_13.View
             InitializeComponent();
 
             PanelEditClientViewModel = new PanelEditClientViewModel();
+
+            //PanelEditClientViewModel.CurrentClient = DataContext as BankClient;   
+               
         }
     }
 }

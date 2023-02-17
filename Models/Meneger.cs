@@ -11,7 +11,7 @@ namespace Modul_13.Models
         /// Возвращает коллекцию клиентов
         /// </summary>
         /// <returns>ObservableCollection<Client></returns>
-        public new IEnumerable<Client> ViewClientsData(IEnumerable<Client> clients)
+        public new IEnumerable<BankClient> ViewClientsData(IEnumerable<BankClient> clients)
         {
             return clients;
         }

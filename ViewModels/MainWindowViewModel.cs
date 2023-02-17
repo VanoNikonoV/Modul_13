@@ -31,7 +31,6 @@ namespace Modul_13.ViewModels
         /// </summary>
         public MainWindow MWindow { get;}
 
-
         private BankClient currentClient = null;
         public BankClient CurrentClient { get => currentClient = this.MWindow.DataClients.SelectedItem as BankClient; }
 

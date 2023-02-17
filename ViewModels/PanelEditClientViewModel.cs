@@ -88,8 +88,24 @@ namespace Modul_13.ViewModels
             editSeriesAndPassportNumberCommand ?? (editSeriesAndPassportNumberCommand
             = new RelayCommand<string>(EditSeriesAndPassportNumber, CanEdit));
 
+        private RelayCommand addDepositCommand = null;
+        /// <summary>
+        /// Команда добавление ДЕПОЗИТНОГО счета для выбранного клиента 
+        /// </summary>
+        public RelayCommand AddDepositCommand =>
+            addDepositCommand ?? (addDepositCommand = new RelayCommand(AddDeposit, CanAddDeposit));
+
+        private RelayCommand closeDepositCommand = null;
+        /// <summary>
+        /// Команда закрытия ДЕПОЗИТНОГО счета для выбранного клиента
+        /// </summary>
+        public RelayCommand CloseDepositCommand =>
+            closeDepositCommand ?? (closeDepositCommand = new RelayCommand(CloseDeposit, CanCloseDeposit));
+
+
         #endregion
 
+        #region Редактирование личных данных клиента
         /// <summary>
         /// Опреляет допускается ли редактировать номер телефона клиента
         /// </summary>
@@ -215,5 +231,65 @@ namespace Modul_13.ViewModels
                 bankRepository.ReplaceClient(index, changedClient);
             }
         }
+        #endregion
+
+        #region Методы для работы со счетами
+        /// <summary>
+        /// Проверка наличия открытого счета у клиента
+        /// </summary>
+        /// <returns>
+        /// true - если у выбранного клиента открыт счет
+        /// false - если счет не открыт</returns></returns>
+        private bool CanCloseDeposit()
+        {
+            return CurrentClient?.Deposit != null ? true : false;
+
+            //if(CurrentAccount.Number != null)
+
+            //return true; else return false;
+        }
+        /// <summary>
+        /// Выполняет поиск клиента и в случаи совпадения удаляет счет
+        /// </summary>
+        private void CloseDeposit()
+        {
+            var Client = BankRepository.First(i => i == CurrentClient);
+
+            BankRepository.Remove(Client);
+
+            //this.CurrentAccount = null;
+        }
+       
+        private void AddNoDeposit()
+        {
+            //InterestNoEarningAccount account = new InterestEarningAccount(CurrentClient, 0);
+
+            //AccountsRepo.Add(account);
+        }
+
+        /// <summary>
+        /// Проверка наличия открытого счета у клиента
+        /// </summary>
+        /// <returns>false - если у выбранного клиента отрыт счет
+        ///          true - если счет не открыт</returns>
+        private bool CanAddDeposit()
+        {
+            return CurrentClient?.Deposit != null ? false : true;
+        }
+        /// <summary>
+        /// Добавление счета для выбранного клиента
+        /// </summary>
+        private void AddDeposit()
+        {
+            int index = bankRepository.IndexOf(CurrentClient);
+
+            CurrentClient.AddDeposit(100, 1);
+
+
+            BankRepository.ReplaceDeposit(CurrentClient);
+
+        }
+
+        #endregion
     }
 }

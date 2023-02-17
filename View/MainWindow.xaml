@@ -202,6 +202,7 @@
                                         DisplayMemberBinding="{Binding Owner.DateOfEntry, StringFormat=g}"/>
                         <GridViewColumn Header="Изм." 
                                         CellTemplate="{StaticResource CheckBox_Changed}"/>
+                        <GridViewColumn Header="Счет" DisplayMemberBinding="{Binding Deposit.Balance}"/>
 
                     </GridView>
                 </ListView.View>
@@ -341,7 +342,9 @@
             </TabControl.Resources>
             <!--SelectionChanged="Tab_SelectionChanged">-->
 
-            <TabItem HorizontalAlignment="Center" MinWidth="25" Width="40" 
+            <TabItem HorizontalAlignment="Center" Margin="5 0 0 0"
+                     MinWidth="30" Width="45" 
+                     Height="40"
                      ToolTip="Редактирования личных данных клиента">
                 <!--Selector.Selected="TabItem_Selected">-->
                 <TabItem.Header>
@@ -355,7 +358,9 @@
             </TabItem>
             
             <!--Операции со счетом-->
-            <TabItem HorizontalAlignment="Center" MinWidth="25" Width="40"
+            <TabItem HorizontalAlignment="Center" Margin="5 0 0 0" 
+                     MinWidth="30" Width="45"
+                     Height="40"
                      ToolTip="Операции со счетом">
                 <!--Selector.Selected="TabItem_Selected">-->
 

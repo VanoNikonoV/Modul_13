@@ -12,15 +12,12 @@ namespace Modul_13.Models
 {
     public class BankRepository: ObservableCollection<BankClient> 
     {
-        public ObservableCollection<BankClient> Collection { get; set; }
 
         public BankRepository(string path = "")
         {
             //LoadData(path);
 
             GetClientsRep(20);
-
-            Collection = this;
         }
 
         private void LoadData(string path)
@@ -30,7 +27,14 @@ namespace Modul_13.Models
 
         public void ReplaceClient(int index, Client editClient)
         {
-            
+            this[index].Owner = editClient;
+        }
+
+        public void ReplaceDeposit(BankClient currentClient)
+        {
+            int i = this.IndexOf(currentClient);
+
+            this[i] = currentClient;
         }
 
         #region Автогенерация данных
@@ -53,10 +57,12 @@ namespace Modul_13.Models
                     telefon.ToString(),
                     passport.ToString());
 
-                this.Add(new BankClient (_c));
+                this.Add(new BankClient (_c)); 
             }
-
+            this[0].Deposit = new DepositAccount(100, 10);
         }
+
+       
 
         static readonly string[] firstNames;
 

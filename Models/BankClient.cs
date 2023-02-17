@@ -45,6 +45,17 @@ namespace Modul_13.Models
         public void AddDeposit(decimal initialBalance, decimal minimumBalance)
         {
             this.Deposit = new DepositAccount(initialBalance, minimumBalance);
+            OnPropertyChanged(nameof(Deposit));
+        }
+
+        public void Transfer(BankClient recipient, decimal amount)
+        {
+            if(recipient != this)
+            {
+                this.Deposit.MakeWithdrawal(amount, DateTime.Now, $"Списание {amount} в пользу клиента с:{recipient.Owner.FirstName}");
+
+                recipient.Deposit.MakeDeposit(amount, DateTime.Now, $"Перевод {amount} от клиента с : {this.Owner.FirstName}");
+            }
         }
 
         #region PropertyChanged

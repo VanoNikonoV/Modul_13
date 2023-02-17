@@ -9,7 +9,7 @@
       d:DesignHeight="600" d:DesignWidth="220">
 
     <StackPanel     Orientation="Vertical" 
-                    HorizontalAlignment="Right">
+                    HorizontalAlignment="Right" Background="White">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="155"/>
@@ -218,6 +218,36 @@
             </Button>
 
         </Grid>
+
+        <Border Height="40" Width="200" 
+                CornerRadius="20 20 20 20" 
+                Background="Black"
+                Margin="0 10"
+                ToolTip="Операции с депозитным счетом" 
+                DataContext="{Binding PanelEditClientViewModel,Mode=OneWay, 
+                RelativeSource={RelativeSource FindAncestor,
+                AncestorType={x:Type local:PanelInfoAndEditClient}}}">
+
+            <StackPanel Height="30" Width="200" Orientation="Horizontal"
+                            HorizontalAlignment="Center">
+
+                <TextBlock Text="Депозитный счёт" 
+                               FontSize="16" Width="165"
+                               Padding="10 2 0 0 " Foreground="#FFFFFDFD"/>
+                <materialDesign:PopupBox PlacementMode ="BottomAndAlignRightEdges"
+                                             StaysOpen="False" Foreground="#FFFFF7F7"
+                                             Width="35">
+                <StackPanel>
+                    <Button Content="Открыть счёт" 
+                                Command="{Binding AddDepositCommand}"/>
+
+                        <Button Content="Закрыть счёт"
+                                Command="{Binding CloseDepositCommand}"/>
+
+                    </StackPanel>
+                </materialDesign:PopupBox>
+            </StackPanel>
+        </Border>
 
         <!--Открытие счет для выбранного клиента--><!--
         <Border Height="40" Width="210" 
