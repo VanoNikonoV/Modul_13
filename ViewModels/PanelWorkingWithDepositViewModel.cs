@@ -1,11 +1,8 @@
-﻿using Modul_13.Cmds;
-using Modul_13.Commands;
+﻿using Modul_13.Commands;
 using Modul_13.Models;
 using Modul_13.ViewModels.Base;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -13,16 +10,41 @@ namespace Modul_13.ViewModels
 {
     public class PanelWorkingWithDepositViewModel : ViewModel
     {
+        /// <summary>
+        /// Ссылка на главное окно
+        /// </summary>
         public MainWindow MWindow { get; }
-
-        private BankClient currentClient;
-        public BankClient CurrentClient
+        /// <summary>
+        /// Отправитель платежа
+        /// </summary>
+        private BankClient sender;
+        /// <summary>
+        /// Отправитель платежа
+        /// </summary>
+        public BankClient Sender
         {
             get => this.MWindow.DataClients.SelectedItem as BankClient;
-            set { Set(ref currentClient, value, "CurrentClient"); }
+            set { Set(ref sender, value); }
         }
-
+        /// <summary>
+        /// Получатель платежа
+        /// </summary>
+        private BankClient recipient;
+        /// <summary>
+        /// Получатель платежа
+        /// </summary>
+        public BankClient Recipient 
+        { 
+            get => recipient;
+            set { Set(ref recipient, value); }  
+        }
+        /// <summary>
+        /// Список клиентов банка
+        /// </summary>
         private BankRepository bankRepository;
+        /// <summary>
+        /// Список клиентов банка
+        /// </summary>
         public BankRepository BankRepository
         {
             get => bankRepository;
@@ -31,37 +53,40 @@ namespace Modul_13.ViewModels
                 Set(ref bankRepository, value, "BankRepository");
             }
         }
+        /// <summary>
+        /// Список клиентов с открытым депозитным счетом счетом
+        /// </summary>
+        private IEnumerable<BankClient> onlyDepositRepository;
+        /// <summary>
+        /// Список клиентов с открытым депозитным счетом счетом
+        /// </summary>
+        public IEnumerable<BankClient> OnlyDepositRepository 
+        { 
+            get => onlyDepositRepository;
+            set
+            {
+                Set(ref onlyDepositRepository, value, "OnlyDepositRepository");
+            }
+        }
 
-        //private ObservableCollection<BankClient> onlyDepositRepository;
-        //public ObservableCollection<BankClient> OnlyDepositRepository 
-        //{
+        #region UI
 
-        //    get 
-        //    {
-        //        ObservableCollection<BankClient> temp = (ObservableCollection<BankClient>)BankRepository.Where(t => t.Deposit != null);
-        //        onlyDepositRepository = temp as ObservableCollection<BankClient>;
-        //        return onlyDepositRepository
-        //    }
+        public TextBox SumTransfer { get; set; }
 
-        //    set 
-        //    {
-        //        Set(ref onlyDepositRepository, value, "OnlyDepositRepository"); 
-        //    }
-        //}
+        #endregion
 
         public PanelWorkingWithDepositViewModel()
         {
             this.MWindow =  Application.Current.MainWindow as MainWindow;
 
             this.BankRepository = MWindow.ViewModel.BankRepository;
-           
         }
 
         #region Команды для работы с депозитным счетом
 
-        private RelayCommand<object> makeTransfer = null;
+        private RelayCommand<string> makeTransfer = null;
 
-        public RelayCommand<object> MakeTransfer => makeTransfer ?? (makeTransfer = new RelayCommand<object>(Transfer, CanMakeTransfer));
+        public RelayCommand<string> MakeTransfer => makeTransfer ?? (makeTransfer = new RelayCommand<string>(TransferExecuted, CanMakeTransfer));
 
         //private RelayCommand addNoDepositCommand = null;
         ///// <summary>
@@ -79,32 +104,31 @@ namespace Modul_13.ViewModels
         /// <param name="agrs"></param>
         /// <returns>false - если данные корректны
         ///          true - если нет данных</returns>
-        private bool CanMakeTransfer(object agrs)
+        private bool CanMakeTransfer(string sum)
         {
-            var array = agrs as object[];
-
-            BankClient client = array[0] as BankClient;
-
-            if (client.Deposit != null)
+            if (sum.Length>0 && Recipient != null)
             {
                 return true;
+
             }
-            else { return false; }
+            return false;  
         }
-       
 
-        private void Transfer(object agrs)
+       /// <summary>
+       /// Перевод денежных средств между счетами
+       /// </summary>
+       /// <param name="sum"></param>
+        private void TransferExecuted(string sum) // либо передать в метод сам TextBox, чтобы можно было скинуть в ноль свойство текст
         {
-            var array = agrs as object[];
+            decimal amount;
 
-            BankClient client = array[0] as BankClient;
-
-            decimal sum;
-
-            if (Decimal.TryParse(array[1].ToString(), out sum))
+            if (Decimal.TryParse(sum, out amount))
             {
-                client.Transfer(CurrentClient, sum);
+                this.Sender.Transfer(this.Recipient, amount);
+
+                SumTransfer.Text = "";
             }
+            else { MessageBox.Show("Нужно ввсети число"); }
         }
         #endregion
     }

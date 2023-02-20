@@ -19,7 +19,6 @@ namespace Modul_13.ViewModels
         /// принадлежащего MainWindow
         /// </summary>
         public MainWindow MWindow { get; } 
-
         /// <summary>
         /// Уровень доступа к базе данных для консультанта и менаджера, 
         /// определяется на основании выбраного параметра в элементе ComboBox "AccessLevel_ComboBox"
@@ -36,8 +35,13 @@ namespace Modul_13.ViewModels
                 return s;
             }
         }
-
+        /// <summary>
+        /// Список клиентов банка
+        /// </summary>
         private BankRepository bankRepository;
+        /// <summary>
+        /// Список клиентов банка
+        /// </summary>
         public BankRepository BankRepository
         {
             get => bankRepository;
@@ -46,6 +50,9 @@ namespace Modul_13.ViewModels
                 Set(ref bankRepository, value, "BankRepository");
             }
         }
+        /// <summary>
+        /// Выбранный для редакции клиент
+        /// </summary>
         public BankClient CurrentClient { get => this.MWindow.DataClients.SelectedItem as BankClient; }
         public Consultant Consultant { get; }
         public Meneger Meneger { get; }
@@ -151,6 +158,10 @@ namespace Modul_13.ViewModels
                 bankRepository.ReplaceClient(index, changedClient);
             }
         }
+        /// <summary>
+        /// Метод редактирование телефона клиента
+        /// </summary>
+        /// <param name="telefon"></param>
         private void EditTelefon(string telefon)
         {
             string whatChanges = string.Format(CurrentClient.Owner.Telefon + @" на " + telefon.Trim());
@@ -207,7 +218,10 @@ namespace Modul_13.ViewModels
             }
 
         }
-
+        /// <summary>
+        /// Метод редактирование фамили клиента
+        /// </summary>
+        /// <param name="secondName"></param>
         private void EditSecondName(string secondName)
         {
             if (CurrentClient != null)
@@ -219,7 +233,10 @@ namespace Modul_13.ViewModels
                 bankRepository.ReplaceClient(index, changedClient);
             }
         }
-
+        /// <summary>
+        /// Метод редактирование паспортных данных клиента
+        /// </summary>
+        /// <param name="passport"></param>
         private void EditSeriesAndPassportNumber(string passport)
         {
             if (CurrentClient != null)
@@ -243,10 +260,6 @@ namespace Modul_13.ViewModels
         private bool CanCloseDeposit()
         {
             return CurrentClient?.Deposit != null ? true : false;
-
-            //if(CurrentAccount.Number != null)
-
-            //return true; else return false;
         }
         /// <summary>
         /// Выполняет поиск клиента и в случаи совпадения удаляет счет
@@ -285,9 +298,7 @@ namespace Modul_13.ViewModels
 
             CurrentClient.AddDeposit(100, 1);
 
-
             BankRepository.ReplaceDeposit(CurrentClient);
-
         }
 
         #endregion

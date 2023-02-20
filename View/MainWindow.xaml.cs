@@ -32,7 +32,7 @@ namespace Modul_13
 
             CollectionView = CollectionViewSource.GetDefaultView(ViewModel.BankRepository);
             
-            InitializeComponent();
+            InitializeComponent(); 
         }
 
         private void CloseWindows(object sender, RoutedEventArgs e)

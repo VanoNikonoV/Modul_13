@@ -1,6 +1,8 @@
 ﻿using Modul_13.Models;
 using Modul_13.ViewModels;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -11,8 +13,6 @@ namespace Modul_13.View
     /// </summary>
     public partial class PanelWorkingWithDeposit : Page
     {
-        //public MainWindow MWindow = Application.Current.MainWindow as MainWindow;
-
         public PanelWorkingWithDepositViewModel PanelWorkingWithDepositViewModel { get; set; }
 
         public PanelWorkingWithDeposit()
@@ -21,7 +21,35 @@ namespace Modul_13.View
 
             PanelWorkingWithDepositViewModel = new PanelWorkingWithDepositViewModel();
 
-            //this.DataContextChanged += PanelWorkingWithDeposit_DataContextChanged;
+            PanelWorkingWithDepositViewModel.SumTransfer = this.SumTransfer_TextBox;
+        }
+
+        /// <summary>
+        /// Обновляет спискок клентов с отркрытым счетом
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FixingSender_TextBox(object sender, RoutedEventArgs e)
+        {
+           IEnumerable<BankClient> banks= from client in PanelWorkingWithDepositViewModel.BankRepository
+                                          where client.Deposit != null 
+                                          where client != DataContext as BankClient
+                                          select client;
+
+
+            PanelWorkingWithDepositViewModel.OnlyDepositRepository = banks;
+
+            this.List_OnlyDepositRepository.SelectedItem = null;
+        }
+
+        /// <summary>
+        /// Выбор получателя платежа
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SelectedRecipient(object sender, SelectionChangedEventArgs e)
+        {
+            PanelWorkingWithDepositViewModel.Recipient = this.List_OnlyDepositRepository.SelectedItem as BankClient;
         }
     }
 }

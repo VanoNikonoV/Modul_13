@@ -9,9 +9,8 @@
       xmlns:cmds="clr-namespace:Modul_13.Commands" 
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="230">
+    
     <Page.Resources>
-        <cmds:CommandConver x:Key="CommandConvert"/>
-        <!--<vm:PanelWorkingWithDepositViewModel x:Key="Account"/>-->
         <DataTemplate x:Key="Temp">
             <StackPanel>
                 <TextBlock Text="{Binding Owner.FirstName}"></TextBlock>
@@ -36,12 +35,11 @@
                            Grid.Column="0" Grid.Row="0"
                            HorizontalAlignment="Center" 
                            VerticalAlignment="Bottom" 
-                           FontWeight="Bold" />
+                           FontWeight="Bold" Cursor="No" />
             <TextBox Text="{Binding Path=DataContext.Owner.FirstName, Mode=OneWay,
                      RelativeSource={RelativeSource AncestorType={x:Type Page}, 
                      Mode=FindAncestor}, 
-                     UpdateSourceTrigger=PropertyChanged, 
-                     ValidatesOnDataErrors=True}"
+                     UpdateSourceTrigger=PropertyChanged}"
                      FontSize="18" Width="195"     
                      Grid.Column="0" Grid.Row="1"
                      HorizontalAlignment="Center" 
@@ -66,8 +64,7 @@
                      Text="{Binding Path=DataContext.Owner.MiddleName, Mode=OneWay,
                      RelativeSource={RelativeSource AncestorType={x:Type Page}, 
                      Mode=FindAncestor}, 
-                     UpdateSourceTrigger=PropertyChanged, 
-                     ValidatesOnDataErrors=True}"
+                     UpdateSourceTrigger=PropertyChanged}"
                      Grid.Column="0" Grid.Row="1"
                      HorizontalAlignment="Center" 
                      VerticalAlignment="Center" 
@@ -92,43 +89,12 @@
                       Text="{Binding Path=DataContext.Owner.SecondName, Mode=OneWay,
                       RelativeSource={RelativeSource AncestorType={x:Type Page}, 
                       Mode=FindAncestor}, 
-                      UpdateSourceTrigger=PropertyChanged, 
-                      ValidatesOnDataErrors=True}"
+                      UpdateSourceTrigger=PropertyChanged}"
                       Grid.Column="0" Grid.Row="1"
                       HorizontalAlignment="Center" 
                       VerticalAlignment="Center"
                       IsReadOnly="True"/>
         </Grid>
-
-        <!--<Border Height="40" Width="200" 
-                CornerRadius="20 20 20 20" 
-                Background="Black"
-                Margin="0 10"           
-                DataContext="{Binding PanelWorkingWithDepositViewModel, 
-                Mode=OneWay, 
-                RelativeSource={RelativeSource FindAncestor, 
-                AncestorType={x:Type local:PanelWorkingWithDeposit}}}">
-            
-            <StackPanel Height="30" Width="200" Orientation="Horizontal"
-                            HorizontalAlignment="Center">
-
-                <TextBlock Text="Депозитный счёт" 
-                               FontSize="16" Width="165"
-                               Padding="10 2 0 0 " Foreground="#FFFFFDFD"/>
-                <materialDesign:PopupBox PlacementMode ="BottomAndAlignRightEdges"
-                                             StaysOpen="False" Foreground="#FFFFF7F7"
-                                             Width="35">
-                    <StackPanel>
-                        <Button Content="Открыть счёт" 
-                                Command="{Binding AddDepositCommand}"/>
-
-                        <Button Content="Закрыть счёт"
-                                Command="{Binding CloseDepositCommand}"/>
-
-                    </StackPanel>
-                </materialDesign:PopupBox>
-            </StackPanel>
-        </Border>-->
 
 
         <TextBlock Text="На депозитном счёте:" FontSize="18" 
@@ -146,23 +112,22 @@
                     RelativeSource={RelativeSource AncestorType={x:Type Page}, 
                     Mode=FindAncestor}, 
                     UpdateSourceTrigger=PropertyChanged}"/>
-                    <!--Text="{Binding PanelWorkingWithDepositViewModel.CurrentClient.Deposit.Balance, 
-                    Mode=OneWay, StringFormat=C,ConverterCulture=ru-RU,
-                    RelativeSource={RelativeSource FindAncestor, 
-                    AncestorType={x:Type local:PanelWorkingWithDeposit}}}"-->
+                    
         <TextBlock Text="Выберите клиента для перевода:" FontSize="18" 
                    TextWrapping="Wrap" HorizontalAlignment="Center" 
                    VerticalAlignment="Center"/>
 
-        <ListView x:Name="List_BankAccount"
-            ItemsSource="{Binding PanelWorkingWithDepositViewModel.BankRepository,
+        <ListView x:Name="List_OnlyDepositRepository"
+            ItemsSource="{Binding PanelWorkingWithDepositViewModel.OnlyDepositRepository,
             Mode=OneWay, UpdateSourceTrigger=PropertyChanged,
             RelativeSource={RelativeSource FindAncestor, 
             AncestorType={x:Type local:PanelWorkingWithDeposit}}}"
             ScrollViewer.VerticalScrollBarVisibility="Visible"
             ScrollViewer.CanContentScroll="True"
             Width="190"
-            IsSynchronizedWithCurrentItem="True" MinHeight="200" MaxHeight="240">
+            IsSynchronizedWithCurrentItem="True" 
+            MinHeight="200" MaxHeight="240" 
+            SelectionChanged="SelectedRecipient">
             <!--Height="290"-->
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -174,28 +139,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        
-        <!--<ComboBox x:Name="CustomersСhoice_ComboBox" 
-                  HorizontalAlignment="Center" 
-                  FontSize="18"
-                  VerticalAlignment="Center"
-                  Width="200"
-                  SelectionChanged="CustomersСhoice_SelectionChanged" 
-                  ItemsSource="{Binding PanelWorkingWithDepositViewModel.AccountsRepo, UpdateSourceTrigger=PropertyChanged, 
-                    RelativeSource={RelativeSource FindAncestor, 
-                    AncestorType={x:Type local:PanelWorkingWithDeposit}}}">
-
-            --><!--<ComboBoxItem Content="Выберите клиента" IsSelected="True"/>--><!--
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Owner.FirstName}"></TextBlock>
-                        <TextBlock Text="{Binding Owner.FirstName}"></TextBlock>
-                    </StackPanel>
-                    
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>-->
 
         <TextBlock Text="Сумма перевода" FontSize="18" 
                        HorizontalAlignment="Center" 
@@ -203,7 +146,8 @@
         <TextBox x:Name="SumTransfer_TextBox" FontSize="18" Width="200" 
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Center" 
-                        Margin="0 10 0 10"/>
+                        Margin="0 10 0 10" 
+                        GotFocus="FixingSender_TextBox"/>
 
 
         <Border Height="40" Width="200" 
@@ -218,16 +162,8 @@
                     Command="{Binding PanelWorkingWithDepositViewModel.MakeTransfer, 
                     Mode=OneWay, 
                     RelativeSource={RelativeSource FindAncestor, 
-                    AncestorType={x:Type local:PanelWorkingWithDeposit}}}">
-                <Button.CommandParameter>
-                    <MultiBinding Converter ="{StaticResource CommandConvert}">
-                        <MultiBinding.Bindings>
-                            <Binding Path="SelectedItem" ElementName="List_BankAccount"/>
-                            <Binding Path="Text" ElementName="SumTransfer_TextBox"/>
-                        </MultiBinding.Bindings>
-                    </MultiBinding>
-                </Button.CommandParameter>
-
+                    AncestorType={x:Type local:PanelWorkingWithDeposit}}}" FontWeight="Bold"
+                    CommandParameter="{Binding Text, ElementName=SumTransfer_TextBox}">
             </Button>
         </Border>
     </StackPanel>

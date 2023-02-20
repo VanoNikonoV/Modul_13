@@ -48,6 +48,11 @@ namespace Modul_13.Models
             OnPropertyChanged(nameof(Deposit));
         }
 
+        /// <summary>
+        /// Перевод денежных средств на счет получателя
+        /// </summary>
+        /// <param name="recipient">Получатель платежа</param>
+        /// <param name="amount">Сумма перевода</param>
         public void Transfer(BankClient recipient, decimal amount)
         {
             if(recipient != this)

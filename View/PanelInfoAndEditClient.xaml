@@ -232,8 +232,8 @@
                             HorizontalAlignment="Center">
 
                 <TextBlock Text="Депозитный счёт" 
-                               FontSize="16" Width="165"
-                               Padding="10 2 0 0 " Foreground="#FFFFFDFD"/>
+                               FontSize="16" Width="160"
+                               Padding="10 2 0 0 " Foreground="#FFFFFDFD" FontWeight="Bold"/>
                 <materialDesign:PopupBox PlacementMode ="BottomAndAlignRightEdges"
                                              StaysOpen="False" Foreground="#FFFFF7F7"
                                              Width="35">
