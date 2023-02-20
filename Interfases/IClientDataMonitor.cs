@@ -5,7 +5,7 @@ namespace Modul_13.Interfases
 {
     public interface IClientDataMonitor
     {
-        IEnumerable<BankClient> ViewClientsData(IEnumerable<BankClient> clients);
+        IEnumerable<BankClient<Client>> ViewClientsData(IEnumerable<BankClient<Client>> clients);
 
         Client EditeTelefonClient( string newData, Client client);
     }

@@ -53,7 +53,7 @@ namespace Modul_13.ViewModels
         /// <summary>
         /// Выбранный для редакции клиент
         /// </summary>
-        public BankClient CurrentClient { get => this.MWindow.DataClients.SelectedItem as BankClient; }
+        public BankClient<Client> CurrentClient { get => this.MWindow.DataClients.SelectedItem as BankClient<Client>; }
         public Consultant Consultant { get; }
         public Meneger Meneger { get; }
 
@@ -171,7 +171,7 @@ namespace Modul_13.ViewModels
             if (CurrentClient.Owner.IsValid)
             {
                 //изменения в коллекции банка, по ID клиента
-                BankClient editClient = bankRepository.First(i => i.Owner.ID == CurrentClient.Owner.ID); // try
+                BankClient<Client> editClient = bankRepository.First(i => i.Owner.ID == CurrentClient.Owner.ID); // try
 
                 editClient.Owner.Telefon = telefon;
 

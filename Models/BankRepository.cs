@@ -10,7 +10,7 @@ using System.Windows.Data;
 
 namespace Modul_13.Models
 {
-    public class BankRepository: ObservableCollection<BankClient> 
+    public class BankRepository: ObservableCollection<BankClient<Client>> 
     {
 
         public BankRepository(string path = "")
@@ -30,7 +30,7 @@ namespace Modul_13.Models
             this[index].Owner = editClient;
         }
 
-        public void ReplaceDeposit(BankClient currentClient)
+        public void ReplaceDeposit(BankClient<Client> currentClient)
         {
             int i = this.IndexOf(currentClient);
 
@@ -57,7 +57,7 @@ namespace Modul_13.Models
                     telefon.ToString(),
                     passport.ToString());
 
-                this.Add(new BankClient (_c)); 
+                this.Add(new BankClient<Client> (_c)); 
             }
             this[0].Deposit = new DepositAccount(100, 10);
         }

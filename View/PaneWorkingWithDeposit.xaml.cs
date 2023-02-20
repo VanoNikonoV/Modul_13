@@ -31,9 +31,9 @@ namespace Modul_13.View
         /// <param name="e"></param>
         private void FixingSender_TextBox(object sender, RoutedEventArgs e)
         {
-           IEnumerable<BankClient> banks= from client in PanelWorkingWithDepositViewModel.BankRepository
+           IEnumerable<BankClient<Client>> banks= from client in PanelWorkingWithDepositViewModel.BankRepository
                                           where client.Deposit != null 
-                                          where client != DataContext as BankClient
+                                          where client != DataContext as BankClient<Client>
                                           select client;
 
 
@@ -49,7 +49,7 @@ namespace Modul_13.View
         /// <param name="e"></param>
         private void SelectedRecipient(object sender, SelectionChangedEventArgs e)
         {
-            PanelWorkingWithDepositViewModel.Recipient = this.List_OnlyDepositRepository.SelectedItem as BankClient;
+            PanelWorkingWithDepositViewModel.Recipient = this.List_OnlyDepositRepository.SelectedItem as BankClient<Client>;
         }
     }
 }

@@ -17,23 +17,23 @@ namespace Modul_13.ViewModels
         /// <summary>
         /// Отправитель платежа
         /// </summary>
-        private BankClient sender;
+        private BankClient<Client> sender;
         /// <summary>
         /// Отправитель платежа
         /// </summary>
-        public BankClient Sender
+        public BankClient<Client> Sender
         {
-            get => this.MWindow.DataClients.SelectedItem as BankClient;
+            get => this.MWindow.DataClients.SelectedItem as BankClient<Client>;
             set { Set(ref sender, value); }
         }
         /// <summary>
         /// Получатель платежа
         /// </summary>
-        private BankClient recipient;
+        private BankClient<Client> recipient;
         /// <summary>
         /// Получатель платежа
         /// </summary>
-        public BankClient Recipient 
+        public BankClient<Client> Recipient 
         { 
             get => recipient;
             set { Set(ref recipient, value); }  
@@ -56,11 +56,11 @@ namespace Modul_13.ViewModels
         /// <summary>
         /// Список клиентов с открытым депозитным счетом счетом
         /// </summary>
-        private IEnumerable<BankClient> onlyDepositRepository;
+        private IEnumerable<BankClient<Client>> onlyDepositRepository;
         /// <summary>
         /// Список клиентов с открытым депозитным счетом счетом
         /// </summary>
-        public IEnumerable<BankClient> OnlyDepositRepository 
+        public IEnumerable<BankClient<Client>> OnlyDepositRepository 
         { 
             get => onlyDepositRepository;
             set

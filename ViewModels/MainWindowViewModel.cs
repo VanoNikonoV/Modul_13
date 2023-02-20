@@ -34,8 +34,8 @@ namespace Modul_13.ViewModels
         /// </summary>
         public MainWindow MWindow { get;}
 
-        private BankClient currentClient = null;
-        public BankClient CurrentClient { get => currentClient = this.MWindow.DataClients.SelectedItem as BankClient; }
+        private BankClient<Client> currentClient = null;
+        public BankClient<Client> CurrentClient { get => currentClient = this.MWindow.DataClients.SelectedItem as BankClient<Client>; }
 
         /// <summary>
         /// Уровень доступа к базе данных для консультанта и менаджера, 
@@ -118,7 +118,7 @@ namespace Modul_13.ViewModels
             {
                 //if (!BankRepository.Contains(_windowNewClient.NewClient))
                 //{
-                    BankClient newAccount = new BankClient(_windowNewClient.NewClient);
+                    BankClient<Client> newAccount = new BankClient<Client>(_windowNewClient.NewClient);
                     
                     BankRepository.Add(newAccount);
                 //}

@@ -31,11 +31,11 @@ namespace Modul_13.Models
         /// Возвращает коллекцию клиентов банка со скрытими данными
         /// </summary>
         /// <returns>IEnumerable<BankAccount></returns>
-        public IEnumerable<BankClient> ViewClientsData(IEnumerable<BankClient> clients)
+        public IEnumerable<BankClient<Client>> ViewClientsData(IEnumerable<BankClient<Client>> clients)
         { 
-            List<BankClient> clientsForConsultant = new List<BankClient>();
+            List<BankClient<Client>> clientsForConsultant = new List<BankClient<Client>>();
 
-            foreach (BankClient client in clients)
+            foreach (BankClient<Client> client in clients)
             {
                 string concealment = ConcealmentOfSeriesAndPassportNumber(client.Owner.SeriesAndPassportNumber);
 
@@ -52,7 +52,7 @@ namespace Modul_13.Models
 
                 temp.IsChanged = client.Owner.IsChanged;
 
-                clientsForConsultant.Add(new BankClient(temp, client.Deposit, client.NoDeposit));
+                clientsForConsultant.Add(new BankClient<Client>(temp, client.Deposit, client.NoDeposit));
             }
 
             return clientsForConsultant;

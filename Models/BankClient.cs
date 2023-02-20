@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Modul_13.Models
 {
-    public class BankClient : INotifyPropertyChanged
+    public class BankClient<T> : INotifyPropertyChanged where T : Client
     {
         /// <summary>
         /// Cведения о владельце счета
         /// </summary>
-        public Client Owner { get; set; }
+        public T Owner { get; set; }
 
         /// <summary>
         /// Депозитный счет
@@ -30,7 +30,7 @@ namespace Modul_13.Models
         /// <param name="bankClient">Базованя информация о клиенте</param>
         /// <param name="deposit">Депозитный счет</param>
         /// <param name="noDeposit">Не депозитный счет</param>
-        public BankClient(Client owner, DepositAccount deposit = null, NoDepositAccount noDeposit = null)
+        public BankClient(T owner, DepositAccount deposit = null, NoDepositAccount noDeposit = null)
         {
             this.Owner = owner;
             this.Deposit = deposit;
@@ -53,7 +53,7 @@ namespace Modul_13.Models
         /// </summary>
         /// <param name="recipient">Получатель платежа</param>
         /// <param name="amount">Сумма перевода</param>
-        public void Transfer(BankClient recipient, decimal amount)
+        public void Transfer(BankClient<T> recipient, decimal amount)
         {
             if(recipient != this)
             {
