@@ -63,6 +63,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Interfases\ITopUp.cs" />
     <Compile Include="Models\BankClient.cs" />
     <Compile Include="Models\BankRepository.cs" />
     <Compile Include="Models\BankAccount.cs" />

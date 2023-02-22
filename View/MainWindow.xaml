@@ -202,8 +202,6 @@
                                         DisplayMemberBinding="{Binding Owner.DateOfEntry, StringFormat=g}"/>
                         <GridViewColumn Header="Изм." 
                                         CellTemplate="{StaticResource CheckBox_Changed}"/>
-                        <GridViewColumn Header="Счет" DisplayMemberBinding="{Binding Deposit.Balance}"/>
-
                     </GridView>
                 </ListView.View>
             </ListView>

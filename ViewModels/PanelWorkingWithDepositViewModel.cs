@@ -130,6 +130,19 @@ namespace Modul_13.ViewModels
             }
             else { MessageBox.Show("Нужно ввсети число"); }
         }
+
+        private void TopUpAccount(string sum)
+        {
+            decimal amount;
+
+            if (Decimal.TryParse(sum, out amount))
+            {
+                this.Sender.Deposit.MakeDeposit(amount, DateTime.Now, $"Пополенение: {sum}");
+
+                SumTransfer.Text = "";
+            }
+            else { MessageBox.Show("Нужно ввсети число"); }
+        }
         #endregion
     }
 }
