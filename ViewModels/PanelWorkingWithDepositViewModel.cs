@@ -117,7 +117,7 @@ namespace Modul_13.ViewModels
        /// <summary>
        /// Перевод денежных средств между счетами
        /// </summary>
-       /// <param name="sum"></param>
+       /// <param name="sum">Сумма перевода</param>
         private void TransferExecuted(string sum) // либо передать в метод сам TextBox, чтобы можно было скинуть в ноль свойство текст
         {
             decimal amount;
@@ -130,6 +130,25 @@ namespace Modul_13.ViewModels
             }
             else { MessageBox.Show("Нужно ввсети число"); }
         }
+        /// <summary>
+        /// Пополнить счет
+        /// </summary>
+        /// <param name="sum">Сумма пополнения</param>
+        /// 
+        /// Используя ковариантный интерфейс, реализуйте методы пополнения счёта по соответствующему типу.
+        private void TopUpAccount(string sum)
+        {
+            decimal amount;
+
+            if (Decimal.TryParse(sum, out amount))
+            {
+                this.Sender.Deposit.MakeDeposit(amount, DateTime.Now, $"Пополнение счета на {sum}");
+
+                //SumTransfer.Text = "";
+            }
+            
+        }
+
         #endregion
     }
 }

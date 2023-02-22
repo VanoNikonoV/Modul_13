@@ -3,20 +3,15 @@ using Modul_13.Commands;
 using Modul_13.Models;
 using Modul_13.ViewModels.Base;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace Modul_13.ViewModels
 {
     public class PanelEditClientViewModel:ViewModel
     {
         /// <summary>
-        /// AccessLevel определяется на основании выбраного параметра в элементе ListView "DataClients"
-        /// принадлежащего MainWindow
+        /// Ссылка на главное окно
         /// </summary>
         public MainWindow MWindow { get; } 
         /// <summary>
@@ -266,11 +261,7 @@ namespace Modul_13.ViewModels
         /// </summary>
         private void CloseDeposit()
         {
-            var Client = BankRepository.First(i => i == CurrentClient);
-
-            BankRepository.Remove(Client);
-
-            //this.CurrentAccount = null;
+            CurrentClient.Deposit = null;
         }
        
         private void AddNoDeposit()

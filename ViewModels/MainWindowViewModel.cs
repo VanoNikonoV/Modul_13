@@ -1,16 +1,10 @@
 ﻿using Modul_13.Cmds;
-using Modul_13.Commands;
 using Modul_13.Models;
 using Modul_13.View;
 using Modul_13.ViewModels.Base;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 
 namespace Modul_13.ViewModels
 {
