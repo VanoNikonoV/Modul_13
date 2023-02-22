@@ -263,14 +263,6 @@ namespace Modul_13.ViewModels
         {
             CurrentClient.Deposit = null;
         }
-       
-        private void AddNoDeposit()
-        {
-            //InterestNoEarningAccount account = new InterestEarningAccount(CurrentClient, 0);
-
-            //AccountsRepo.Add(account);
-        }
-
         /// <summary>
         /// Проверка наличия открытого счета у клиента
         /// </summary>
