@@ -292,7 +292,7 @@ namespace Modul_13.ViewModels
         /// <summary>
         /// Добавление счета для выбранного клиента
         /// </summary>
-        private void AddDeposit()
+        private void AddDeposit()  //AddDeposit<T>(T CurrentClient) where T : Client
         {
             int index = bankRepository.IndexOf(CurrentClient);
 

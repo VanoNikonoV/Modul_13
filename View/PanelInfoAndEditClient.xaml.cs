@@ -10,17 +10,13 @@ namespace Modul_13.View
     /// </summary>
     public partial class PanelInfoAndEditClient : Page
     {
-        //public MainWindow MWindow = Application.Current.MainWindow as MainWindow;
         public PanelEditClientViewModel PanelEditClientViewModel { get; set; }
 
         public PanelInfoAndEditClient()
         {
             InitializeComponent();
 
-            PanelEditClientViewModel = new PanelEditClientViewModel();
-
-            //PanelEditClientViewModel.CurrentClient = DataContext as BankClient;   
-               
+            PanelEditClientViewModel = new PanelEditClientViewModel();    
         }
     }
 }
