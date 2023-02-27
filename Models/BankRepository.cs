@@ -12,7 +12,6 @@ namespace Modul_13.Models
 {
     public class BankRepository: ObservableCollection<BankClient<Client>> 
     {
-
         public BankRepository(string path = "")
         {
             //LoadData(path);

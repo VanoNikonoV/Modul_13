@@ -239,10 +239,10 @@
                                              Width="35">
                 <StackPanel>
                     <Button Content="Открыть счёт" 
-                                Command="{Binding AddDepositCommand}"/>
+                            Command="{Binding AddDepositCommand}"/>
 
-                        <Button Content="Закрыть счёт"
-                                Command="{Binding CloseDepositCommand}"/>
+                    <Button Content="Закрыть счёт"
+                            Command="{Binding CloseDepositCommand}"/>
 
                     </StackPanel>
                 </materialDesign:PopupBox>

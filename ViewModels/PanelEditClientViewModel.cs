@@ -69,33 +69,58 @@ namespace Modul_13.ViewModels
         }
 
         #region Команды
-
+        /// <summary>
+        /// Команда для редактирования телефона клиента
+        /// </summary>
         private RelayCommand<string> _editTelefonCommand = null;
+        /// <summary>
+        /// Команда для редактирования телефона клиента
+        /// </summary>
         public RelayCommand<string> EditTelefonCommand
             => _editTelefonCommand ?? (_editTelefonCommand = new RelayCommand<string>(EditTelefon, CanEditTelefon));
 
-
+        /// <summary>
+        /// Команда для редактирования имени клиента
+        /// </summary>
         private RelayCommand<string> editNameCommand = null;
+        /// <summary>
+        /// Команда для редактирования имени клиента
+        /// </summary>
         public RelayCommand<string> EditNameCommand =>
             editNameCommand ?? (editNameCommand = new RelayCommand<string>(EditName, CanEdit));
 
-
+        /// <summary>
+        /// Команда для редактирования отчества клиента
+        /// </summary>
         private RelayCommand<string> editMiddleNameCommand = null;
+        /// <summary>
+        /// Команда для редактирования отчества клиента
+        /// </summary>
         public RelayCommand<string> EditMiddleNameCommand =>
             editMiddleNameCommand ?? (editMiddleNameCommand = new RelayCommand<string>(EditMiddleName, CanEdit));
 
-
+        /// <summary>
+        /// Команда для редактирования фамилии клиента
+        /// </summary>
         private RelayCommand<string> editSecondNameCommand = null;
+        /// <summary>
+        /// Команда для редактирования фамилии клиента
+        /// </summary>
         public RelayCommand<string> EditSecondNameCommand =>
             editSecondNameCommand ?? (editSecondNameCommand = new RelayCommand<string>(EditSecondName, CanEdit));
 
-
+        /// <summary>
+        /// Команда для редактирования паспортных данных клиента
+        /// </summary>
         private RelayCommand<string> editSeriesAndPassportNumberCommand = null;
+        /// <summary>
+        /// Команда для редактирования паспортных данных клиента
+        /// </summary>
         public RelayCommand<string> EditSeriesAndPassportNumberCommand =>
             editSeriesAndPassportNumberCommand ?? (editSeriesAndPassportNumberCommand
             = new RelayCommand<string>(EditSeriesAndPassportNumber, CanEdit));
 
-        private RelayCommand addDepositCommand = null;
+        private RelayCommand<Client> addDepositCommand = null;
         /// <summary>
         /// Команда добавление ДЕПОЗИТНОГО счета для выбранного клиента 
         /// </summary>
@@ -292,10 +317,8 @@ namespace Modul_13.ViewModels
         /// <summary>
         /// Добавление счета для выбранного клиента
         /// </summary>
-        private void AddDeposit()  //AddDeposit<T>(T CurrentClient) where T : Client
+        private void AddDeposit<T>() where T : Client
         {
-            int index = bankRepository.IndexOf(CurrentClient);
-
             CurrentClient.AddDeposit(100, 1);
 
             BankRepository.ReplaceDeposit(CurrentClient);

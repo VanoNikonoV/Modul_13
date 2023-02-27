@@ -5,6 +5,7 @@ using System.ComponentModel;
 namespace Modul_13.Models
 {
     //https://learn.microsoft.com/ru-ru/dotnet/csharp/fundamentals/tutorials/oop
+    //https://metanit.com/sharp/tutorial/3.29.php
     public class BankAccount : INotifyPropertyChanged
     {
         /// <summary>

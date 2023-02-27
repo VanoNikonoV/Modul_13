@@ -10,7 +10,7 @@ namespace Modul_13.Models
     /// <summary>
     /// Счет для начисления процентов
     /// </summary>
-    public class DepositAccount:BankAccount, ITopUp<BankAccount>
+    public class DepositAccount:BankAccount
     {
         public DepositAccount(decimal initialBalance, decimal minimumBalance) : base(initialBalance, minimumBalance) { }
 
@@ -24,11 +24,6 @@ namespace Modul_13.Models
                     DateTime.Now,
                     "Начислены ежемесячные проценты");
             }
-        }
-
-        public BankAccount TopUpAccount(decimal amount)
-        {
-            this.MakeDeposit()
         }
     }
 }
