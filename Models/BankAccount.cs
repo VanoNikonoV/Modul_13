@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Modul_13.Interfases;
 
 namespace Modul_13.Models
 {
     //https://learn.microsoft.com/ru-ru/dotnet/csharp/fundamentals/tutorials/oop
-    public class BankAccount : INotifyPropertyChanged
+    public class BankAccount : INotifyPropertyChanged, IAccount
     {
         /// <summary>
         /// Номер счета

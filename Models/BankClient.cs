@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Modul_13.Models
 {
-    public class BankClient<T> : INotifyPropertyChanged where T : Client
+    // List<T> Accounts; Сделать у клиента список с возмодными счетами
+    public class BankClient<T> : INotifyPropertyChanged where T : Client 
+        //BankClient<T> : INotifyPropertyChanged where T : BankAccount
     {
         /// <summary>
         /// Cведения о владельце счета
@@ -18,6 +16,7 @@ namespace Modul_13.Models
         /// Депозитный счет
         /// </summary>
         public DepositAccount Deposit { get; set; }
+        //public T Deposit { get; set; }
 
         /// <summary>
         /// Недепозитный счет
